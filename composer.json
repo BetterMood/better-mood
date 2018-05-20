@@ -18,6 +18,14 @@
     },
     "require": {
         "mustache/mustache": "^2.12",
-        "redeyeventures/geopattern": "^1.1"
-    }
+        "redeyeventures/geopattern": "^1.1",
+        "box/spout": "^2.7",
+        "adodb/adodb-php": "dev-better-mood"
+    },
+    "repositories": [
+        {
+          "type": "vcs",
+          "url":  "https://github.com/BetterMood/ADOdb.git"
+        }
+    ]
 }
