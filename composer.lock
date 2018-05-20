@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d1f344cc1057f1293da47d971c9afb7b",
+    "content-hash": "ca4fa76d44ce9d9ddef57d28013e7c17",
     "packages": [
         {
             "name": "mustache/mustache",
@@ -51,6 +51,49 @@
                 "templating"
             ],
             "time": "2017-07-11T12:54:05+00:00"
+        },
+        {
+            "name": "redeyeventures/geopattern",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/redeyeventures/geopattern-php.git",
+                "reference": "26d9f8aa7a8b00c8afc120d706f6bdd7a9965b87"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/redeyeventures/geopattern-php/zipball/26d9f8aa7a8b00c8afc120d706f6bdd7a9965b87",
+                "reference": "26d9f8aa7a8b00c8afc120d706f6bdd7a9965b87",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RedeyeVentures\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anand Capur",
+                    "email": "anand@redeyeventures.com",
+                    "homepage": "http://redeyeventures.com"
+                }
+            ],
+            "description": "Generate beautiful SVG patterns.",
+            "keywords": [
+                "background",
+                "geometric",
+                "pattern",
+                "svg"
+            ],
+            "time": "2014-10-21T03:35:54+00:00"
         }
     ],
     "packages-dev": [
