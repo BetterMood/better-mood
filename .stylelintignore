@@ -50,7 +50,6 @@ lib/graphlib.php
 lib/php-css-parser/
 lib/rtlcss/
 lib/scssphp/
-lib/spout/
 lib/amd/src/chartjs-lazy.js
 lib/maxmind/GeoIp2/
 lib/maxmind/MaxMind/
