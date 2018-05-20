@@ -17,6 +17,7 @@
         "roave/security-advisories": "dev-master"
     },
     "require": {
+        "php": ">=7.0.0 <7.3.0",
         "mustache/mustache": "^2.12"
     }
 }
