@@ -17,6 +17,7 @@
         "roave/security-advisories": "dev-master"
     },
     "require": {
+        "php": ">=7.1.0 <7.3.0",
         "box/spout": "^2.7",
         "mustache/mustache": "^2.12",
         "adodb/adodb-php": "dev-better-mood"
