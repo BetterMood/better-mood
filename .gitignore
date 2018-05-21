@@ -39,3 +39,4 @@ atlassian-ide-plugin.xml
 
 # Bettermood added
 .env
+phpunit.legacy.xml

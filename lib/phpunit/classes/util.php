@@ -478,7 +478,7 @@ class phpunit_util extends testing_util {
     }
 
     /**
-     * Builds dirroot/phpunit.xml and dataroot/phpunit/webrunner.xml files using defaults from /phpunit.xml.dist
+     * Builds dirroot/phpunit.legacy.xml and dataroot/phpunit/webrunner.xml files using defaults from /phpunit.legacy.xml.dist
      * @static
      * @return bool true means main config file created, false means only dataroot file created
      */
@@ -489,7 +489,7 @@ class phpunit_util extends testing_util {
         <testsuite name="@component@_testsuite">
             <directory suffix="_test.php">@dir@</directory>
         </testsuite>';
-        $data = file_get_contents("$CFG->dirroot/phpunit.xml.dist");
+        $data = file_get_contents("$CFG->dirroot/phpunit.legacy.xml.dist");
 
         $suites = '';
 
@@ -525,8 +525,8 @@ class phpunit_util extends testing_util {
 
         $result = false;
         if (is_writable($CFG->dirroot)) {
-            if ($result = file_put_contents("$CFG->dirroot/phpunit.xml", $data)) {
-                testing_fix_file_permissions("$CFG->dirroot/phpunit.xml");
+            if ($result = file_put_contents("$CFG->dirroot/phpunit.legacy.xml", $data)) {
+                testing_fix_file_permissions("$CFG->dirroot/phpunit.legacy.xml");
             }
         }
 
@@ -542,7 +542,7 @@ class phpunit_util extends testing_util {
     }
 
     /**
-     * Builds phpunit.xml files for all components using defaults from /phpunit.xml.dist
+     * Builds phpunit.legacy.xml files for all components using defaults from /phpunit.legacy.xml.dist
      *
      * @static
      * @return void, stops if can not write files
@@ -571,13 +571,13 @@ class phpunit_util extends testing_util {
         $sequencestart = 100000 + mt_rand(0, 99) * 1000;
 
         // Use the upstream file as source for the distributed configurations
-        $ftemplate = file_get_contents("$CFG->dirroot/phpunit.xml.dist");
+        $ftemplate = file_get_contents("$CFG->dirroot/phpunit.legacy.xml.dist");
         $ftemplate = preg_replace('|<!--All core suites.*</testsuites>|s', '<!--@component_suite@-->', $ftemplate);
 
         // Gets all the components with tests
         $components = tests_finder::get_components_with_tests('phpunit');
 
-        // Create the corresponding phpunit.xml file for each component
+        // Create the corresponding phpunit.legacy.xml file for each component
         foreach ($components as $cname => $cpath) {
             // Calculate the component suite
             $ctemplate = $template;
@@ -597,13 +597,13 @@ class phpunit_util extends testing_util {
             // Write the file
             $result = false;
             if (is_writable($cpath)) {
-                if ($result = (bool)file_put_contents("$cpath/phpunit.xml", $fcontents)) {
-                    testing_fix_file_permissions("$cpath/phpunit.xml");
+                if ($result = (bool)file_put_contents("$cpath/phpunit.legacy.xml", $fcontents)) {
+                    testing_fix_file_permissions("$cpath/phpunit.legacy.xml");
                 }
             }
             // Problems writing file, throw error
             if (!$result) {
-                phpunit_bootstrap_error(PHPUNIT_EXITCODE_CONFIGWARNING, "Can not create $cpath/phpunit.xml configuration file, verify dir permissions");
+                phpunit_bootstrap_error(PHPUNIT_EXITCODE_CONFIGWARNING, "Can not create $cpath/phpunit.legacy.xml configuration file, verify dir permissions");
             }
         }
     }
