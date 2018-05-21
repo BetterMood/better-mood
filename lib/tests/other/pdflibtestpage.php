@@ -139,7 +139,7 @@ if ($getpdf) {
     $doc->writeHTML($c);
 
     $doc->Output('pdflibtestpage.pdf');
-    exit();
+    moodle_exit();
 }
 
 $PAGE->set_url('/lib/tests/other/pdflibtestpage.php');

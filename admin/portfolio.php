@@ -75,7 +75,7 @@ if (($action == 'edit') || ($action == 'new')) {
     // End setup, begin output
     if ($mform->is_cancelled()){
         redirect($baseurl);
-        exit;
+        moodle_exit();
     } else if (($fromform = $mform->get_data()) && (confirm_sesskey())) {
         // Unset whatever doesn't belong in fromform
         foreach (array('pf', 'action', 'plugin', 'sesskey', 'submitbutton') as $key) {
@@ -91,7 +91,7 @@ if (($action == 'edit') || ($action == 'new')) {
         core_plugin_manager::reset_caches();
         $savedstr = get_string('instancesaved', 'portfolio');
         redirect($baseurl, $savedstr, 1);
-        exit;
+        moodle_exit();
     } else {
         echo $OUTPUT->header();
         echo $OUTPUT->heading(get_string('configplugin', 'portfolio'));
@@ -131,7 +131,7 @@ if (($action == 'edit') || ($action == 'new')) {
         } else {
             print_error('instancenotdeleted', 'portfolio', $baseurl);
         }
-        exit;
+        moodle_exit();
     } else {
         echo $OUTPUT->header();
         echo $OUTPUT->confirm(get_string('sure', 'portfolio', $instance->get('name')), $sesskeyurl . '&pf='.$portfolio.'&action=delete&sure=yes', $baseurl);

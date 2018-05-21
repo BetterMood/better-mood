@@ -49,16 +49,16 @@ global $CFG; // this should be done much earlier in config.php before creating n
 if (!isset($CFG)) {
     if (defined('PHPUNIT_TEST') and PHPUNIT_TEST) {
         echo('There is a missing "global $CFG;" at the beginning of the config.php file.'."\n");
-        exit(1);
+        moodle_exit(1);
     } else {
         // this should never happen, maybe somebody is accessing this file directly...
-        exit(1);
+        moodle_exit(1);
     }
 }
 
 // 2018-05-19 nschmoyer: fire up the autoloader right here, for now. Of course, this is a terrible spot for it but
 // we do what we can, right? Eventually, this should be at the very top of a front controller file.
-require_once(__DIR__.'/../vendor/autoload.php');
+require_once(__DIR__.'/../bootstrap.php');
 
 // We can detect real dirroot path reliably since PHP 4.0.2,
 // it can not be anything else, there is no point in having this in config.php
@@ -153,7 +153,7 @@ if (!isset($CFG->dataroot)) {
         header($_SERVER['SERVER_PROTOCOL'] . ' 503 Service Unavailable');
     }
     echo('Fatal error: $CFG->dataroot is not specified in config.php! Exiting.'."\n");
-    exit(1);
+    moodle_exit(1);
 }
 $CFG->dataroot = realpath($CFG->dataroot);
 if ($CFG->dataroot === false) {
@@ -161,13 +161,13 @@ if ($CFG->dataroot === false) {
         header($_SERVER['SERVER_PROTOCOL'] . ' 503 Service Unavailable');
     }
     echo('Fatal error: $CFG->dataroot is not configured properly, directory does not exist or is not accessible! Exiting.'."\n");
-    exit(1);
+    moodle_exit(1);
 } else if (!is_writable($CFG->dataroot)) {
     if (isset($_SERVER['REMOTE_ADDR'])) {
         header($_SERVER['SERVER_PROTOCOL'] . ' 503 Service Unavailable');
     }
     echo('Fatal error: $CFG->dataroot is not writable, admin has to fix directory permissions! Exiting.'."\n");
-    exit(1);
+    moodle_exit(1);
 }
 
 // wwwroot is mandatory
@@ -176,7 +176,7 @@ if (!isset($CFG->wwwroot) or $CFG->wwwroot === 'http://example.com/moodle') {
         header($_SERVER['SERVER_PROTOCOL'] . ' 503 Service Unavailable');
     }
     echo('Fatal error: $CFG->wwwroot is not configured! Exiting.'."\n");
-    exit(1);
+    moodle_exit(1);
 }
 
 // Make sure there is some database table prefix.
@@ -303,17 +303,17 @@ if (!defined('CLI_SCRIPT')) {
 if (defined('WEB_CRON_EMULATED_CLI')) {
     if (!isset($_SERVER['REMOTE_ADDR'])) {
         echo('Web cron can not be executed as CLI script any more, please use admin/cli/cron.php instead'."\n");
-        exit(1);
+        moodle_exit(1);
     }
 } else if (isset($_SERVER['REMOTE_ADDR'])) {
     if (CLI_SCRIPT) {
         echo('Command line scripts can not be executed from the web interface');
-        exit(1);
+        moodle_exit(1);
     }
 } else {
     if (!CLI_SCRIPT) {
         echo('Command line scripts must define CLI_SCRIPT before requiring config.php'."\n");
-        exit(1);
+        moodle_exit(1);
     }
 }
 
@@ -356,7 +356,7 @@ if (version_compare(PHP_VERSION, '5.6.5') < 0) {
     // Do NOT localise - lang strings would not work here and we CAN NOT move it to later place.
     echo "Moodle 3.2 or later requires at least PHP 5.6.5 (currently using version $phpversion).\n";
     echo "Some servers may have multiple PHP versions installed, are you using the correct executable?\n";
-    exit(1);
+    moodle_exit(1);
 }
 
 // Detect ajax scripts - they are similar to CLI because we can not redirect, output html, etc.
@@ -579,7 +579,7 @@ error_reporting(E_ALL | E_STRICT);
 if (!empty($_SERVER['HTTP_X_moz']) && $_SERVER['HTTP_X_moz'] === 'prefetch'){
     header($_SERVER['SERVER_PROTOCOL'] . ' 404 Prefetch Forbidden');
     echo('Prefetch request forbidden.');
-    exit(1);
+    moodle_exit(1);
 }
 
 //point pear include path to moodles lib/pear so that includes and requires will search there for files before anywhere else

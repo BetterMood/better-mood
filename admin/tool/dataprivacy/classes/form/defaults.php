@@ -23,7 +23,7 @@
  */
 
 namespace tool_dataprivacy\form;
-defined('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || moodle_exit();
 
 use \tool_dataprivacy\output\data_registry_page;
 

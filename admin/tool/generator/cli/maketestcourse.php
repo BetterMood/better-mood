@@ -70,7 +70,7 @@ Example from Moodle root directory:
 \$ php admin/tool/generator/cli/maketestcourse.php --shortname=SIZE_S --size=S
 ";
     // Exit with error unless we're showing this because they asked for it.
-    exit(empty($options['help']) ? 1 : 0);
+    moodle_exit(empty($options['help']) ? 1 : 0);
 }
 
 // Check debugging is set to developer level.

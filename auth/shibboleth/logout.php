@@ -116,7 +116,7 @@ For more information see:
     </service>
 </definitions>
 WSDL;
-    exit;
+    moodle_exit();
 }
 /******************************************************************************/
 

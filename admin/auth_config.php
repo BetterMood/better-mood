@@ -38,7 +38,7 @@ if ($frm = data_submitted() and confirm_sesskey()) {
                 }
             }
             redirect($returnurl);
-            exit;
+            moodle_exit();
         }
     } else {
         foreach ($err as $key => $value) {

@@ -44,7 +44,7 @@ $plagiarismplugins = core_component::get_plugin_list('plagiarism');
 if (empty($plagiarismplugins)) {
     echo $OUTPUT->notification(get_string('nopluginsinstalled', 'plagiarism'));
     echo $OUTPUT->footer();
-    exit;
+    moodle_exit();
 }
 
 echo $OUTPUT->heading(get_string('availableplugins', 'plagiarism'), 3, 'main');

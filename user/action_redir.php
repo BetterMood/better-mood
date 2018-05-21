@@ -167,7 +167,7 @@ if ($formaction == 'bulkchange.php') {
     echo $OUTPUT->heading($operation->get_title());
     $mform->display();
     echo $OUTPUT->footer();
-    exit();
+    moodle_exit();
 
 } else {
     throw new coding_exception('invalidaction');

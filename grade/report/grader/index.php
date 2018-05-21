@@ -137,7 +137,7 @@ $numusers = $report->get_numusers(true, true);
 if ($report->currentgroup == -2) {
     echo $OUTPUT->heading(get_string("notingroup"));
     echo $OUTPUT->footer();
-    exit;
+    moodle_exit();
 }
 
 // processing posted grades & feedback here

@@ -82,7 +82,7 @@ if ($rev > 0 and $rev < (time() + 60 * 60)) {
             js_send_unmodified(filemtime($candidate), $etag);
         }
         js_send_cached($candidate, $etag, 'requirejs.php');
-        exit(0);
+        moodle_exit(0);
 
     } else {
         $jsfiles = array();
@@ -118,7 +118,7 @@ if ($rev > 0 and $rev < (time() + 60 * 60)) {
         clearstatcache();
         if (file_exists($candidate)) {
             js_send_cached($candidate, $etag, 'requirejs.php');
-            exit(0);
+            moodle_exit(0);
         }
     }
 }

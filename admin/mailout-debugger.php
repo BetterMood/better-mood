@@ -71,7 +71,7 @@ fclose($stdin);
  */
 function mdie($msg='', $errorcode=1) {
     trigger_error($msg);
-    exit($errorcode);
+    moodle_exit($errorcode);
 }
 
 

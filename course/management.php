@@ -271,7 +271,7 @@ if ($action !== false && confirm_sesskey()) {
             }
             // Finish output and exit.
             echo $renderer->footer();
-            exit();
+            moodle_exit();
             break;
         case 'bulkaction':
             $bulkmovecourses = optional_param('bulkmovecourses', false, PARAM_BOOL);

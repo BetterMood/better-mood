@@ -109,7 +109,7 @@ if (!empty($action)) {
                 echo $OUTPUT->confirm(get_string('subareyousure', 'tool_monitor', $subscription->get_name($context)),
                     $confirmurl, $cancelurl);
                 echo $OUTPUT->footer();
-                exit();
+                moodle_exit();
             }
             break;
         default:

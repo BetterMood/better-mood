@@ -472,7 +472,7 @@ class auth extends \auth_plugin_base {
                     $emailconfirm = get_string('emailconfirmlink', 'auth_oauth2');
                     $message = get_string('emailconfirmlinksent', 'auth_oauth2', $moodleuser->email);
                     $this->print_confirm_required($emailconfirm, $message);
-                    exit();
+                    moodle_exit();
                 } else {
                     \auth_oauth2\api::link_login($userinfo, $issuer, $moodleuser->id, true);
                     $userinfo = get_complete_user_data('id', $moodleuser->id);
@@ -536,7 +536,7 @@ class auth extends \auth_plugin_base {
                     $emailconfirm = get_string('emailconfirm');
                     $message = get_string('emailconfirmsent', '', $userinfo['email']);
                     $this->print_confirm_required($emailconfirm, $message);
-                    exit();
+                    moodle_exit();
                 } else {
                     // Create a new confirmed account.
                     $newuser = \auth_oauth2\api::create_new_confirmed_account($userinfo, $issuer);

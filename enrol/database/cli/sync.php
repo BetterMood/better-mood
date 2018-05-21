@@ -82,4 +82,4 @@ $result = 0;
 $result = $result | $enrol->sync_courses($trace);
 $result = $result | $enrol->sync_enrolments($trace);
 
-exit($result);
+moodle_exit($result);

@@ -21,7 +21,7 @@
  * @copyright  2018 Jun Pataleta <jun@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-defined('MOODLE_INTERNAL') || die;
+defined('MOODLE_INTERNAL') || moodle_exit();
 $functions = [
     'tool_dataprivacy_cancel_data_request' => [
         'classname'     => 'tool_dataprivacy\external',

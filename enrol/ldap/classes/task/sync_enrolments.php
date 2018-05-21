@@ -51,7 +51,7 @@ class sync_enrolments extends \core\task\scheduled_task {
 
         if (!enrol_is_enabled('ldap')) {
             mtrace(get_string('pluginnotenabled', 'enrol_ldap'));
-            exit(0); // Note, exit with success code, this is not an error - it's just disabled.
+            moodle_exit(0); // Note, exit with success code, this is not an error - it's just disabled.
         }
 
         /** @var enrol_ldap_plugin $enrol */

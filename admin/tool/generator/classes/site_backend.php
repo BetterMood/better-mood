@@ -173,7 +173,7 @@ class tool_generator_site_backend extends tool_generator_backend {
         }
 
         if ($exitcode != 0) {
-            exit($exitcode);
+            moodle_exit($exitcode);
         }
     }
 

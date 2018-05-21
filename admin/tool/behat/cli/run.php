@@ -364,7 +364,7 @@ if ($verbose || $status) {
 // Remove site symlink if necessary.
 behat_config_manager::drop_parallel_site_links();
 
-exit($status);
+moodle_exit($status);
 
 /**
  * Signal handler for terminal exit.

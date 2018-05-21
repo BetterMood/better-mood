@@ -101,4 +101,4 @@ $update = empty($options['noupdate']);
 $dbauth = get_auth_plugin('db');
 $result = $dbauth->sync_users($trace, $update);
 
-exit($result);
+moodle_exit($result);

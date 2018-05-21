@@ -242,7 +242,7 @@ class course_bin extends base_bin {
                 echo $backuprenderer->precheck_notices($results);
                 echo $OUTPUT->continue_button(new \moodle_url('/course/view.php', array('id' => $this->_courseid)));
                 echo $OUTPUT->footer();
-                exit();
+                moodle_exit();
             }
         }
 

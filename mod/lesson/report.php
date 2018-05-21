@@ -126,7 +126,7 @@ if ($action === 'delete') {
         }
         groups_print_activity_menu($cm, $url);
         echo $OUTPUT->footer();
-        exit();
+        moodle_exit();
     }
 
     echo $lessonoutput->header($lesson, $cm, $action, false, null, get_string('overview', 'lesson'));

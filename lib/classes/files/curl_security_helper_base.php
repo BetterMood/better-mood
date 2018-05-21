@@ -25,7 +25,7 @@
 
 namespace core\files;
 
-defined('MOODLE_INTERNAL') || exit();
+defined('MOODLE_INTERNAL') || moodle_exit();
 
 /**
  * Security helper for the curl class.
