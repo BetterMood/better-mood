@@ -30,12 +30,17 @@
         "mustache/mustache": "^2.12",
         "redeyeventures/geopattern": "^1.1",
         "adodb/adodb-php": "dev-better-mood",
-        "leafo/scssphp": "^0.7"
+        "leafo/scssphp": "^0.7",
+        "ezyang/htmlpurifier": "dev-better-mood"
     },
     "repositories": [
         {
           "type": "vcs",
           "url":  "https://github.com/BetterMood/ADOdb.git"
+        },
+        {
+            "type": "vcs",
+            "url":  "https://github.com/BetterMood/htmlpurifier.git"
         }
     ]
 }
