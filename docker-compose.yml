@@ -1,23 +1,84 @@
 version: "3"
 services:
-  web:
-    image: jhardison/moodle
+  webserver:
+    image: bettermood/apache
     ports:
       - 8080:80
     volumes:
       - ./:/var/www/html
-      - moodle_data:/var/moodledata
+      - "./docker/apache2_mailhog.conf:/etc/apache2/conf-enabled/apache2_mailhog.conf"
+      - "./docker/apache2_faildumps.conf:/etc/apache2/conf-enabled/apache2_faildumps.conf"
+      - moodle_data:${MOODLE_DOCKER_DATAROOT}
+    depends_on:
+      - php
     environment:
-      - "MOODLE_URL:http://localhost:8080"
+      MOODLE_URL: http://localhost:8080
+  php:
+    image: bettermood/php
+    volumes:
+      - ./:/var/www/html
+      - moodle_data:${MOODLE_DOCKER_DATAROOT}
+    env_file:
+      - .env
+  phpunit: # container to run phpunit tests
+    image: bettermood/php
+    volumes:
+      - ./:/var/www/html
+      - moodle_data:${MOODLE_DOCKER_DATAROOT}
+      - phpunit_data:${MOODLE_DOCKER_PHPUNIT_DATAROOT}
+    depends_on:
+      - webserver
+      - mysql_phpunit
+    env_file:
+      - .env
+    environment:
+      MOODLE_DOCKER_DBHOST: mysql_phpunit
+  behat: # container to run behat tests
+    image: bettermood/php
+    volumes:
+      - ./:/var/www/html
+      - moodle_data:${MOODLE_DOCKER_DATAROOT}
+      - behat_data:${MOODLE_DOCKER_BEHAT_DATAROOT}
+    depends_on:
+      - webserver
+      - mysql_behat
+    env_file:
+      - .env
+    environment:
+      MOODLE_DOCKER_DBHOST: mysql_behat
   mysql:
     image: mysql:5
     volumes:
       - mysql_data:/var/lib/mysql
     environment:
-      - MYSQL_DATABASE=moodle
-      - MYSQL_ROOT_PASSWORD=moodle
-      - MYSQL_USER=moodle
-      - MYSQL_PASSWORD=moodle
+      MYSQL_DATABASE: ${MOODLE_DOCKER_DBNAME}
+      MYSQL_ROOT_PASSWORD: ${MOODLE_DOCKER_DBPASS}
+      MYSQL_USER: ${MOODLE_DOCKER_DBUSER}
+      MYSQL_PASSWORD: ${MOODLE_DOCKER_DBPASS}
+  mysql_behat: # Db server for behat test runs
+    image: mysql:5
+    environment:
+      MYSQL_DATABASE: ${MOODLE_DOCKER_DBNAME}
+      MYSQL_ROOT_PASSWORD: ${MOODLE_DOCKER_DBPASS}
+      MYSQL_USER: ${MOODLE_DOCKER_DBUSER}
+      MYSQL_PASSWORD: ${MOODLE_DOCKER_DBPASS}
+  mysql_phpunit: # Db server for phpunit test runs
+    image: mysql:5
+    environment:
+      MYSQL_DATABASE: ${MOODLE_DOCKER_DBNAME}
+      MYSQL_ROOT_PASSWORD: ${MOODLE_DOCKER_DBPASS}
+      MYSQL_USER: ${MOODLE_DOCKER_DBUSER}
+      MYSQL_PASSWORD: ${MOODLE_DOCKER_DBPASS}
+  exttests:
+    image: moodlehq/moodle-exttests
+  selenium:
+    image: "selenium/standalone-firefox:2.53.1"
+    volumes:
+      - ./:/var/www/html
+  mailhog:
+      image: mailhog/mailhog
 volumes:
   moodle_data:
+  behat_data:
+  phpunit_data:
   mysql_data:
