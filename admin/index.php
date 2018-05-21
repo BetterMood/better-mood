@@ -30,8 +30,7 @@ if (!file_exists('../config.php')) {
 }
 
 // Check that PHP is of a sufficient version as soon as possible.
-require_once(__DIR__.'/../lib/phpminimumversionlib.php');
-moodle_require_minimum_php_version();
+\Moodle\lib\PhpMinimumVersionLib::create(defined('CLI_SCRIPT'))->requireMinimumPhpVersion();
 
 // make sure iconv is available and actually works
 if (!function_exists('iconv')) {

@@ -56,23 +56,23 @@ if ($code == 0) {
 } else if ($code == PHPUNIT_EXITCODE_INSTALL) {
     passthru("php util.php --install", $code);
     if ($code != 0) {
-        moodle_exit($code);
+        exit($code);
     }
 
 } else if ($code == PHPUNIT_EXITCODE_REINSTALL) {
     passthru("php util.php --drop", $code);
     passthru("php util.php --install", $code);
     if ($code != 0) {
-        moodle_exit($code);
+        exit($code);
     }
 
 } else {
     echo implode("\n", $output)."\n";
-    moodle_exit($code);
+    exit($code);
 }
 
 passthru("php util.php --buildconfig", $code);
 
 echo "\n";
 echo "PHPUnit test environment setup complete.\n";
-moodle_exit(0);
+exit(0);

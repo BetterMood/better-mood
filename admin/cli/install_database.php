@@ -63,8 +63,7 @@ Example:
 ";
 
 // Check that PHP is of a sufficient version as soon as possible.
-require_once(__DIR__.'/../../lib/phpminimumversionlib.php');
-moodle_require_minimum_php_version();
+\Moodle\lib\PhpMinimumVersionLib::create(defined('CLI_SCRIPT'))->requireMinimumPhpVersion();
 
 // Nothing to do if config.php does not exist
 $configfile = __DIR__.'/../../config.php';

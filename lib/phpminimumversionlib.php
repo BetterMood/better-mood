@@ -34,7 +34,7 @@
  */
 function moodle_require_minimum_php_version() {
     // PLEASE NOTE THIS FUNCTION MUST BE COMPATIBLE WITH OLD UNSUPPORTED VERSIONS OF PHP!
-    moodle_minimum_php_version_is_met(true);
+    \Moodle\lib\PhpMinimumVersion::create(defined('CLI_SCRIPT'))->minimumPhpVersionIsMet(true);
 }
 
 /**
@@ -45,32 +45,5 @@ function moodle_require_minimum_php_version() {
  * @return bool returns true if requirement is met (false if not)
  */
 function moodle_minimum_php_version_is_met($haltexecution = false) {
-    // PLEASE NOTE THIS FUNCTION MUST BE COMPATIBLE WITH OLD UNSUPPORTED VERSIONS OF PHP.
-    // Do not use modern php features or Moodle convenience functions (e.g. localised strings).
-
-    $minimumversion = '7.0.0';
-    $moodlerequirementchanged = '3.4';
-
-    if (version_compare(PHP_VERSION, $minimumversion) < 0) {
-        if ($haltexecution) {
-            $error = "Moodle ${moodlerequirementchanged} or later requires at least PHP ${minimumversion} "
-                . "(currently using version " . PHP_VERSION .").\n"
-                . "Some servers may have multiple PHP versions installed, are you using the correct executable?\n";
-
-            // Our CLI scripts define CLI_SCRIPT before running this test, so make use of
-            // to send error on STDERR.
-            if (defined('CLI_SCRIPT') && defined('STDERR')) {
-                fwrite(STDERR, $error);
-            } else {
-                echo $error;
-            }
-            exit(1);
-        } else {
-            return false;
-        }
-    }
-    return true;
+    return \Moodle\lib\PhpMinimumVersion::create(defined('CLI_SCRIPT'))->minimumPhpVersionIsMet($haltexecution);
 }
-
-// DO NOT ADD EXTRA FUNCTIONS TO THIS FILE!!
-// This file must be functioning on all versions of PHP, extra functions belong elsewhere.
