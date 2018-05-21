@@ -21,7 +21,8 @@
         "box/spout": "^2.7",
         "mustache/mustache": "^2.12",
         "redeyeventures/geopattern": "^1.1",
-        "adodb/adodb-php": "dev-better-mood"
+        "adodb/adodb-php": "dev-better-mood",
+        "leafo/scssphp": "^0.7"
     },
     "repositories": [
         {
