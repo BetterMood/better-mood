@@ -57,7 +57,7 @@ list($options, $unrecognized) = cli_get_params(
 
 if ($options['help'] || $options['search'] === null || $options['replace'] === null) {
     echo $help;
-    exit(0);
+    moodle_exit(0);
 }
 
 if (!$DB->replace_all_text_supported()) {
@@ -81,14 +81,14 @@ if (!$options['non-interactive']) {
     $prompt = get_string('cliyesnoprompt', 'admin');
     $input = cli_input($prompt, '', array(get_string('clianswerno', 'admin'), get_string('cliansweryes', 'admin')));
     if ($input == get_string('clianswerno', 'admin')) {
-        exit(1);
+        moodle_exit(1);
     }
 }
 
 if (!db_replace($search, $replace)) {
     cli_heading(get_string('error'));
-    exit(1);
+    moodle_exit(1);
 }
 
 cli_heading(get_string('success'));
-exit(0);
+moodle_exit(0);

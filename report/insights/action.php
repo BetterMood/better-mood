@@ -54,7 +54,7 @@ if (!$modelready) {
     echo $OUTPUT->header();
     echo $OUTPUT->notification(get_string('disabledmodel', 'report_insights'), \core\output\notification::NOTIFY_INFO);
     echo $OUTPUT->footer();
-    exit(0);
+    moodle_exit(0);
 }
 
 $prediction->action_executed($actionname, $model->get_target());

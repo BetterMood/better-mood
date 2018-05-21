@@ -61,7 +61,7 @@ if ($action === 'checkout') {
 
     echo $output->continue_button(new moodle_url('/admin/tool/customlang/edit.php', array('lng' => $lng)), 'get');
     echo $output->footer();
-    exit;
+    moodle_exit();
 }
 
 if ($action === 'checkin') {
@@ -107,7 +107,7 @@ if (empty($lng)) {
     $s->class = 'langselector';
     echo $output->box($OUTPUT->render($s), 'langselectorbox');
     echo $OUTPUT->footer();
-    exit;
+    moodle_exit();
 }
 
 echo $output->heading($langs[$lng], 3);

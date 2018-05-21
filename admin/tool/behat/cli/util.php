@@ -94,7 +94,7 @@ More info in http://docs.moodle.org/dev/Acceptance_testing#Running_tests
 
 if (!empty($options['help'])) {
     echo $help;
-    exit(0);
+    moodle_exit(0);
 }
 
 $cwd = getcwd();
@@ -123,13 +123,13 @@ if (empty($options['parallel'])) {
     // Check if behat is initialised, if not exit.
     passthru("php util_single_run.php --diag", $status);
     if ($status) {
-        exit ($status);
+        moodle_exit ($status);
     }
     $cmd = commands_to_execute($options);
     $processes = cli_execute_parallel(array($cmd), __DIR__);
     $status = print_sequential_output($processes, false);
     chdir($cwd);
-    exit($status);
+    moodle_exit($status);
 }
 
 // Default torun is maximum parallel runs.
@@ -223,18 +223,18 @@ if ($options['diag'] || $options['enable'] || $options['disable']) {
         $processes = cli_execute_parallel($cmd, __DIR__);
         print_sequential_output($processes);
     }
-    exit(0);
+    moodle_exit(0);
 
 } else {
     // We should never reach here.
     echo $help;
-    exit(1);
+    moodle_exit(1);
 }
 
 // Ensure we have success status to show following information.
 if ($status) {
     echo "Unknown failure $status" . PHP_EOL;
-    exit((int)$status);
+    moodle_exit((int)$status);
 }
 
 // Show command o/p (only one per time).
@@ -279,7 +279,7 @@ if ($options['install']) {
 } else {
     echo $help;
     chdir($cwd);
-    exit(1);
+    moodle_exit(1);
 }
 
 chdir($cwd);
@@ -479,7 +479,7 @@ function print_sequential_output($processes, $showprefix = true) {
         // If any error then exit.
         $exitcode = $process->getExitCode();
         if ($exitcode != 0) {
-            exit($exitcode);
+            moodle_exit($exitcode);
         }
         $status = $status || (bool)$exitcode;
     }

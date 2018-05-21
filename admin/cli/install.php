@@ -33,7 +33,7 @@ define('CLI_SCRIPT', true);
 
 // extra execution prevention - we can not just require config.php here
 if (isset($_SERVER['REMOTE_ADDR'])) {
-    exit(1);
+    moodle_exit(1);
 }
 
 // Force OPcache reset if used, we do not want any stale caches
@@ -147,8 +147,7 @@ define('PHPUNIT_TEST', false);
 define('IGNORE_COMPONENT_CACHE', true);
 
 // Check that PHP is of a sufficient version as soon as possible.
-require_once(__DIR__.'/../../lib/phpminimumversionlib.php');
-moodle_require_minimum_php_version();
+\Moodle\lib\PhpMinimumVersionLib::create(defined('CLI_SCRIPT'))->requireMinimumPhpVersion();
 
 // set up configuration
 global $CFG;

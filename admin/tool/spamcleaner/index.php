@@ -57,7 +57,7 @@ if (!empty($del) && confirm_sesskey() && ($id != $USER->id)) {
     } else {
         echo json_encode(false);
     }
-    exit;
+    moodle_exit();
 }
 
 // Delete lots of users
@@ -72,13 +72,13 @@ if (!empty($delall) && confirm_sesskey()) {
         }
     }
     echo json_encode(true);
-    exit;
+    moodle_exit();
 }
 
 if (!empty($ignore) && confirm_sesskey()) {
     unset($SESSION->users_result[$id]);
     echo json_encode(true);
-    exit;
+    moodle_exit();
 }
 
 $PAGE->requires->js_init_call('M.tool_spamcleaner.init', array(me()), true);

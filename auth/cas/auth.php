@@ -143,7 +143,7 @@ class auth_plugin_cas extends auth_plugin_ldap {
                 echo $OUTPUT->header();
                 include($CFG->dirroot.'/auth/cas/cas_form.html');
                 echo $OUTPUT->footer();
-                exit();
+                moodle_exit();
             }
         }
 

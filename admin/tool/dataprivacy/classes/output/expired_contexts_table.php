@@ -39,7 +39,7 @@ use tool_dataprivacy\expired_context;
 use tool_dataprivacy\external\purpose_exporter;
 use tool_dataprivacy\purpose;
 
-defined('MOODLE_INTERNAL') || die;
+defined('MOODLE_INTERNAL') || moodle_exit();
 
 /**
  * The class for displaying the expired contexts table.

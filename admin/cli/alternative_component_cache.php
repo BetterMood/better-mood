@@ -68,7 +68,7 @@ Example:
 ";
 
     echo $help;
-    exit(0);
+    moodle_exit(0);
 }
 
 error_reporting(E_ALL | E_STRICT);
@@ -78,14 +78,14 @@ $content = core_component::get_cache_content();
 
 if ($options['print']) {
     echo $content;
-    exit(0);
+    moodle_exit(0);
 }
 
 if ($options['rebuild']) {
     if (empty($CFG->alternative_component_cache)) {
         fwrite(STDERR, 'config.php does not contain $CFG->alternative_component_cache setting');
         fwrite(STDERR, "\n");
-        exit(2);
+        moodle_exit(2);
     }
     $target = $CFG->alternative_component_cache;
 } else {
@@ -95,7 +95,7 @@ if ($options['rebuild']) {
 if (!$target) {
     fwrite(STDERR, "Invalid target file $target");
     fwrite(STDERR, "\n");
-    exit(1);
+    moodle_exit(1);
 }
 
 $bytes = file_put_contents($target, $content);
@@ -103,9 +103,9 @@ $bytes = file_put_contents($target, $content);
 if (!$bytes) {
     fwrite(STDERR, "Error writing to $target");
     fwrite(STDERR, "\n");
-    exit(1);
+    moodle_exit(1);
 }
 
 // Success.
 echo "File $target was updated\n";
-exit(0);
+moodle_exit(0);

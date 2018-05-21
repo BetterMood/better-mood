@@ -76,7 +76,7 @@
 
             redirect($urltogo);
 
-            exit;
+            moodle_exit();
         }
 
         else {

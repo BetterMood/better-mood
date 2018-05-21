@@ -26,7 +26,7 @@
 namespace core\files;
 use core\ip_utils;
 
-defined('MOODLE_INTERNAL') || exit();
+defined('MOODLE_INTERNAL') || moodle_exit();
 
 /**
  * Host and port checking for curl.

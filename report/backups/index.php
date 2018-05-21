@@ -110,7 +110,7 @@ if ($courseid) {
         echo $OUTPUT->box(get_string('nobackupsfound', 'report_backups'), 'center');
     }
     echo $OUTPUT->footer();
-    exit();
+    moodle_exit();
 }
 
 $table = new html_table;

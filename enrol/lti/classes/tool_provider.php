@@ -308,7 +308,7 @@ class tool_provider extends ToolProvider {
             }
         } else {
             print_error('invalidcontext');
-            exit();
+            moodle_exit();
         }
 
         // Force page layout to embedded if necessary.
@@ -325,7 +325,7 @@ class tool_provider extends ToolProvider {
         // Display an error, if there is one.
         if ($result !== helper::ENROLMENT_SUCCESSFUL) {
             print_error($result, 'enrol_lti');
-            exit();
+            moodle_exit();
         }
 
         // Give the user the role in the given context.

@@ -902,7 +902,7 @@ function xhprof_param_init($params) {
     default:
       xhprof_error("Invalid param type passed to xhprof_param_init: "
                    . $v[0]);
-      exit();
+      moodle_exit();
     }
 
     if ($k === 'run') {

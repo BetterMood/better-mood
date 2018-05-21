@@ -67,4 +67,4 @@ if (empty($options['verbose'])) {
 $result = enrol_cohort_sync($trace, null);
 $trace->finished();
 
-exit($result);
+moodle_exit($result);

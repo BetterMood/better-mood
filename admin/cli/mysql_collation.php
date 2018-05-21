@@ -213,7 +213,7 @@ if (!empty($options['collation'])) {
     }
     $rs->close();
     echo "Converted: $converted, skipped: $skipped, errors: $errors\n";
-    exit(0); // success
+    moodle_exit(0); // success
 
 } else if (!empty($options['list'])) {
     echo "List of tables for $CFG->wwwroot:\n";
@@ -249,7 +249,7 @@ if (!empty($options['collation'])) {
     foreach ($counts as $collation => $count) {
         echo "$collation: $count\n";
     }
-    exit(0); // success
+    moodle_exit(0); // success
 
 } else if (!empty($options['available'])) {
     echo "List of available MySQL collations for $CFG->wwwroot:\n";

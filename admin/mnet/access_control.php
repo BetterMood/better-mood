@@ -115,7 +115,7 @@ if ($form = data_submitted() and confirm_sesskey()) {
             }
         }
     }
-    exit;
+    moodle_exit();
 }
 
 echo $OUTPUT->header();

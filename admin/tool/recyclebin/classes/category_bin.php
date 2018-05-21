@@ -255,7 +255,7 @@ class category_bin extends base_bin {
                 echo $backuprenderer->precheck_notices($results);
                 echo $OUTPUT->continue_button(new \moodle_url('/course/index.php', array('categoryid' => $this->_categoryid)));
                 echo $OUTPUT->footer();
-                exit();
+                moodle_exit();
             }
         }
 

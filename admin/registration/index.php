@@ -50,7 +50,7 @@ if ($unregistration && \core\hub\registration::is_registered()) {
     echo $OUTPUT->heading(get_string('unregisterfrom', 'hub', 'Moodle.net'), 3, 'main');
     $siteunregistrationform->display();
     echo $OUTPUT->footer();
-    exit;
+    moodle_exit();
 }
 
 $isinitialregistration = \core\hub\registration::show_after_install(true);

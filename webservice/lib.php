@@ -1287,7 +1287,7 @@ abstract class webservice_base_server extends webservice_server {
         $this->send_error($ex);
 
         // not much else we can do now, add some logging later
-        exit(1);
+        moodle_exit(1);
     }
 
     /**

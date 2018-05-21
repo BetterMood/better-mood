@@ -62,4 +62,4 @@ $verbose = !empty($options['verbose']);
 
 $result = enrol_meta_sync(null, $verbose);
 
-exit($result);
+moodle_exit($result);

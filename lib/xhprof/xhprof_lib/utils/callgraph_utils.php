@@ -123,7 +123,7 @@ function xhprof_generate_image_by_dot($dot_script, $type) {
     $err = stream_get_contents($pipes[2]);
     if (!empty($err)) {
       print "failed to execute cmd: \"$cmd\". stderr: `$err'\n";
-      exit;
+      moodle_exit();
     }
 
     fclose($pipes[2]);
@@ -132,7 +132,7 @@ function xhprof_generate_image_by_dot($dot_script, $type) {
     return $output;
   }
   print "failed to execute cmd \"$cmd\"";
-  exit();
+  moodle_exit();
 }
 
 /*
@@ -482,7 +482,7 @@ function xhprof_render_image($xhprof_runs_impl, $run_id, $type, $threshold,
     print "Error: either we can not find profile data for run_id ".$run_id
           ." or the threshold ".$threshold." is too small or you do not"
           ." have 'dot' image generation utility installed.";
-    exit();
+    moodle_exit();
   }
 
   xhprof_generate_mime_header($type, strlen($content));

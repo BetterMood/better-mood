@@ -71,7 +71,7 @@ if ($action) {
                     new single_button($actionurl, get_string('continue'), 'post', true),
                     new single_button($cancelurl, get_string('cancel'), 'get'));
             echo $OUTPUT->footer();
-            exit;
+            moodle_exit();
         }
     }
 

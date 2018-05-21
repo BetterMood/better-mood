@@ -120,7 +120,7 @@ class behat_hooks extends behat_base {
             self::before_suite($scope);
         } catch (behat_stop_exception $e) {
             echo $e->getMessage() . PHP_EOL;
-            exit(1);
+            moodle_exit(1);
         }
     }
 
@@ -270,7 +270,7 @@ class behat_hooks extends behat_base {
             $this->before_scenario($scope);
         } catch (behat_stop_exception $e) {
             echo $e->getMessage() . PHP_EOL;
-            exit(1);
+            moodle_exit(1);
         }
     }
 

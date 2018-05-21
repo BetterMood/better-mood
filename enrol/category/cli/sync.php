@@ -72,4 +72,4 @@ if (empty($options['verbose'])) {
 
 $result = enrol_category_sync_full($trace);
 
-exit($result);
+moodle_exit($result);

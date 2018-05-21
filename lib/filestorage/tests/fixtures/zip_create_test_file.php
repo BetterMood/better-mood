@@ -35,7 +35,7 @@ Example:
 
 if (count($_SERVER['argv']) != 2 or file_exists($_SERVER['argv'][1])) {
     echo $help;
-    exit(0);
+    moodle_exit(0);
 }
 
 $archive = $_SERVER['argv'][1];

@@ -655,7 +655,7 @@ function mnet_server_dummy_method($methodname, $argsarray, $functionname) {
             return @call_user_func_array($functionname, $argsarray);
         }
     } catch (Exception $e) {
-        exit(mnet_server_fault($e->getCode(), $e->getMessage()));
+        moodle_exit(mnet_server_fault($e->getCode(), $e->getMessage()));
     }
 }
 /**

@@ -46,7 +46,7 @@ echo $OUTPUT->box(format_text(get_string('courseexplanation', 'tool_generator'),
 if (!debugging('', DEBUG_DEVELOPER)) {
     echo $OUTPUT->notification(get_string('error_notdebugging', 'tool_generator'));
     echo $OUTPUT->footer();
-    exit;
+    moodle_exit();
 }
 
 // Set up the form.

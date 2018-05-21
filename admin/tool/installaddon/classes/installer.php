@@ -156,7 +156,7 @@ class tool_installaddon_installer {
 
         if ($data === false) {
             echo $output->remote_request_invalid_page($this->index_url());
-            exit();
+            moodle_exit();
         }
 
         list($plugintype, $pluginname) = core_component::normalize_component($data->component);
@@ -166,19 +166,19 @@ class tool_installaddon_installer {
 
         if (file_exists($plugintypepath.'/'.$pluginname)) {
             echo $output->remote_request_alreadyinstalled_page($data, $this->index_url());
-            exit();
+            moodle_exit();
         }
 
         if (!$pluginman->is_plugintype_writable($plugintype)) {
             $continueurl = $this->index_url(array('installaddonrequest' => $request));
             echo $output->remote_request_permcheck_page($data, $plugintypepath, $continueurl, $this->index_url());
-            exit();
+            moodle_exit();
         }
 
         if (!$pluginman->is_remote_plugin_installable($data->component, $data->version, $reason)) {
             $data->reason = $reason;
             echo $output->remote_request_non_installable_page($data, $this->index_url());
-            exit();
+            moodle_exit();
         }
 
         $continueurl = $this->index_url(array(
@@ -187,7 +187,7 @@ class tool_installaddon_installer {
         ));
 
         echo $output->remote_request_confirm_page($data, $continueurl, $this->index_url());
-        exit();
+        moodle_exit();
     }
 
     /**

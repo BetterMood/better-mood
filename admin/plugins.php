@@ -90,7 +90,7 @@ if ($uninstall) {
         $continueurl = new moodle_url($PAGE->url, array('uninstall' => $pluginfo->component, 'sesskey' => sesskey(), 'confirm' => 1, 'return'=>$return));
         $cancelurl = $pluginfo->get_return_url_after_uninstall($return);
         echo $output->plugin_uninstall_confirm_page($pluginman, $pluginfo, $continueurl, $cancelurl);
-        exit();
+        moodle_exit();
 
     } else {
         $SESSION->pluginuninstallreturn = $pluginfo->get_return_url_after_uninstall($return);
@@ -105,7 +105,7 @@ if ($uninstall) {
             if (function_exists('opcache_reset')) {
                 opcache_reset();
             }
-            exit();
+            moodle_exit();
 
         } else {
             echo $output->plugin_uninstall_results_page($pluginman, $pluginfo, $progress);
@@ -113,7 +113,7 @@ if ($uninstall) {
             if (function_exists('opcache_reset')) {
                 opcache_reset();
             }
-            exit();
+            moodle_exit();
         }
     }
 }

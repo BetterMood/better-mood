@@ -25,7 +25,7 @@
 
 namespace core;
 
-defined('MOODLE_INTERNAL') || exit();
+defined('MOODLE_INTERNAL') || moodle_exit();
 
 /**
  * Static helper class providing some useful internet-protocol-related functions.

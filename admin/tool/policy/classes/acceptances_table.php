@@ -231,7 +231,7 @@ class acceptances_table extends \table_sql {
     public function download() {
         \core\session\manager::write_close();
         $this->out(0, false);
-        exit;
+        moodle_exit();
     }
 
     /**

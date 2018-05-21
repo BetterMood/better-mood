@@ -99,7 +99,7 @@ if (file_exists($CFG->dirroot.'/local/hub/lib.php') and get_config('local_hub', 
     // Function display_homepage() returns true if the hub home page is not displayed
     // ...mostly when search form is not displayed for not logged users.
     if (empty($continue)) {
-        exit;
+        moodle_exit();
     }
 }
 

@@ -98,7 +98,7 @@ if ($formdata = $simpleform->get_data()) {
     $reviewform->display();
     echo $OUTPUT->box_end();
     echo $OUTPUT->footer();
-    exit;
+    moodle_exit();
 } else if ($simpleform->is_submitted()) { // validation failed
     $noreviewform = true;
 }
@@ -133,7 +133,7 @@ if (!empty($hostid)) {
         echo $OUTPUT->notification(get_string('allhosts_no_options', 'mnet'));
     }
     echo $OUTPUT->footer();
-    exit;
+    moodle_exit();
 }
 
 // either we're in the second step of setting up a new host
@@ -185,7 +185,7 @@ if ($formdata = $reviewform->get_data()) {
     $reviewform->display();
     echo $OUTPUT->box_end();
     echo $OUTPUT->footer();
-    exit;
+    moodle_exit();
 }
 
 
@@ -277,5 +277,5 @@ echo $OUTPUT->box_end();
 
 // done
 echo $OUTPUT->footer();
-exit;
+moodle_exit();
 

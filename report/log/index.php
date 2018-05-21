@@ -180,7 +180,7 @@ if (empty($readers)) {
         } else {
             \core\session\manager::write_close();
             $reportlog->download();
-            exit();
+            moodle_exit();
         }
     } else {
         echo $output->header();

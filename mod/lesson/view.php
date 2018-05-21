@@ -71,17 +71,17 @@ if ($timerestriction = $lesson->get_time_restriction_status()) {  // Deadline re
     echo $lessonoutput->header($lesson, $cm, '', false, null, get_string('notavailable'));
     echo $lessonoutput->lesson_inaccessible(get_string($timerestriction->reason, 'lesson', userdate($timerestriction->time)));
     echo $lessonoutput->footer();
-    exit();
+    moodle_exit();
 } else if ($passwordrestriction = $lesson->get_password_restriction_status($userpassword)) { // Password protected lesson code.
     echo $lessonoutput->header($lesson, $cm, '', false, null, get_string('passwordprotectedlesson', 'lesson', format_string($lesson->name)));
     echo $lessonoutput->login_prompt($lesson, $userpassword !== '');
     echo $lessonoutput->footer();
-    exit();
+    moodle_exit();
 } else if ($dependenciesrestriction = $lesson->get_dependencies_restriction_status()) { // Check for dependencies.
     echo $lessonoutput->header($lesson, $cm, '', false, null, get_string('completethefollowingconditions', 'lesson', format_string($lesson->name)));
     echo $lessonoutput->dependancy_errors($dependenciesrestriction->dependentlesson, $dependenciesrestriction->errors);
     echo $lessonoutput->footer();
-    exit();
+    moodle_exit();
 }
 
 // This is called if a student leaves during a lesson.
@@ -159,7 +159,7 @@ if (empty($pageid)) {
                 echo $lessonoutput->continue_links($lesson, $lastpageseen);
             }
             echo $lessonoutput->footer();
-            exit();
+            moodle_exit();
         }
     }
 
@@ -169,7 +169,7 @@ if (empty($pageid)) {
             $courselink = new single_button(new moodle_url('/course/view.php', array('id'=>$PAGE->course->id)), get_string('returntocourse', 'lesson'), 'get');
             echo $lessonoutput->message(get_string("noretake", "lesson"), $courselink);
             echo $lessonoutput->footer();
-            exit();
+            moodle_exit();
         }
     }
     // start at the first page
@@ -178,7 +178,7 @@ if (empty($pageid)) {
         // Lesson currently has no content. A message for display has been prepared and will be displayed by the header method
         // of the lesson renderer.
         echo $lessonoutput->footer();
-        exit();
+        moodle_exit();
     }
     /// This is the code for starting a timed test
     if(!isset($USER->startlesson[$lesson->id]) && !$canmanage) {

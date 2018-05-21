@@ -126,7 +126,7 @@ switch ($action) {
         }
         echo $OUTPUT->continue_button($return);
         echo $OUTPUT->footer();
-        exit;
+        moodle_exit();
 }
 
 
