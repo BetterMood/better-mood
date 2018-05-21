@@ -29,8 +29,9 @@ if (!file_exists('../config.php')) {
     die();
 }
 
+require_once __DIR__ . '/../bootstrap.php';
 // Check that PHP is of a sufficient version as soon as possible.
-\Moodle\lib\PhpMinimumVersionLib::create(defined('CLI_SCRIPT'))->requireMinimumPhpVersion();
+\Moodle\lib\PhpMinimumVersion::create(defined('CLI_SCRIPT'))->requireMinimumPhpVersion();
 
 // make sure iconv is available and actually works
 if (!function_exists('iconv')) {

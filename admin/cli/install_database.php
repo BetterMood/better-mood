@@ -62,8 +62,10 @@ Example:
 \$sudo -u www-data /usr/bin/php admin/cli/install_database.php --lang=cs --adminpass=soMePass123 --agree-license
 ";
 
+require_once __DIR__ . '/../../bootstrap.php';
+
 // Check that PHP is of a sufficient version as soon as possible.
-\Moodle\lib\PhpMinimumVersionLib::create(defined('CLI_SCRIPT'))->requireMinimumPhpVersion();
+\Moodle\lib\PhpMinimumVersion::create(defined('CLI_SCRIPT'))->requireMinimumPhpVersion();
 
 // Nothing to do if config.php does not exist
 $configfile = __DIR__.'/../../config.php';
