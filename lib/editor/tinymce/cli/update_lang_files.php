@@ -56,7 +56,7 @@ foreach ($parsed as $key=>$value) {
 
 if (!$handle = fopen("$CFG->dirroot/lib/editor/tinymce/lang/en/editor_tinymce.php", 'w')) {
      echo "Cannot write to $filename !!";
-     exit(1);
+     moodle_exit(1);
 }
 
 $header = <<<EOT
@@ -177,7 +177,7 @@ function editor_tinymce_parse_js_files() {
     if (is_null($maindata) or json_last_error() != 0) {
         echo "error processing main lang file\n";
         echo $content."\n\n";
-        exit(1);
+        moodle_exit(1);
     }
     foreach($maindata as $component=>$data) {
         foreach ($data as $key=>$value) {
@@ -201,7 +201,7 @@ function editor_tinymce_parse_js_files() {
         if (is_null($data) or json_last_error() != 0) {
             echo "error processing $path lang file\n";
             echo $content."\n\n";
-            exit(1);
+            moodle_exit(1);
         }
         foreach ($data as $key=>$value) {
             if ($key === '_empty_') {

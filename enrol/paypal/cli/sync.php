@@ -58,7 +58,7 @@ Example:
 
 if (!enrol_is_enabled('paypal')) {
     echo('enrol_paypal plugin is disabled'."\n");
-    exit(2);
+    moodle_exit(2);
 }
 
 if (empty($options['verbose'])) {
@@ -72,4 +72,4 @@ $plugin = enrol_get_plugin('paypal');
 
 $result = $plugin->sync($trace);
 
-exit($result);
+moodle_exit($result);

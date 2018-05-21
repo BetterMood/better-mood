@@ -86,4 +86,4 @@ if (empty($options['verbose'])) {
 
 $result = $plugin->sync($trace);
 
-exit($result);
+moodle_exit($result);

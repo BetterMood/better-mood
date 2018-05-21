@@ -51,19 +51,19 @@ $tool = \enrol_lti\helper::get_lti_tool($toolid);
 
 if (!is_enabled_auth('lti')) {
     print_error('pluginnotenabled', 'auth', '', get_string('pluginname', 'auth_lti'));
-    exit();
+    moodle_exit();
 }
 
 // Check if the enrolment plugin is disabled.
 if (!enrol_is_enabled('lti')) {
     print_error('enrolisdisabled', 'enrol_lti');
-    exit();
+    moodle_exit();
 }
 
 // Check if the enrolment instance is disabled.
 if ($tool->status != ENROL_INSTANCE_ENABLED) {
     print_error('enrolisdisabled', 'enrol_lti');
-    exit();
+    moodle_exit();
 }
 
 $messagetype = required_param('lti_message_type', PARAM_TEXT);
@@ -71,7 +71,7 @@ $messagetype = required_param('lti_message_type', PARAM_TEXT);
 // Only accept proxy registration requests from this endpoint.
 if ($messagetype != "ToolProxyRegistrationRequest") {
     print_error('invalidrequest', 'enrol_lti');
-    exit();
+    moodle_exit();
 }
 
 $toolprovider = new \enrol_lti\tool_provider($toolid);

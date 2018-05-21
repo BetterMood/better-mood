@@ -63,7 +63,7 @@ if ($printclose) {  // this is for framesets
         echo $OUTPUT->box('<form><div><input type="button" onclick="top.close();" value="'.get_string("closewindow").'" /></div></form>', 'lessonmediafilecontrol');
         echo $lessonoutput->footer();
     }
-    exit();
+    moodle_exit();
 }
 
 // Check access restrictions.
@@ -71,17 +71,17 @@ if ($timerestriction = $lesson->get_time_restriction_status()) {  // Deadline re
     echo $lessonoutput->header($lesson, $cm, '', false, null, get_string('notavailable'));
     echo $lessonoutput->lesson_inaccessible(get_string($timerestriction->reason, 'lesson', userdate($timerestriction->time)));
     echo $lessonoutput->footer();
-    exit();
+    moodle_exit();
 } else if ($passwordrestriction = $lesson->get_password_restriction_status(null)) { // Password protected lesson code.
     echo $lessonoutput->header($lesson, $cm, '', false, null, get_string('passwordprotectedlesson', 'lesson', format_string($lesson->name)));
     echo $lessonoutput->login_prompt($lesson, $userpassword !== '');
     echo $lessonoutput->footer();
-    exit();
+    moodle_exit();
 } else if ($dependenciesrestriction = $lesson->get_dependencies_restriction_status()) { // Check for dependencies.
     echo $lessonoutput->header($lesson, $cm, '', false, null, get_string('completethefollowingconditions', 'lesson', format_string($lesson->name)));
     echo $lessonoutput->dependancy_errors($dependenciesrestriction->dependentlesson, $dependenciesrestriction->errors);
     echo $lessonoutput->footer();
-    exit();
+    moodle_exit();
 }
 
 echo $lessonoutput->header($lesson, $cm);

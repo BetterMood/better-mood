@@ -49,7 +49,7 @@
             $formcontinue = new single_button(new moodle_url('index.php', array('confirm' => md5($mnet->public_key))), get_string('yes'));
             $formcancel = new single_button(new moodle_url('index.php', array()), get_string('no'));
             echo $OUTPUT->confirm(get_string("deletekeycheck", "mnet"), $formcontinue, $formcancel);
-            exit;
+            moodle_exit();
         } else {
             // We're deleting
 
@@ -66,18 +66,18 @@
             if($time < time() - 60) {
                 // fail - you're out of time.
                 print_error ('deleteoutoftime', 'mnet', 'index.php');
-                exit;
+                moodle_exit();
             }
 
             if ($key != md5(sha1($mnet->keypair['keypair_PEM']))) {
                 // fail - you're being attacked?
                 print_error ('deletewrongkeyvalue', 'mnet', 'index.php');
-                exit;
+                moodle_exit();
             }
 
             $mnet->replace_keys();
             redirect('index.php', get_string('keydeleted','mnet'));
-            exit;
+            moodle_exit();
         }
     }
     $hosts = $DB->get_records_select('mnet_host', "id <> ? AND deleted = 0", array($CFG->mnet_localhost_id), 'wwwroot ASC');

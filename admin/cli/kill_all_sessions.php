@@ -47,9 +47,9 @@ Example:
 ";
 
     echo $help;
-    exit(0);
+    moodle_exit(0);
 }
 
 \core\session\manager::kill_all_sessions();
 
-exit(0);
+moodle_exit(0);

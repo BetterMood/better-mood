@@ -73,4 +73,4 @@ $plugin = enrol_get_plugin('self');
 $result = $plugin->sync($trace, null);
 $plugin->send_expiry_notifications($trace);
 
-exit($result);
+moodle_exit($result);

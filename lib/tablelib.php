@@ -1805,7 +1805,7 @@ class table_dataformat_export_format extends table_default_export_format_parent 
      */
     public function finish_document() {
         $this->dataformat->close_output();
-        exit();
+        moodle_exit();
     }
 }
 

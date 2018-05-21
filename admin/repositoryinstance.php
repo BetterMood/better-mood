@@ -82,7 +82,7 @@ if (!empty($edit) || !empty($new)) {
 
     if ($mform->is_cancelled()){
         redirect($parenturl);
-        exit;
+        moodle_exit();
     } else if ($fromform = $mform->get_data()){
         if ($edit) {
             $settings = array();
@@ -107,7 +107,7 @@ if (!empty($edit) || !empty($new)) {
         } else {
             print_error('instancenotsaved', 'repository', $parenturl);
         }
-        exit;
+        moodle_exit();
     } else {
         echo $OUTPUT->header();
         echo $OUTPUT->heading(get_string('configplugin', 'repository_'.$plugin));
@@ -137,7 +137,7 @@ if (!empty($edit) || !empty($new)) {
         } else {
             print_error('instancenotdeleted', 'repository', $parenturl);
         }
-        exit;
+        moodle_exit();
     }
 
     echo $OUTPUT->header();

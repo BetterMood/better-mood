@@ -89,7 +89,7 @@ More info in http://docs.moodle.org/dev/Acceptance_testing#Running_tests
 
 if (!empty($options['help'])) {
     echo $help;
-    exit(0);
+    moodle_exit(0);
 }
 
 // Describe this script.
@@ -150,7 +150,7 @@ if ($options['run']) {
 
     if (empty($parallel) || $run > $parallel) {
         echo "Parallel runs can't be more then ".$parallel.PHP_EOL;
-        exit(1);
+        moodle_exit(1);
     }
     $CFG->behatrunprocess = $run;
 }
@@ -205,14 +205,14 @@ if ($options['install']) {
 
 } else if ($options['diag']) {
     $code = behat_util::get_behat_status();
-    exit($code);
+    moodle_exit($code);
 
 } else if ($options['updatesteps']) {
     if (defined('BEHAT_FEATURE_STEP_FILE') && BEHAT_FEATURE_STEP_FILE) {
         $behatstepfile = BEHAT_FEATURE_STEP_FILE;
     } else {
         echo "BEHAT_FEATURE_STEP_FILE is not set, please ensure you set this to writable file" . PHP_EOL;
-        exit(1);
+        moodle_exit(1);
     }
 
     // Run behat command to get steps in feature files.
@@ -222,10 +222,10 @@ if ($options['install']) {
     $processes = cli_execute_parallel(array($featurestepscmd), __DIR__ . "/../../../../");
     $status = print_update_step_output(array_pop($processes), $behatstepfile);
 
-    exit($status);
+    moodle_exit($status);
 } else {
     echo $help;
-    exit(1);
+    moodle_exit(1);
 }
 
 exit(0);
@@ -261,7 +261,7 @@ function print_update_step_output($process, $featurestepfile) {
     // Output err.
     if ($exitcode != 0) {
         echo $process->getErrorOutput();
-        exit($exitcode);
+        moodle_exit($exitcode);
     }
 
     // Extract features with step info and save it in file.

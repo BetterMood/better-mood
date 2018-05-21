@@ -84,7 +84,7 @@ $renderer = $PAGE->get_renderer('report_insights');
 // No models with insights available at this context level.
 if (!$modelid) {
     echo $renderer->render_no_insights($context);
-    exit(0);
+    moodle_exit(0);
 }
 
 $model = new \core_analytics\model($modelid);
@@ -95,12 +95,12 @@ $insightinfo->insightname = $model->get_target()->get_name();
 
 if (!$model->is_enabled()) {
     echo $renderer->render_model_disabled($insightinfo);
-    exit(0);
+    moodle_exit(0);
 }
 
 if (!$model->uses_insights()) {
     echo $renderer->render_no_insights_model($context);
-    exit(0);
+    moodle_exit(0);
 }
 
 $PAGE->set_title($insightinfo->insightname);

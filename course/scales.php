@@ -77,7 +77,7 @@ if ($scaleid) {
             echo $OUTPUT->box_end();
             echo $OUTPUT->close_window_button();
             echo $OUTPUT->footer();
-            exit;
+            moodle_exit();
         }
     }
 }

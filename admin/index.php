@@ -782,7 +782,7 @@ if (!has_capability('moodle/site:config', $context)) {
     $PAGE->set_heading($SITE->fullname);
     echo $OUTPUT->header();
     echo $OUTPUT->footer();
-    exit;
+    moodle_exit();
 }
 
 // check that site is properly customized

@@ -33,7 +33,7 @@ define('CLI_SCRIPT', true);
 
 // extra execution prevention - we can not just require config.php here
 if (isset($_SERVER['REMOTE_ADDR'])) {
-    exit(1);
+    moodle_exit(1);
 }
 
 // Force OPcache reset if used, we do not want any stale caches

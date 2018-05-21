@@ -153,7 +153,7 @@ if (($action == 'edit') || ($action == 'new')) {
         } else {
             print_error('instancenotsaved', 'repository', $baseurl);
         }
-        exit;
+        moodle_exit();
     } else {
         echo $OUTPUT->header();
         echo $OUTPUT->heading(get_string('configplugin', 'repository_'.$plugin));
@@ -216,7 +216,7 @@ if (($action == 'edit') || ($action == 'new')) {
         } else {
             print_error('instancenotdeleted', 'repository', $baseurl);
         }
-        exit;
+        moodle_exit();
     } else {
         echo $OUTPUT->header();
 

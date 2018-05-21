@@ -170,7 +170,7 @@ function testing_error($errorcode, $text = '') {
     if (isset($_SERVER['REMOTE_ADDR'])) {
         header('HTTP/1.1 500 Internal Server Error');
     }
-    exit($errorcode);
+    moodle_exit($errorcode);
 }
 
 /**
@@ -229,14 +229,14 @@ function testing_update_composer_dependencies() {
     } else {
         passthru("php composer.phar self-update", $code);
         if ($code != 0) {
-            exit($code);
+            moodle_exit($code);
         }
     }
 
     // Update composer dependencies.
     passthru("php composer.phar install", $code);
     if ($code != 0) {
-        exit($code);
+        moodle_exit($code);
     }
 
     // Return to our original location.

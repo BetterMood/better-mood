@@ -53,12 +53,12 @@ Options:
 Example:
 \$ sudo -u www-data /usr/bin/php admin/tool/httpsreplace/cli/url_replace.php --list \n";
     echo $help;
-    exit(0);
+    moodle_exit(0);
 }
 
 if (!$DB->replace_all_text_supported()) {
     echo $OUTPUT->notification(get_string('notimplemented', 'tool_httpsreplace'));
-    exit(1);
+    moodle_exit(1);
 }
 
 if (!is_https()) {

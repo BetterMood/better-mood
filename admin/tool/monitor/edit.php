@@ -92,7 +92,7 @@ $mform = new tool_monitor\rule_form(null, array('eventlist' => $eventlist, 'plug
 
 if ($mform->is_cancelled()) {
     redirect(new moodle_url('/admin/tool/monitor/managerules.php', array('courseid' => $courseid)));
-    exit();
+    moodle_exit();
 }
 
 if ($mformdata = $mform->get_data()) {
@@ -118,7 +118,7 @@ if ($mformdata = $mform->get_data()) {
     }
     $mform->display();
     echo $OUTPUT->footer();
-    exit;
+    moodle_exit();
 }
 
 echo $OUTPUT->header();

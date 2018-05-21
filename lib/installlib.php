@@ -462,7 +462,7 @@ function install_cli_database(array $options, $interactive) {
             list($info, $report) = $error;
             echo "!! $info !!\n$report\n\n";
         }
-        exit(1);
+        moodle_exit(1);
     }
 
     if (!$DB->setup_is_unicodedb()) {

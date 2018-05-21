@@ -505,7 +505,7 @@ class csv_export_writer {
     public function download_file() {
         $this->send_header();
         $this->print_csv_data();
-        exit;
+        moodle_exit();
     }
 
     /**

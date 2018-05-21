@@ -252,7 +252,7 @@ class behat_util extends testing_util {
 
         // Checks the behat set up and the PHP version.
         if ($errorcode = behat_command::behat_setup_problem()) {
-            exit($errorcode);
+            moodle_exit($errorcode);
         }
 
         // Check that test environment is correctly set up.

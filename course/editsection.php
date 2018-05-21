@@ -77,7 +77,7 @@ if ($deletesection) {
                 get_section_name($course, $sectioninfo)), $formcontinue, $formcancel);
             echo $OUTPUT->box_end();
             echo $OUTPUT->footer();
-            exit;
+            moodle_exit();
         }
     } else {
         notice(get_string('nopermissions', 'error', get_string('deletesection')), $cancelurl);

@@ -85,7 +85,7 @@ More info in http://docs.moodle.org/dev/Acceptance_testing#Running_tests
 
 if (!empty($options['help'])) {
     echo $help;
-    exit(0);
+    moodle_exit(0);
 }
 
 // Check which util file to call.
@@ -131,7 +131,7 @@ if ($code == 0) {
     passthru("php $utilfile --install $commandoptions", $code);
     if ($code != 0) {
         chdir($cwd);
-        exit($code);
+        moodle_exit($code);
     }
 
 } else if ($code == BEHAT_EXITCODE_REINSTALL) {
@@ -140,21 +140,21 @@ if ($code == 0) {
     passthru("php $utilfile --drop $commandoptions", $code);
     if ($code != 0) {
         chdir($cwd);
-        exit($code);
+        moodle_exit($code);
     }
 
     chdir(__DIR__);
     passthru("php $utilfile --install $commandoptions", $code);
     if ($code != 0) {
         chdir($cwd);
-        exit($code);
+        moodle_exit($code);
     }
 
 } else {
     // Generic error, we just output it.
     echo implode("\n", $output)."\n";
     chdir($cwd);
-    exit($code);
+    moodle_exit($code);
 }
 
 // Enable editing mode according to config.php vars.
@@ -163,7 +163,7 @@ passthru("php $utilfile --enable $commandoptions", $code);
 if ($code != 0) {
     echo "Error enabling site" . PHP_EOL;
     chdir($cwd);
-    exit($code);
+    moodle_exit($code);
 }
 
-exit(0);
+moodle_exit(0);

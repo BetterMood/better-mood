@@ -39,7 +39,7 @@
 
 if (defined('STDIN')) {
     fwrite(STDERR, "ERROR: This script no longer supports CLI, please use admin/cli/cron.php instead\n");
-    exit(1);
+    moodle_exit(1);
 }
 
 // This is a fake CLI script, it is a really ugly hack which emulates
@@ -59,7 +59,7 @@ require_once($CFG->libdir.'/cronlib.php');
 if (!empty($CFG->cronclionly)) {
     // This script can only be run via the cli.
     print_error('cronerrorclionly', 'admin');
-    exit;
+    moodle_exit();
 }
 // This script is being called via the web, so check the password if there is one.
 if (!empty($CFG->cronremotepassword)) {
@@ -67,7 +67,7 @@ if (!empty($CFG->cronremotepassword)) {
     if ($pass != $CFG->cronremotepassword) {
         // wrong password.
         print_error('cronerrorpassword', 'admin');
-        exit;
+        moodle_exit();
     }
 }
 

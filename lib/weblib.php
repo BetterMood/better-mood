@@ -1028,7 +1028,7 @@ function close_window($delay = 0, $reloadopener = false) {
     $PAGE->requires->js_function_call('close_window', array(new stdClass()), false, $delay);
 
     echo $OUTPUT->footer();
-    exit;
+    moodle_exit();
 }
 
 /**
@@ -2682,7 +2682,7 @@ function print_grade_menu($courseid, $name, $current, $includenograde=true, $ret
  */
 function mdie($msg='', $errorcode=1) {
     trigger_error($msg);
-    exit($errorcode);
+    moodle_exit($errorcode);
 }
 
 /**
@@ -2700,7 +2700,7 @@ function notice ($message, $link='', $course=null) {
 
     if (CLI_SCRIPT) {
         echo("!!$message!!\n");
-        exit(1); // No success.
+        moodle_exit(1); // No success.
     }
 
     if (!$PAGE->headerprinted) {
@@ -2715,7 +2715,7 @@ function notice ($message, $link='', $course=null) {
     echo $OUTPUT->continue_button($link);
 
     echo $OUTPUT->footer();
-    exit(1); // General error code.
+    moodle_exit(1); // General error code.
 }
 
 /**
@@ -2860,17 +2860,17 @@ function redirect($url, $message='', $delay=null, $messagetype = \core\output\no
         @header($_SERVER['SERVER_PROTOCOL'] . ' 303 See Other');
         @header('Location: '.$url);
         echo bootstrap_renderer::plain_redirect_message($encodedurl);
-        exit;
+        moodle_exit();
     }
 
     // Include a redirect message, even with a HTTP redirect, because that is recommended practice.
     if ($PAGE) {
         $CFG->docroot = false; // To prevent the link to moodle docs from being displayed on redirect page.
         echo $OUTPUT->redirect_message($encodedurl, $message, $delay, $debugdisableredirect, $messagetype);
-        exit;
+        moodle_exit();
     } else {
         echo bootstrap_renderer::early_redirect_message($encodedurl, $message, $delay);
-        exit;
+        moodle_exit();
     }
 }
 

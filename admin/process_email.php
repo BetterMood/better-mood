@@ -64,7 +64,7 @@ if (!function_exists($function)) {
 }
 $fd = fopen('php://stdin','r');
 if (!$fd) {
-    exit();
+    moodle_exit();
 }
 
 while(!feof($fd)) {

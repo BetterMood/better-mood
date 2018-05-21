@@ -102,7 +102,7 @@ if (!empty($action) && $ruleid) {
                     }
                     echo $OUTPUT->confirm($strconfirm, $confirmurl, $cancelurl);
                     echo $OUTPUT->footer();
-                    exit();
+                    moodle_exit();
                 }
             } else {
                 // User doesn't have permissions. Should never happen for real users.
@@ -140,7 +140,7 @@ if ($status) {
         echo ' ' . get_string('contactadmin', 'tool_monitor');
     }
     echo $OUTPUT->footer(); // Do not render anything else.
-    exit();
+    moodle_exit();
 }
 
 // Render the rule list.

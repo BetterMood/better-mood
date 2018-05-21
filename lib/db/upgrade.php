@@ -96,7 +96,7 @@ function xmldb_main_upgrade($oldversion) {
     if ($oldversion < 2016052300) {
         // Just in case somebody hacks upgrade scripts or env, we really can not continue.
         echo("You need to upgrade to 3.1.x or higher first!\n");
-        exit(1);
+        moodle_exit(1);
         // Note this savepoint is 100% unreachable, but needed to pass the upgrade checks.
         upgrade_main_savepoint(true, 2016052300);
     }

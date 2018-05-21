@@ -71,7 +71,7 @@
       } else {
         outputText($output);
       }
-      exit;
+      moodle_exit();
     }
 
 function algebra2tex($algebra) {
