@@ -1,4 +1,6 @@
 <?php
+namespace HTMLPurifier\URIScheme;
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -25,9 +27,9 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Validates MMS defined by Microsoft
+ * Validates TeamSpeak defined by TeamSpeak
  */
-class HTMLPurifier_URIScheme_mms extends HTMLPurifier_URIScheme {
+class HTMLPurifier_URIScheme_teamspeak extends HTMLPurifier_URIScheme {
 
     public $browsable = true;
     public $hierarchical = true;

@@ -1,4 +1,6 @@
 <?php
+namespace HTMLPurifier\URIScheme;
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -24,13 +26,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-
 /**
- * Validates RTMP defined by Adobe
+ * Validates MMS defined by Microsoft
  */
-class HTMLPurifier_URIScheme_rtmp extends HTMLPurifier_URIScheme {
+class HTMLPurifier_URIScheme_mms extends HTMLPurifier_URIScheme {
 
-    public $browsable = false;
+    public $browsable = true;
     public $hierarchical = true;
 
     public function doValidate(&$uri, $config, $context) {

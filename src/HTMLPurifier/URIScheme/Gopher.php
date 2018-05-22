@@ -1,4 +1,6 @@
 <?php
+namespace HTMLPurifier\URIScheme;
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -25,9 +27,9 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Validates RTSP defined by RFC 2326
+ * Validates Gopher defined by RFC 4266
  */
-class HTMLPurifier_URIScheme_rtsp extends HTMLPurifier_URIScheme {
+class HTMLPurifier_URIScheme_gopher extends HTMLPurifier_URIScheme {
 
     public $browsable = true;
     public $hierarchical = true;
