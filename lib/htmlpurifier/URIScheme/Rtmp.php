@@ -22,8 +22,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL 3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 
 /**
  * Validates RTMP defined by Adobe
