@@ -147,7 +147,7 @@ define('PHPUNIT_TEST', false);
 define('IGNORE_COMPONENT_CACHE', true);
 
 // Check that PHP is of a sufficient version as soon as possible.
-\Moodle\lib\PhpMinimumVersion::create(defined('CLI_SCRIPT'))->requireMinimumPhpVersion();
+\Moodle\PhpMinimumVersion::create(defined('CLI_SCRIPT'))->requireMinimumPhpVersion();
 
 // set up configuration
 global $CFG;

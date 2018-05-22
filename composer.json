@@ -6,7 +6,7 @@
     "homepage": "https://moodle.org",
     "autoload": {
         "psr-4": {
-            "Moodle\\": ""
+            "Moodle\\": "src"
         }
     },
     "require-dev": {
