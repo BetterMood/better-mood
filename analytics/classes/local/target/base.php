@@ -271,7 +271,7 @@ abstract class base extends \core_analytics\calculable {
 
         $minscore = floatval($this->min_prediction_score());
         if ($minscore < 0) {
-            debugging(get_class($this) . ' minimum prediction score is below 0, please update it to a value between 0 and 1.');
+            \Moodle\Logger::create()->debug(get_class($this) . ' minimum prediction score is below 0, please update it to a value between 0 and 1.');
         } else if ($minscore > 1) {
             debugging(get_class($this) . ' minimum prediction score is above 1, please update it to a value between 0 and 1.');
         }

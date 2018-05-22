@@ -148,7 +148,7 @@ function file_prepare_standard_editor($data, $field, array $options, $context=nu
     //if context is used properly. This check notify developer that they missed passing context to editor.
     if (isset($context) && !isset($options['context'])) {
         //if $context is not null then make sure $option['context'] is also set.
-        debugging('Context for editor is not set in editoroptions. Hence editor will not respect editor filters', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Context for editor is not set in editoroptions. Hence editor will not respect editor filters', DEBUG_DEVELOPER);
     } else if (isset($options['context']) && isset($context)) {
         //If both are passed then they should be equal.
         if ($options['context']->id != $context->id) {
@@ -774,7 +774,7 @@ function file_get_submitted_draft_itemid($elname) {
         if (!empty($param['itemid'])) {
             $param = $param['itemid'];
         } else {
-            debugging('Missing itemid, maybe caused by unset maxfiles option', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Missing itemid, maybe caused by unset maxfiles option', DEBUG_DEVELOPER);
             return false;
         }
 
@@ -1376,7 +1376,7 @@ function download_file_content($url, $headers=null, $postdata=null, $fullrespons
     if ($error_no) {
         $error = $content;
         if (!$fullresponse) {
-            debugging("cURL request for \"$url\" failed with: $error ($error_no)", DEBUG_ALL);
+            \Moodle\Logger::create()->debug("cURL request for \"$url\" failed with: $error ($error_no)", DEBUG_ALL);
             return false;
         }
 
@@ -1431,7 +1431,7 @@ function download_file_content($url, $headers=null, $postdata=null, $fullrespons
     }
 
     if ($info['http_code'] != 200) {
-        debugging("cURL request for \"$url\" failed, HTTP response code: ".$response->response_code, DEBUG_ALL);
+        \Moodle\Logger::create()->debug("cURL request for \"$url\" failed, HTTP response code: ".$response->response_code, DEBUG_ALL);
         return false;
     }
     return $response->results;

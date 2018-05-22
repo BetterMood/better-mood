@@ -39,7 +39,7 @@ defined('MOODLE_INTERNAL') || die();
 
         // Check CFG->data_enablerssfeeds.
         if (empty($CFG->data_enablerssfeeds)) {
-            debugging("DISABLED (module configuration)");
+            \Moodle\Logger::create()->debug("DISABLED (module configuration)");
             return null;
         }
 

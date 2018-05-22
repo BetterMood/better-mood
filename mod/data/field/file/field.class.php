@@ -173,7 +173,7 @@ class data_field_file extends data_field_base {
             $content->content = array_values($files)[0]->get_filename();
             if (count($files) > 1) {
                 // This should not happen with a consistent database. Inform admins/developers about the inconsistency.
-                debugging('more then one file found in mod_data instance {$this->data->id} file field (field id: {$this->field->id}) area during update data record {$recordid} (content id: {$content->id})', DEBUG_NORMAL);
+                \Moodle\Logger::create()->debug('more then one file found in mod_data instance {$this->data->id} file field (field id: {$this->field->id}) area during update data record {$recordid} (content id: {$content->id})', DEBUG_NORMAL);
             }
         }
         $DB->update_record('data_content', $content);

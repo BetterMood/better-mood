@@ -64,7 +64,7 @@ class PNG_MetaDataHandler
         $header = substr($this->_contents, 0, 8);
 
         if ($header != $png_signature) {
-            debugging('This is not a valid PNG image');
+            \Moodle\Logger::create()->debug('This is not a valid PNG image');
         }
 
         $this->_size = strlen($this->_contents);
@@ -97,7 +97,7 @@ class PNG_MetaDataHandler
                 list($key, $data) = explode("\0", $this->_chunks[$type][$typekey]);
 
                 if (strcmp($key, $check) == 0) {
-                    debugging('Key "' . $check . '" already exists in "' . $type . '" chunk.');
+                    \Moodle\Logger::create()->debug('Key "' . $check . '" already exists in "' . $type . '" chunk.');
                     return false;
                 }
             }
@@ -117,7 +117,7 @@ class PNG_MetaDataHandler
      */
     public function add_chunks($type, $key, $value) {
         if (strlen($key) > 79) {
-            debugging('Key is too big');
+            \Moodle\Logger::create()->debug('Key is too big');
         }
 
         // tEXt Textual data.

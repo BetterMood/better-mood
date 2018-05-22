@@ -5,6 +5,11 @@ class BacktraceFormatter
 {
     private $rootDirectory;
     
+    public static function create()
+    {
+        return new self(new RootDirectory());
+    }
+    
     public function __construct(RootDirectory $rootDirectory)
     {
         $this->rootDirectory = $rootDirectory;

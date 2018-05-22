@@ -113,7 +113,7 @@ class MoodleQuickForm_date_time_selector extends MoodleQuickForm_group {
      * @deprecated since Moodle 3.1
      */
     public function MoodleQuickForm_date_time_selector($elementName = null, $elementLabel = null, $options = array(), $attributes = null) {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
         self::__construct($elementName, $elementLabel, $options, $attributes);
     }
 

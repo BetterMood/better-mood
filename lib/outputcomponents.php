@@ -224,7 +224,7 @@ class user_picture implements renderable {
         foreach (self::$fields as $field) {
             if (!array_key_exists($field, $user)) {
                 $needrec = true;
-                debugging('Missing '.$field.' property in $user object, this is a performance problem that needs to be fixed by a developer. '
+                \Moodle\Logger::create()->debug('Missing '.$field.' property in $user object, this is a performance problem that needs to be fixed by a developer. '
                           .'Please use user_picture::fields() to get the full list of required fields.', DEBUG_DEVELOPER);
                 break;
             }
@@ -489,10 +489,10 @@ class help_icon implements renderable, templatable {
     public function diag_strings() {
         $sm = get_string_manager();
         if (!$sm->string_exists($this->identifier, $this->component)) {
-            debugging("Help title string does not exist: [$this->identifier, $this->component]");
+            \Moodle\Logger::create()->debug("Help title string does not exist: [$this->identifier, $this->component]");
         }
         if (!$sm->string_exists($this->identifier.'_help', $this->component)) {
-            debugging("Help contents string does not exist: [{$this->identifier}_help, $this->component]");
+            \Moodle\Logger::create()->debug("Help contents string does not exist: [{$this->identifier}_help, $this->component]");
         }
     }
 
@@ -1314,7 +1314,7 @@ class url_select implements renderable, templatable {
             $value = str_replace($CFG->wwwroot, '', $value);
 
         } else if (strpos($value, '/') !== 0) {
-            debugging("Invalid url_select urls parameter: url '$value' is not local relative url!", DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug("Invalid url_select urls parameter: url '$value' is not local relative url!", DEBUG_DEVELOPER);
         }
 
         return $value;
@@ -2315,7 +2315,7 @@ class html_writer {
         //     if (!empty($colon)) {
         //         $trimmed = trim($colon);
         //         if ((substr($text, -strlen($trimmed)) == $trimmed) or (substr($text, -1) == ':')) {
-        //             //debugging('The label text should not end with colon or other label separator,
+        //             //\Moodle\Logger::create()->debug('The label text should not end with colon or other label separator,
         //             //           please fix the string definition.', DEBUG_DEVELOPER);
         //         } else {
         //             $label .= $colon;
@@ -4397,7 +4397,7 @@ class action_menu implements renderable, templatable {
      * @deprecated since Moodle 3.2
      */
     public function do_not_enhance() {
-        debugging('The method action_menu::do_not_enhance() is deprecated, use a list of action_icon instead.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('The method action_menu::do_not_enhance() is deprecated, use a list of action_icon instead.', DEBUG_DEVELOPER);
     }
 
     /**
@@ -4783,7 +4783,7 @@ class progress_bar implements renderable, templatable {
      */
     public function __construct($htmlid = '', $width = 500, $autostart = false) {
         if (!CLI_SCRIPT && !NO_OUTPUT_BUFFERING) {
-            debugging('progress_bar used in a non-CLI script without setting NO_OUTPUT_BUFFERING.', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('progress_bar used in a non-CLI script without setting NO_OUTPUT_BUFFERING.', DEBUG_DEVELOPER);
         }
 
         if (!empty($htmlid)) {

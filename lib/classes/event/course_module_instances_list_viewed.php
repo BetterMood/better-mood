@@ -27,7 +27,7 @@
 namespace core\event;
 defined('MOODLE_INTERNAL') || die();
 
-debugging('core\\event\\course_module_instances_list_viewed has been deperecated. Please use
+\Moodle\Logger::create()->debug('core\\event\\course_module_instances_list_viewed has been deperecated. Please use
         core\\event\\course_module_instance_list_viewed instead', DEBUG_DEVELOPER);
 
 /**

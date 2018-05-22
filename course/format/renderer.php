@@ -281,7 +281,7 @@ abstract class format_section_renderer_base extends plugin_renderer_base {
                     $attr);
         }
 
-        debugging('section_edit_controls() is deprecated, please use section_edit_control_items() instead.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('section_edit_controls() is deprecated, please use section_edit_control_items() instead.', DEBUG_DEVELOPER);
         return $controls;
     }
 

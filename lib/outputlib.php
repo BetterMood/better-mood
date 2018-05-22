@@ -687,13 +687,13 @@ class theme_config {
             throw new coding_exception('Default theme '.theme_config::DEFAULT_THEME.' not available or broken!');
 
         } else if ($config = theme_config::find_theme_config($CFG->theme, $settings)) {
-            debugging('This page should be using theme ' . $themename .
+            \Moodle\Logger::create()->debug('This page should be using theme ' . $themename .
                     ' which cannot be initialised. Falling back to the site theme ' . $CFG->theme, DEBUG_NORMAL);
             return new theme_config($config);
 
         } else {
             // bad luck, the requested theme has some problems - admin see details in theme config
-            debugging('This page should be using theme ' . $themename .
+            \Moodle\Logger::create()->debug('This page should be using theme ' . $themename .
                     ' which cannot be initialised. Nor can the site theme ' . $CFG->theme .
                     '. Falling back to ' . theme_config::DEFAULT_THEME, DEBUG_NORMAL);
             return new theme_config(theme_config::find_theme_config(theme_config::DEFAULT_THEME, $settings));
@@ -777,7 +777,7 @@ class theme_config {
         } else {
             // check if renderers.php file is missnamed renderer.php
             if (is_readable($this->dir.'/renderer.php')) {
-                debugging('Developer hint: '.$this->dir.'/renderer.php should be renamed to ' . $this->dir."/renderers.php.
+                \Moodle\Logger::create()->debug('Developer hint: '.$this->dir.'/renderer.php should be renamed to ' . $this->dir."/renderers.php.
                     See: http://docs.moodle.org/dev/Output_renderers#Theme_renderers.", DEBUG_DEVELOPER);
             }
         }
@@ -1432,7 +1432,7 @@ class theme_config {
 
         } catch (Less_Exception_Parser $e) {
             $compiled = false;
-            debugging('Error while compiling LESS ' . $lessfile . ' file: ' . $e->getMessage(), DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Error while compiling LESS ' . $lessfile . ' file: ' . $e->getMessage(), DEBUG_DEVELOPER);
         }
 
         // Try to save memory.
@@ -1477,7 +1477,7 @@ class theme_config {
 
         } catch (\Exception $e) {
             $compiled = false;
-            debugging('Error while compiling SCSS: ' . $e->getMessage(), DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Error while compiling SCSS: ' . $e->getMessage(), DEBUG_DEVELOPER);
         }
 
         // Try to save memory.
@@ -1530,7 +1530,7 @@ class theme_config {
             if (function_exists($function)) {
                 $vars = $function($this);
                 if (!is_array($vars)) {
-                    debugging('Callback ' . $function . ' did not return an array() as expected', DEBUG_DEVELOPER);
+                    \Moodle\Logger::create()->debug('Callback ' . $function . ' did not return an array() as expected', DEBUG_DEVELOPER);
                     continue;
                 }
                 $variables = array_merge($variables, $vars);
@@ -1901,7 +1901,7 @@ class theme_config {
      * @return moodle_url
      */
     public function pix_url($imagename, $component) {
-        debugging('pix_url is deprecated. Use image_url for images and pix_icon for icons.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('pix_url is deprecated. Use image_url for images and pix_icon for icons.', DEBUG_DEVELOPER);
         return $this->image_url($imagename, $component);
     }
 
@@ -2390,7 +2390,7 @@ class theme_config {
         if (array_key_exists($pagelayout, $this->layouts)) {
             return $this->layouts[$pagelayout];
         } else {
-            debugging('Invalid page layout specified: ' . $pagelayout);
+            \Moodle\Logger::create()->debug('Invalid page layout specified: ' . $pagelayout);
             return $this->layouts['standard'];
         }
     }
@@ -2427,7 +2427,7 @@ class theme_config {
             }
         }
 
-        debugging('Can not find layout file for: ' . $pagelayout);
+        \Moodle\Logger::create()->debug('Can not find layout file for: ' . $pagelayout);
         // fallback to standard normal layout
         return "$CFG->dirroot/theme/base/layout/general.php";
     }
@@ -2623,14 +2623,14 @@ class xhtml_container_stack {
      */
     public function pop($type) {
         if (empty($this->opencontainers)) {
-            debugging('<p>There are no more open containers. This suggests there is a nesting problem.</p>' .
+            \Moodle\Logger::create()->debug('<p>There are no more open containers. This suggests there is a nesting problem.</p>' .
                     $this->output_log(), DEBUG_DEVELOPER);
             return;
         }
 
         $container = array_pop($this->opencontainers);
         if ($container->type != $type) {
-            debugging('<p>The type of container to be closed (' . $container->type .
+            \Moodle\Logger::create()->debug('<p>The type of container to be closed (' . $container->type .
                     ') does not match the type of the next open container (' . $type .
                     '). This suggests there is a nesting problem.</p>' .
                     $this->output_log(), DEBUG_DEVELOPER);
@@ -2652,7 +2652,7 @@ class xhtml_container_stack {
      */
     public function pop_all_but_last($shouldbenone = false) {
         if ($shouldbenone && count($this->opencontainers) != 1) {
-            debugging('<p>Some HTML tags were opened in the body of the page but not closed.</p>' .
+            \Moodle\Logger::create()->debug('<p>Some HTML tags were opened in the body of the page but not closed.</p>' .
                     $this->output_log(), DEBUG_DEVELOPER);
         }
         $output = '';

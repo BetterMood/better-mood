@@ -178,7 +178,7 @@ class webservice_xmlrpc_server extends webservice_base_server {
             $faultcode = substr($faultcode, 0, 8);
 
             // Add the debuginfo to the exception message if debuginfo must be returned.
-            if (debugging() and isset($ex->debuginfo)) {
+            if (\Moodle\Logger::create()->debug() and isset($ex->debuginfo)) {
                 $error .= ' | DEBUG INFO: ' . $ex->debuginfo . ' | ERRORCODE: ' . $ex->errorcode;
             } else {
                 $error .= ' | ERRORCODE: ' . $ex->errorcode;

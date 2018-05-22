@@ -715,7 +715,7 @@ class completion_info {
     public function set_module_viewed($cm, $userid=0) {
         global $PAGE;
         if ($PAGE->headerprinted) {
-            debugging('set_module_viewed must be called before header is printed',
+            \Moodle\Logger::create()->debug('set_module_viewed must be called before header is printed',
                     DEBUG_DEVELOPER);
         }
 

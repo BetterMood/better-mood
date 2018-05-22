@@ -78,7 +78,7 @@ class profile_field_base {
                     in_array(self::class, class_parents($backtrace[1]['class']))) {
                 // If this constructor is called from the constructor of the plugin make sure that the third argument was passed through.
                 if (count($backtrace[1]['args']) >= 3 && count($backtrace[0]['args']) < 3) {
-                    debugging($backtrace[1]['class'].'::__construct() must support $fielddata as the third argument ' .
+                    \Moodle\Logger::create()->debug($backtrace[1]['class'].'::__construct() must support $fielddata as the third argument ' .
                         'and pass it to the parent constructor', DEBUG_DEVELOPER);
                 }
             }

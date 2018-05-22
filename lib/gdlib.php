@@ -126,7 +126,7 @@ function process_new_icon($context, $component, $filearea, $itemid, $originalfil
             if (function_exists('imagecreatefromgif')) {
                 $im = imagecreatefromgif($originalfile);
             } else {
-                debugging('GIF not supported on this server');
+                \Moodle\Logger::create()->debug('GIF not supported on this server');
                 return false;
             }
             // Guess transparent colour from GIF.
@@ -139,7 +139,7 @@ function process_new_icon($context, $component, $filearea, $itemid, $originalfil
             if (function_exists('imagecreatefromjpeg')) {
                 $im = imagecreatefromjpeg($originalfile);
             } else {
-                debugging('JPEG not supported on this server');
+                \Moodle\Logger::create()->debug('JPEG not supported on this server');
                 return false;
             }
             // If the user uploads a jpeg them we should process as a jpeg if possible.
@@ -154,7 +154,7 @@ function process_new_icon($context, $component, $filearea, $itemid, $originalfil
             if (function_exists('imagecreatefrompng')) {
                 $im = imagecreatefrompng($originalfile);
             } else {
-                debugging('PNG not supported on this server');
+                \Moodle\Logger::create()->debug('PNG not supported on this server');
                 return false;
             }
             break;
@@ -175,7 +175,7 @@ function process_new_icon($context, $component, $filearea, $itemid, $originalfil
             $filters = null; // Not used.
             $quality = 90;
         } else {
-            debugging('Jpeg and png not supported on this server, please fix server configuration');
+            \Moodle\Logger::create()->debug('Jpeg and png not supported on this server, please fix server configuration');
             return false;
         }
     }
@@ -338,7 +338,7 @@ function resize_image_from_image($original, $imageinfo, $width, $height, $forcec
         $filters = null;
         $quality = 90;
     } else {
-        debugging('Neither JPEG nor PNG are supported at this server, please fix the system configuration.');
+        \Moodle\Logger::create()->debug('Neither JPEG nor PNG are supported at this server, please fix the system configuration.');
         return false;
     }
 

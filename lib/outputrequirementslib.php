@@ -495,12 +495,12 @@ class page_requirements_manager {
         global $CFG;
 
         if ($this->headdone) {
-            debugging('Can not add jQuery plugins after starting page output!');
+            \Moodle\Logger::create()->debug('Can not add jQuery plugins after starting page output!');
             return false;
         }
 
         if ($component !== 'core' and in_array($plugin, array('jquery', 'ui', 'ui-css'))) {
-            debugging("jQuery plugin '$plugin' is included in Moodle core, other components can not use the same name.", DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug("jQuery plugin '$plugin' is included in Moodle core, other components can not use the same name.", DEBUG_DEVELOPER);
             $component = 'core';
         } else if ($component !== 'core' and strpos($component, '_') === false) {
             // Let's normalise the legacy activity names, Frankenstyle rulez!
@@ -520,7 +520,7 @@ class page_requirements_manager {
 
         $componentdir = core_component::get_component_directory($component);
         if (!file_exists($componentdir) or !file_exists("$componentdir/jquery/plugins.php")) {
-            debugging("Can not load jQuery plugin '$plugin', missing plugins.php in component '$component'.", DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug("Can not load jQuery plugin '$plugin', missing plugins.php in component '$component'.", DEBUG_DEVELOPER);
             return false;
         }
 
@@ -528,7 +528,7 @@ class page_requirements_manager {
         require("$componentdir/jquery/plugins.php");
 
         if (!isset($plugins[$plugin])) {
-            debugging("jQuery plugin '$plugin' can not be found in component '$component'.", DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug("jQuery plugin '$plugin' can not be found in component '$component'.", DEBUG_DEVELOPER);
             return false;
         }
 
@@ -540,14 +540,14 @@ class page_requirements_manager {
         foreach ($plugins[$plugin]['files'] as $file) {
             if ($CFG->debugdeveloper) {
                 if (!file_exists("$componentdir/jquery/$file")) {
-                    debugging("Invalid file '$file' specified in jQuery plugin '$plugin' in component '$component'");
+                    \Moodle\Logger::create()->debug("Invalid file '$file' specified in jQuery plugin '$plugin' in component '$component'");
                     continue;
                 }
                 $file = str_replace('.min.css', '.css', $file);
                 $file = str_replace('.min.js', '.js', $file);
             }
             if (!file_exists("$componentdir/jquery/$file")) {
-                debugging("Invalid file '$file' specified in jQuery plugin '$plugin' in component '$component'");
+                \Moodle\Logger::create()->debug("Invalid file '$file' specified in jQuery plugin '$plugin' in component '$component'");
                 continue;
             }
             if (!empty($CFG->slasharguments)) {
@@ -564,7 +564,7 @@ class page_requirements_manager {
                     $url = new moodle_url($url);
                 } else {
                     // Bad luck, fix your server!
-                    debugging("Moodle jQuery integration requires 'slasharguments' setting to be enabled.");
+                    \Moodle\Logger::create()->debug("Moodle jQuery integration requires 'slasharguments' setting to be enabled.");
                     continue;
                 }
             }
@@ -603,7 +603,7 @@ class page_requirements_manager {
      */
     public function jquery_override_plugin($oldplugin, $newplugin) {
         if ($this->headdone) {
-            debugging('Can not override jQuery plugins after starting page output!');
+            \Moodle\Logger::create()->debug('Can not override jQuery plugins after starting page output!');
             return;
         }
         $this->jquerypluginoverrides[$oldplugin] = $newplugin;
@@ -643,14 +643,14 @@ class page_requirements_manager {
                 if ($cyclic) {
                     // We can not do much with cyclic references here, let's use the old plugin.
                     $name = $oldname;
-                    debugging("Cyclic overrides detected for jQuery plugin '$name'");
+                    \Moodle\Logger::create()->debug("Cyclic overrides detected for jQuery plugin '$name'");
 
                 } else if (empty($name)) {
                     // Developer requested removal of the plugin.
                     continue;
 
                 } else if (!isset($this->jqueryplugins[$name])) {
-                    debugging("Unknown jQuery override plugin '$name' detected");
+                    \Moodle\Logger::create()->debug("Unknown jQuery override plugin '$name' detected");
                     $name = $oldname;
 
                 } else if (isset($included[$name])) {
@@ -696,7 +696,7 @@ class page_requirements_manager {
                     $url = preg_replace("|^/admin/|", "/$CFG->admin/", $url);
                 }
             }
-            if (debugging()) {
+            if (\Moodle\Logger::create()->debug()) {
                 // Check file existence only when in debug mode.
                 if (!file_exists($CFG->dirroot . strtok($url, '?'))) {
                     throw new coding_exception('Attempt to require a JavaScript file that does not exist.', $url);
@@ -947,7 +947,7 @@ class page_requirements_manager {
      */
     public function skip_link_to($target, $linktext) {
         if ($this->topofbodydone) {
-            debugging('Page header already printed, can not add skip links any more, code needs to be fixed.');
+            \Moodle\Logger::create()->debug('Page header already printed, can not add skip links any more, code needs to be fixed.');
             return;
         }
         $this->skiplinks[$target] = $linktext;
@@ -1022,7 +1022,7 @@ class page_requirements_manager {
         if ($CFG->debugdeveloper) {
             $toomanyparamslimit = 1024;
             if (strlen($strparams) > $toomanyparamslimit) {
-                debugging('Too many params passed to js_call_amd("' . $fullmodule . '", "' . $func . '")', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Too many params passed to js_call_amd("' . $fullmodule . '", "' . $func . '")', DEBUG_DEVELOPER);
             }
         }
 
@@ -1055,7 +1055,7 @@ class page_requirements_manager {
         }
 
         if ($galleryversion != null) {
-            debugging('The galleryversion parameter to yui_module has been deprecated since Moodle 2.3.');
+            \Moodle\Logger::create()->debug('The galleryversion parameter to yui_module has been deprecated since Moodle 2.3.');
         }
 
         $jscode = 'Y.use('.join(',', array_map('json_encode', convert_to_array($modules))).',function() {'.js_writer::function_call($function, $arguments).'});';

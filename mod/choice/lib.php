@@ -941,7 +941,7 @@ function choice_page_type_list($pagetype, $parentcontext, $currentcontext) {
 function choice_print_overview($courses, &$htmlarray) {
     global $USER, $DB, $OUTPUT;
 
-    debugging('The function choice_print_overview() is now deprecated.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('The function choice_print_overview() is now deprecated.', DEBUG_DEVELOPER);
 
     if (empty($courses) || !is_array($courses) || count($courses) == 0) {
         return;

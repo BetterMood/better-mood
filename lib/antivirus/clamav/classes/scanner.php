@@ -63,7 +63,7 @@ class scanner extends \core\antivirus\scanner {
     public function scan_file($file, $filename) {
         if (!is_readable($file)) {
             // This should not happen.
-            debugging('File is not readable.');
+            \Moodle\Logger::create()->debug('File is not readable.');
             return self::SCAN_RESULT_ERROR;
         }
 

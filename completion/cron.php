@@ -35,7 +35,7 @@ require_once($CFG->libdir.'/completionlib.php');
 function completion_cron_mark_started() {
     global $CFG, $DB;
 
-    if (debugging()) {
+    if (\Moodle\Logger::create()->debug()) {
         mtrace('Marking users as started');
     }
 

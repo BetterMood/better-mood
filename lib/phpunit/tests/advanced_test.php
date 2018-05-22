@@ -39,18 +39,19 @@ class core_phpunit_advanced_testcase extends advanced_testcase {
     public function test_debugging() {
         global $CFG;
         $this->resetAfterTest();
+        $logger = \Moodle\Logger::create();
 
-        debugging('hokus');
+        $logger->debug('hokus');
         $this->assertDebuggingCalled();
-        debugging('pokus');
+        $logger->debug('pokus');
         $this->assertDebuggingCalled('pokus');
-        debugging('pokus', DEBUG_MINIMAL);
+        $logger->debug('pokus', DEBUG_MINIMAL);
         $this->assertDebuggingCalled('pokus', DEBUG_MINIMAL);
         $this->assertDebuggingNotCalled();
 
-        debugging('a');
-        debugging('b', DEBUG_MINIMAL);
-        debugging('c', DEBUG_DEVELOPER);
+        $logger->debug('a');
+        $logger->debug('b', DEBUG_MINIMAL);
+        $logger->debug('c', DEBUG_DEVELOPER);
         $debuggings = $this->getDebuggingMessages();
         $this->assertCount(3, $debuggings);
         $this->assertSame('a', $debuggings[0]->message);
@@ -66,7 +67,7 @@ class core_phpunit_advanced_testcase extends advanced_testcase {
         $this->assertCount(0, $debuggings);
 
         set_debugging(DEBUG_NONE);
-        debugging('hokus');
+        $logger->debug('hokus');
         $this->assertDebuggingNotCalled();
         set_debugging(DEBUG_DEVELOPER);
     }
@@ -77,7 +78,7 @@ class core_phpunit_advanced_testcase extends advanced_testcase {
      * Annotations are a valid PHPUnit method for running tests.  Debugging needs to support them.
      */
     public function debugging_called_with_annotation() {
-        debugging('pokus', DEBUG_MINIMAL);
+        \Moodle\Logger::create()->debug('pokus', DEBUG_MINIMAL);
         $this->assertDebuggingCalled('pokus', DEBUG_MINIMAL);
     }
 

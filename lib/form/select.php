@@ -68,7 +68,7 @@ class MoodleQuickForm_select extends HTML_QuickForm_select implements templatabl
      * @deprecated since Moodle 3.1
      */
     public function MoodleQuickForm_select($elementName=null, $elementLabel=null, $options=null, $attributes=null) {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
         self::__construct($elementName, $elementLabel, $options, $attributes);
     }
 

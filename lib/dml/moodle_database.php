@@ -251,7 +251,7 @@ abstract class moodle_database {
      * @return string
      */
     public function get_configuration_hints() {
-        debugging('$DB->get_configuration_hints() method is deprecated, use $DB->get_configuration_help() instead');
+        \Moodle\Logger::create()->debug('$DB->get_configuration_hints() method is deprecated, use $DB->get_configuration_help() instead');
         return $this->get_configuration_help();
     }
 
@@ -662,7 +662,7 @@ abstract class moodle_database {
         }
 
         // Some checks performed under debugging only
-        if (debugging()) {
+        if (\Moodle\Logger::create()->debug()) {
             $columns = $this->get_columns($table);
             if (empty($columns)) {
                 // no supported columns means most probably table does not exist
@@ -699,7 +699,7 @@ abstract class moodle_database {
                     // spaces and other forbidden chars when using sql_xxx() functions and friends.
                     $normkey = trim(preg_replace('/[^a-zA-Z0-9_-]/', '_', $key), '-_');
                     if ($normkey !== $key) {
-                        debugging('Invalid key found in the conditions array.');
+                        \Moodle\Logger::create()->debug('Invalid key found in the conditions array.');
                     }
                     $where[] = "$key = :$normkey";
                     $params[$normkey] = $value;
@@ -1041,19 +1041,19 @@ abstract class moodle_database {
         if ($CFG->debugdeveloper) {
             if (!is_numeric($limitfrom)) {
                 $strvalue = var_export($limitfrom, true);
-                debugging("Non-numeric limitfrom parameter detected: $strvalue, did you pass the correct arguments?",
+                \Moodle\Logger::create()->debug("Non-numeric limitfrom parameter detected: $strvalue, did you pass the correct arguments?",
                     DEBUG_DEVELOPER);
             } else if ($limitfrom < 0) {
-                debugging("Negative limitfrom parameter detected: $limitfrom, did you pass the correct arguments?",
+                \Moodle\Logger::create()->debug("Negative limitfrom parameter detected: $limitfrom, did you pass the correct arguments?",
                     DEBUG_DEVELOPER);
             }
 
             if (!is_numeric($limitnum)) {
                 $strvalue = var_export($limitnum, true);
-                debugging("Non-numeric limitnum parameter detected: $strvalue, did you pass the correct arguments?",
+                \Moodle\Logger::create()->debug("Non-numeric limitnum parameter detected: $strvalue, did you pass the correct arguments?",
                     DEBUG_DEVELOPER);
             } else if ($limitnum < 0) {
-                debugging("Negative limitnum parameter detected: $limitnum, did you pass the correct arguments?",
+                \Moodle\Logger::create()->debug("Negative limitnum parameter detected: $limitnum, did you pass the correct arguments?",
                     DEBUG_DEVELOPER);
             }
         }
@@ -1584,7 +1584,7 @@ abstract class moodle_database {
             if ($strictness == MUST_EXIST) {
                 throw new dml_multiple_records_exception($sql, $params);
             }
-            debugging('Error: mdb->get_record() found more than one record!');
+            \Moodle\Logger::create()->debug('Error: mdb->get_record() found more than one record!');
         }
 
         $return = reset($records);
@@ -2138,7 +2138,7 @@ abstract class moodle_database {
      */
     public function sql_like($fieldname, $param, $casesensitive = true, $accentsensitive = true, $notlike = false, $escapechar = '\\') {
         if (strpos($param, '%') !== false) {
-            debugging('Potential SQL injection detected, sql_like() expects bound parameters (? or :named)');
+            \Moodle\Logger::create()->debug('Potential SQL injection detected, sql_like() expects bound parameters (? or :named)');
         }
         $LIKE = $notlike ? 'NOT LIKE' : 'LIKE';
         // by default ignore any sensitiveness - each database does it in a different way
@@ -2259,7 +2259,7 @@ abstract class moodle_database {
      * @return string An empty string.
      */
     function sql_empty() {
-        debugging("sql_empty() is deprecated, please use empty string '' as sql parameter value instead", DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug("sql_empty() is deprecated, please use empty string '' as sql parameter value instead", DEBUG_DEVELOPER);
         return '';
     }
 

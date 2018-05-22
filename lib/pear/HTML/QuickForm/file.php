@@ -72,7 +72,7 @@ class HTML_QuickForm_file extends HTML_QuickForm_input
      * @deprecated since Moodle 3.1
      */
     public function HTML_QuickForm_file($elementName=null, $elementLabel=null, $attributes=null) {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
         self::__construct($elementName, $elementLabel, $attributes);
     }
 

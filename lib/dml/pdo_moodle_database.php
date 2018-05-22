@@ -332,7 +332,7 @@ abstract class pdo_moodle_database extends moodle_database {
         foreach($rs as $value) {
             $key = reset($value);
             if ($CFG->debugdeveloper && array_key_exists($key, $objects)) {
-                debugging("Did you remember to make the first column something unique in your call to get_records? Duplicate value '$key' found in column first column of '$sql'.", DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug("Did you remember to make the first column something unique in your call to get_records? Duplicate value '$key' found in column first column of '$sql'.", DEBUG_DEVELOPER);
             }
             $objects[$key] = (object)$value;
         }

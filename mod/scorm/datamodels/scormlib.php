@@ -527,9 +527,11 @@ function scorm_get_manifest($blocks, $scoes) {
     }
     if (!empty($manifestresourcesnotfound)) {
         // Throw warning to user to let them know manifest contains references to resources that don't appear to exist.
-        if (!defined('DEBUGGING_PRINTED')) {
+        $debuggingPrinted = \Moodle\DebuggingPrinted::getInstance();
+        
+        if (!$debuggingPrinted->check()) {
             // Prevent redirect and display warning.
-            define('DEBUGGING_PRINTED', 1);
+            $debuggingPrinted->setToTrue();
         }
         echo $OUTPUT->notification(get_string('invalidmanifestresource', 'scorm').' '. implode(', ', $manifestresourcesnotfound));
     }

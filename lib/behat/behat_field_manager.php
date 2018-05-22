@@ -267,7 +267,7 @@ class behat_field_manager {
      * @return behat_form_field
      */
     public static function get_field(NodeElement $fieldnode, $locator, Session $session) {
-        debugging('Function behat_field_manager::get_field() is deprecated, ' .
+        \Moodle\Logger::create()->debug('Function behat_field_manager::get_field() is deprecated, ' .
             'please use function behat_field_manager::get_form_field() instead', DEBUG_DEVELOPER);
 
         return self::get_form_field($fieldnode, $session);
@@ -288,7 +288,7 @@ class behat_field_manager {
      * @return mixed A NodeElement if we continue looking for the element type and String or false when we are done.
      */
     protected static function get_node_type(NodeElement $fieldnode, $locator, Session $session) {
-        debugging('Function behat_field_manager::get_node_type() is deprecated, ' .
+        \Moodle\Logger::create()->debug('Function behat_field_manager::get_node_type() is deprecated, ' .
             'please use function behat_field_manager::get_field_node_type() instead', DEBUG_DEVELOPER);
 
         return self::get_field_node_type($fieldnode, $session);

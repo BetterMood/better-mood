@@ -54,7 +54,7 @@ abstract class persistent extends \core\persistent {
      * @return mixed
      */
     final public function __call($method, $arguments) {
-        debugging('Use of magic setters and getters is deprecated. Use get() and set().', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of magic setters and getters is deprecated. Use get() and set().', DEBUG_DEVELOPER);
         if (strpos($method, 'get_') === 0) {
             return $this->get(substr($method, 4));
         } else if (strpos($method, 'set_') === 0) {

@@ -43,7 +43,7 @@ echo $OUTPUT->box(format_text(get_string('courseexplanation', 'tool_generator'),
         FORMAT_MARKDOWN, array('context' => $context)));
 
 // Check debugging is set to DEVELOPER.
-if (!debugging('', DEBUG_DEVELOPER)) {
+if (!\Moodle\Logger::create()->debug('', DEBUG_DEVELOPER)) {
     echo $OUTPUT->notification(get_string('error_notdebugging', 'tool_generator'));
     echo $OUTPUT->footer();
     moodle_exit();

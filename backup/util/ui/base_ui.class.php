@@ -323,7 +323,7 @@ abstract class base_ui {
         try {
             return $this->controller->get_plan()->get_setting($name);
         } catch (Exception $e) {
-            debugging('Failed to find the setting: '.$name, DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Failed to find the setting: '.$name, DEBUG_DEVELOPER);
             return $default;
         }
     }
@@ -338,7 +338,7 @@ abstract class base_ui {
         try {
             return $this->controller->get_plan()->get_setting($name)->get_value();
         } catch (Exception $e) {
-            debugging('Failed to find the setting: '.$name, DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Failed to find the setting: '.$name, DEBUG_DEVELOPER);
             return $default;
         }
     }

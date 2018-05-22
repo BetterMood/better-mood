@@ -68,7 +68,7 @@ class user_roles_editable extends \core\output\inplace_editable {
      */
     public function __construct($course, $context, $user, $courseroles, $assignableroles, $profileroles, $userroles, $viewableroles = null) {
         if ($viewableroles === null) {
-            debugging('Constructor for user_roles_editable now needs the result of get_viewable_roles passed as viewableroles');
+            \Moodle\Logger::create()->debug('Constructor for user_roles_editable now needs the result of get_viewable_roles passed as viewableroles');
         }
 
         // Check capabilities to get editable value.

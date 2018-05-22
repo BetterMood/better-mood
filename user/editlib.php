@@ -197,7 +197,7 @@ function useredit_update_user_preference($usernew) {
  * @return bool True if the user was updated, false if it stayed the same.
  */
 function useredit_update_picture(stdClass $usernew, moodleform $userform, $filemanageroptions = array()) {
-    debugging('useredit_update_picture() is deprecated. Please use core_user::update_picture() instead.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('useredit_update_picture() is deprecated. Please use core_user::update_picture() instead.', DEBUG_DEVELOPER);
     return core_user::update_picture($usernew, $filemanageroptions);
 }
 

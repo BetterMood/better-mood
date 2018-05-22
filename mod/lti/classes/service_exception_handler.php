@@ -100,7 +100,7 @@ class service_exception_handler {
         $message = $exception->getMessage();
 
         // Add the exception backtrace for developers.
-        if (debugging('', DEBUG_DEVELOPER)) {
+        if (\Moodle\Logger::create()->debug('', DEBUG_DEVELOPER)) {
             $backtraceFormatter = new \Moodle\BacktraceFormatter(
                 new \Moodle\RootDirectory()
             );

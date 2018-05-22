@@ -63,7 +63,7 @@ class behat_context_helper {
      * @todo MDL-55365 This will be deleted in Moodle 3.6.
      */
     public static function set_session(Environment $environment) {
-        debugging('set_session is deprecated. Please use set_environment instead.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('set_session is deprecated. Please use set_environment instead.', DEBUG_DEVELOPER);
 
         self::set_environment($environment);
     }

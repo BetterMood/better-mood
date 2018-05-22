@@ -402,7 +402,7 @@ function get_users($get=true, $search='', $confirmed=false, array $exceptions=nu
     global $DB, $CFG;
 
     if ($get && !$recordsperpage) {
-        debugging('Call to get_users with $get = true no $recordsperpage limit. ' .
+        \Moodle\Logger::create()->debug('Call to get_users with $get = true no $recordsperpage limit. ' .
                 'On large installations, this will probably cause an out of memory error. ' .
                 'Please think again and change your code so that it does not try to ' .
                 'load so much data into memory.', DEBUG_DEVELOPER);
@@ -982,7 +982,7 @@ function fix_course_sortorder() {
         }
         if (!empty($categories)) {
             $str = implode(', ', $categories);
-            debugging("The number of courses (category id: $str) has reached MAX_COURSES_IN_CATEGORY (" . MAX_COURSES_IN_CATEGORY . "), it will cause a sorting performance issue, please increase the value of MAX_COURSES_IN_CATEGORY in lib/datalib.php file. See tracker issue: MDL-25669", DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug("The number of courses (category id: $str) has reached MAX_COURSES_IN_CATEGORY (" . MAX_COURSES_IN_CATEGORY . "), it will cause a sorting performance issue, please increase the value of MAX_COURSES_IN_CATEGORY in lib/datalib.php file. See tracker issue: MDL-25669", DEBUG_DEVELOPER);
         }
         $cacheevents['changesincoursecat'] = true;
     }
@@ -1543,7 +1543,7 @@ function get_log_manager($forcereload = false) {
 
     if (!class_exists($classname)) {
         if (!empty($classname)) {
-            debugging("Cannot find log manager class '$classname'.", DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug("Cannot find log manager class '$classname'.", DEBUG_DEVELOPER);
         }
         $classname = '\core\log\dummy_manager';
     }
@@ -1724,7 +1724,7 @@ function print_object($object) {
  */
 function xmldb_debug($message, $object) {
 
-    debugging($message, DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug($message, DEBUG_DEVELOPER);
 }
 
 /**

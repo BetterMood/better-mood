@@ -26,7 +26,7 @@ class mod_data_export_form extends moodleform {
      * @deprecated since Moodle 3.1
      */
     public function mod_data_export_form($url, $datafields, $cm, $data) {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
         self::__construct($url, $datafields, $cm, $data);
     }
 

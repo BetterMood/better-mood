@@ -67,10 +67,10 @@ class message_output_email extends message_output {
         if (!empty($CFG->allowattachments) && !empty($eventdata->attachment)) {
             if (empty($eventdata->attachname)) {
                 // Attachment needs a file name.
-                debugging('Attachments should have a file name. No attachments have been sent.', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Attachments should have a file name. No attachments have been sent.', DEBUG_DEVELOPER);
             } else if (!($eventdata->attachment instanceof stored_file)) {
                 // Attachment should be of a type stored_file.
-                debugging('Attachments should be of type stored_file. No attachments have been sent.', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Attachments should be of type stored_file. No attachments have been sent.', DEBUG_DEVELOPER);
             } else {
                 // Copy attachment file to a temporary directory and get the file path.
                 $attachment = $eventdata->attachment->copy_content_to_temp();

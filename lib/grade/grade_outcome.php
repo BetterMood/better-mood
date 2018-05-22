@@ -363,12 +363,12 @@ class grade_outcome extends grade_object {
         global $CFG, $DB;
 
         if (!isset($this->id)) {
-            debugging("You must setup the outcome's id before calling its get_grade_info() method!");
+            \Moodle\Logger::create()->debug("You must setup the outcome's id before calling its get_grade_info() method!");
             return false; // id must be defined for this to work
         }
 
         if ($average === false && $items === false) {
-            debugging('Either the 1st or 2nd param of grade_outcome::get_grade_info() must be true, or both, but not both false!');
+            \Moodle\Logger::create()->debug('Either the 1st or 2nd param of grade_outcome::get_grade_info() must be true, or both, but not both false!');
             return false;
         }
 

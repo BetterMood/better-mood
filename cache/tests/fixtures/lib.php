@@ -161,7 +161,7 @@ class cache_config_testing extends cache_config_writer {
                 }
                 // We don't care that this fails but we should let the developer know.
                 if (!is_readable($configpath) && !@copy($path, $configpath)) {
-                    debugging('Failed to copy alt cache config file to required location');
+                    \Moodle\Logger::create()->debug('Failed to copy alt cache config file to required location');
                 }
             }
         }

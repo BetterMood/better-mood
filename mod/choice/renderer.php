@@ -304,7 +304,7 @@ class mod_choice_renderer extends plugin_renderer_base {
      */
     public function display_publish_anonymous_horizontal($choices) {
         global $CHOICE_COLUMN_HEIGHT;
-        debugging(__FUNCTION__.'() is deprecated. Please use mod_choice_renderer::display_publish_anonymous() instead.',
+        \Moodle\Logger::create()->debug(__FUNCTION__.'() is deprecated. Please use mod_choice_renderer::display_publish_anonymous() instead.',
                 DEBUG_DEVELOPER);
         return $this->display_publish_anonymous($choices, CHOICE_DISPLAY_VERTICAL);
     }
@@ -317,7 +317,7 @@ class mod_choice_renderer extends plugin_renderer_base {
      */
     public function display_publish_anonymous_vertical($choices) {
         global $CHOICE_COLUMN_WIDTH;
-        debugging(__FUNCTION__.'() is deprecated. Please use mod_choice_renderer::display_publish_anonymous() instead.',
+        \Moodle\Logger::create()->debug(__FUNCTION__.'() is deprecated. Please use mod_choice_renderer::display_publish_anonymous() instead.',
                 DEBUG_DEVELOPER);
         return $this->display_publish_anonymous($choices, CHOICE_DISPLAY_HORIZONTAL);
     }

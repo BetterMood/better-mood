@@ -71,7 +71,7 @@ class manager {
                 $eventdata->courseid = null;
             }
 
-            debugging('eventdata as \stdClass is deprecated. Please use \core\message\message instead.', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('eventdata as \stdClass is deprecated. Please use \core\message\message instead.', DEBUG_DEVELOPER);
         }
 
         require_once($CFG->dirroot.'/message/lib.php'); // This is most probably already included from messagelib.php file.
@@ -148,7 +148,7 @@ class manager {
             $stdproc->name = $procname;
             $processor = \core_message\api::get_processed_processor_object($stdproc);
             if (!$processor->object->send_message($proceventdata)) {
-                debugging('Error calling message processor ' . $procname);
+                \Moodle\Logger::create()->debug('Error calling message processor ' . $procname);
             }
         }
 

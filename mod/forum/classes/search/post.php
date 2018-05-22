@@ -91,12 +91,12 @@ class post extends \core_search\base_mod {
             $context = \context_module::instance($cm->id);
         } catch (\dml_missing_record_exception $ex) {
             // Notify it as we run here as admin, we should see everything.
-            debugging('Error retrieving ' . $this->areaid . ' ' . $record->id . ' document, not all required data is available: ' .
+            \Moodle\Logger::create()->debug('Error retrieving ' . $this->areaid . ' ' . $record->id . ' document, not all required data is available: ' .
                 $ex->getMessage(), DEBUG_DEVELOPER);
             return false;
         } catch (\dml_exception $ex) {
             // Notify it as we run here as admin, we should see everything.
-            debugging('Error retrieving ' . $this->areaid . ' ' . $record->id . ' document: ' . $ex->getMessage(), DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Error retrieving ' . $this->areaid . ' ' . $record->id . ' document: ' . $ex->getMessage(), DEBUG_DEVELOPER);
             return false;
         }
 
@@ -163,7 +163,7 @@ class post extends \core_search\base_mod {
             $post = $this->get_post($postid);
         } catch (\dml_missing_record_exception $e) {
             unset($this->postsdata[$postid]);
-            debugging('Could not get record to attach files to '.$document->get('id'), DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Could not get record to attach files to '.$document->get('id'), DEBUG_DEVELOPER);
             return;
         }
 

@@ -146,18 +146,18 @@ function blog_rss_get_feed($context, $args) {
     global $CFG, $SITE, $DB;
 
     if (empty($CFG->enableblogs)) {
-        debugging('Blogging disabled on this site, RSS feeds are not available');
+        \Moodle\Logger::create()->debug('Blogging disabled on this site, RSS feeds are not available');
         return null;
     }
 
     if (empty($CFG->enablerssfeeds)) {
-        debugging('Sorry, RSS feeds are disabled on this site');
+        \Moodle\Logger::create()->debug('Sorry, RSS feeds are disabled on this site');
         return '';
     }
 
     if ($CFG->bloglevel == BLOG_SITE_LEVEL) {
         if (isguestuser()) {
-            debugging(get_string('nopermissiontoshow', 'error'));
+            \Moodle\Logger::create()->debug(get_string('nopermissiontoshow', 'error'));
             return '';
         }
     }

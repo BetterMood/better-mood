@@ -185,7 +185,7 @@ abstract class base {
             case 'component': return $this->type . '_' . $this->name;
 
             default:
-                debugging('Invalid plugin property accessed! '.$name);
+                \Moodle\Logger::create()->debug('Invalid plugin property accessed! '.$name);
                 return null;
         }
     }

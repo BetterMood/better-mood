@@ -105,7 +105,7 @@ abstract class core_completion_edit_base_form extends moodleform {
             }
             return $customcompletionelements;
         } catch (Exception $e) {
-            debugging('Could not add custom completion rule of module ' . $modnames[0] .
+            \Moodle\Logger::create()->debug('Could not add custom completion rule of module ' . $modnames[0] .
                 ' to this form, this has to be fixed by the developer', DEBUG_DEVELOPER);
             return [];
         }

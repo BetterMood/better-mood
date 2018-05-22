@@ -51,7 +51,7 @@ function scorm_report_list($context) {
         // Legacy style of naming classes.
         $pluginfile = $CFG->dirroot.'/mod/scorm/report/'.$reportname.'/report.php';
         if (is_readable($pluginfile)) {
-            debugging("Please use autoloaded classnames for your plugin. Refer MDL-46469 for details", DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug("Please use autoloaded classnames for your plugin. Refer MDL-46469 for details", DEBUG_DEVELOPER);
             include_once($pluginfile);
             $reportclassname = "scorm_{$reportname}_report";
             if (class_exists($reportclassname)) {

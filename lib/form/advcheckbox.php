@@ -97,7 +97,7 @@ class MoodleQuickForm_advcheckbox extends HTML_QuickForm_advcheckbox implements 
      * @deprecated since Moodle 3.1
      */
     public function MoodleQuickForm_advcheckbox($elementName=null, $elementLabel=null, $text=null, $attributes=null, $values=null) {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
         self::__construct($elementName, $elementLabel, $text, $attributes, $values);
     }
 

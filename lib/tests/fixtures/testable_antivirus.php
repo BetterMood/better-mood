@@ -62,7 +62,7 @@ class scanner extends \core\antivirus\scanner {
             case 'ERROR':
                 return self::SCAN_RESULT_ERROR;
             default:
-                debugging('$filename should be either OK, FOUND or ERROR.');
+                \Moodle\Logger::create()->debug('$filename should be either OK, FOUND or ERROR.');
                 break;
         }
     }
@@ -84,7 +84,7 @@ class scanner extends \core\antivirus\scanner {
             case 'ERROR':
                 return self::SCAN_RESULT_ERROR;
             default:
-                debugging('$data should be either OK, FOUND or ERROR.');
+                \Moodle\Logger::create()->debug('$data should be either OK, FOUND or ERROR.');
                 break;
         }
     }

@@ -447,7 +447,7 @@ abstract class grade_report {
         $aggregationweight = $hint['weight'];
 
         if (!is_array($this->showtotalsifcontainhidden)) {
-            debugging('showtotalsifcontainhidden should be an array', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('showtotalsifcontainhidden should be an array', DEBUG_DEVELOPER);
             $this->showtotalsifcontainhidden = array($courseid => $this->showtotalsifcontainhidden);
         }
 
@@ -564,7 +564,7 @@ abstract class grade_report {
         // Note it is flawed to call this function directly because
         // the aggregated grade does not make sense without the updated min and max information.
 
-        debugging('grade_report::blank_hidden_total() is deprecated.
+        \Moodle\Logger::create()->debug('grade_report::blank_hidden_total() is deprecated.
                    Call grade_report::blank_hidden_total_and_adjust_bounds instead.', DEBUG_DEVELOPER);
         $result = $this->blank_hidden_total_and_adjust_bounds($courseid, $course_item, $finalgrade);
         return $result['grade'];

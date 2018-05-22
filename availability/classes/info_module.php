@@ -187,7 +187,7 @@ class info_module extends info {
             $cm = $DB->get_record('course_modules', array('id' => $cmorid));
             if (!$cm) {
                 // In some error cases, the course module may not exist.
-                debugging('info_module::is_user_visible called with invalid cmid ' . $cmorid, DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('info_module::is_user_visible called with invalid cmid ' . $cmorid, DEBUG_DEVELOPER);
                 return false;
             }
         }
@@ -218,7 +218,7 @@ class info_module extends info {
         if (!isset($cms[$cm->id])) {
             // In some cases this might get called with a cmid that is no longer
             // available, for example when a module is hidden at system level.
-            debugging('info_module::is_user_visible called with invalid cmid ' . $cm->id, DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('info_module::is_user_visible called with invalid cmid ' . $cm->id, DEBUG_DEVELOPER);
             return false;
         }
         return $cms[$cm->id]->uservisible;

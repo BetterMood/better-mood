@@ -886,7 +886,7 @@ class navigation_node_collection implements IteratorAggregate, Countable {
         }
         // Check for a collision and report if debugging is turned on
         if ($CFG->debug && array_key_exists($key, $this->orderedcollection[$type])) {
-            debugging('Navigation node intersect: Adding a node that already exists '.$key, DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Navigation node intersect: Adding a node that already exists '.$key, DEBUG_DEVELOPER);
         }
 
         // Find the key to add before
@@ -901,7 +901,7 @@ class navigation_node_collection implements IteratorAggregate, Countable {
                 }
             }
             if ($newindex === $this->count) {
-                debugging('Navigation node add_before: Reference node not found ' . $beforekey .
+                \Moodle\Logger::create()->debug('Navigation node add_before: Reference node not found ' . $beforekey .
                         ', options: ' . implode(' ', $this->get_key_list()), DEBUG_DEVELOPER);
             }
         }
@@ -3575,7 +3575,7 @@ class navbar extends navigation_node {
      */
     public function add($text, $action=null, $type=self::TYPE_CUSTOM, $shorttext=null, $key=null, pix_icon $icon=null) {
         if ($this->content !== null) {
-            debugging('Nav bar items must be printed before $OUTPUT->header() has been called', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Nav bar items must be printed before $OUTPUT->header() has been called', DEBUG_DEVELOPER);
         }
 
         // Properties array used when creating the new navigation node
@@ -3621,7 +3621,7 @@ class navbar extends navigation_node {
      */
     public function prepend($text, $action=null, $type=self::TYPE_CUSTOM, $shorttext=null, $key=null, pix_icon $icon=null) {
         if ($this->content !== null) {
-            debugging('Nav bar items must be printed before $OUTPUT->header() has been called', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Nav bar items must be printed before $OUTPUT->header() has been called', DEBUG_DEVELOPER);
         }
         // Properties array used when creating the new navigation node.
         $itemarray = array(

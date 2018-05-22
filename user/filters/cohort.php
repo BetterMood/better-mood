@@ -47,7 +47,7 @@ class user_filter_cohort extends user_filter_type {
      * @deprecated since Moodle 3.1
      */
     public function user_filter_cohort($advanced) {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
         self::__construct($advanced);
     }
 

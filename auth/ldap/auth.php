@@ -998,7 +998,7 @@ class auth_plugin_ldap extends auth_plugin_base {
      * @deprecated since Moodle 3.4 MDL-30634 - please do not use this function any more.
      */
     function iscreator($username) {
-        debugging('iscreator() is deprecated. Please use auth_plugin_ldap::is_role() instead.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('iscreator() is deprecated. Please use auth_plugin_ldap::is_role() instead.', DEBUG_DEVELOPER);
 
         if (empty($this->config->creators) or empty($this->config->memberattribute)) {
             return null;

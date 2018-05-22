@@ -952,7 +952,7 @@ function feedback_delete_course_module($id) {
  * @return object $context
  */
 function feedback_get_context($cmid) {
-    debugging('Function feedback_get_context() is deprecated because it was not used.',
+    \Moodle\Logger::create()->debug('Function feedback_get_context() is deprecated because it was not used.',
             DEBUG_DEVELOPER);
     static $context;
 
@@ -1598,7 +1598,7 @@ function feedback_get_depend_candidates_for_item($feedback, $item) {
  * @return int the new itemid
  */
 function feedback_create_item($data) {
-    debugging('Function feedback_create_item() is deprecated because it was not used.',
+    \Moodle\Logger::create()->debug('Function feedback_create_item() is deprecated because it was not used.',
             DEBUG_DEVELOPER);
     global $DB;
 
@@ -1916,7 +1916,7 @@ function feedback_move_item($moveitem, $pos) {
  * @return void
  */
 function feedback_print_item_preview($item) {
-    debugging('Function feedback_print_item_preview() is deprecated and does nothing. '
+    \Moodle\Logger::create()->debug('Function feedback_print_item_preview() is deprecated and does nothing. '
             . 'Items must implement complete_form_element()', DEBUG_DEVELOPER);
 }
 
@@ -1931,7 +1931,7 @@ function feedback_print_item_preview($item) {
  * @return void
  */
 function feedback_print_item_complete($item, $value = false, $highlightrequire = false) {
-    debugging('Function feedback_print_item_complete() is deprecated and does nothing. '
+    \Moodle\Logger::create()->debug('Function feedback_print_item_complete() is deprecated and does nothing. '
             . 'Items must implement complete_form_element()', DEBUG_DEVELOPER);
 }
 
@@ -1945,7 +1945,7 @@ function feedback_print_item_complete($item, $value = false, $highlightrequire =
  * @return void
  */
 function feedback_print_item_show_value($item, $value = false) {
-    debugging('Function feedback_print_item_show_value() is deprecated and does nothing. '
+    \Moodle\Logger::create()->debug('Function feedback_print_item_show_value() is deprecated and does nothing. '
             . 'Items must implement complete_form_element()', DEBUG_DEVELOPER);
 }
 
@@ -2051,7 +2051,7 @@ function feedback_save_tmp_values($feedbackcompletedtmp, $feedbackcompleted) {
 function feedback_delete_completedtmp($tmpcplid) {
     global $DB;
 
-    debugging('Function feedback_delete_completedtmp() is deprecated because it is no longer used',
+    \Moodle\Logger::create()->debug('Function feedback_delete_completedtmp() is deprecated because it is no longer used',
             DEBUG_DEVELOPER);
 
     $DB->delete_records('feedback_valuetmp', array('completed'=>$tmpcplid));
@@ -2145,7 +2145,7 @@ function feedback_get_last_break_position($feedbackid) {
 function feedback_get_page_to_continue($feedbackid, $courseid = false, $guestid = false) {
     global $CFG, $USER, $DB;
 
-    debugging('Function feedback_get_page_to_continue() is deprecated and since it is '
+    \Moodle\Logger::create()->debug('Function feedback_get_page_to_continue() is deprecated and since it is '
             . 'no longer used in mod_feedback', DEBUG_DEVELOPER);
 
     //is there any break?
@@ -2207,7 +2207,7 @@ function feedback_get_page_to_continue($feedbackid, $courseid = false, $guestid 
  * @return mixed
  */
 function feedback_clean_input_value($item, $value) {
-    debugging('Function feedback_clean_input_value() is deprecated and does nothing. '
+    \Moodle\Logger::create()->debug('Function feedback_clean_input_value() is deprecated and does nothing. '
             . 'Items must implement complete_form_element()', DEBUG_DEVELOPER);
 }
 
@@ -2226,7 +2226,7 @@ function feedback_clean_input_value($item, $value) {
 function feedback_save_values($usrid, $tmp = false) {
     global $DB;
 
-    debugging('Function feedback_save_values() was deprecated because it did not have '.
+    \Moodle\Logger::create()->debug('Function feedback_save_values() was deprecated because it did not have '.
             'enough arguments, was not suitable for non-temporary table and was taking '.
             'data directly from input', DEBUG_DEVELOPER);
 
@@ -2258,7 +2258,7 @@ function feedback_save_values($usrid, $tmp = false) {
 function feedback_save_guest_values($guestid) {
     global $DB;
 
-    debugging('Function feedback_save_guest_values() was deprecated because it did not have '.
+    \Moodle\Logger::create()->debug('Function feedback_save_guest_values() was deprecated because it did not have '.
             'enough arguments, was not suitable for non-temporary table and was taking '.
             'data directly from input', DEBUG_DEVELOPER);
 
@@ -2327,7 +2327,7 @@ function feedback_compare_item_value($completedid, $item, $dependvalue, $tmp = f
  * @return boolean
  */
 function feedback_check_values($firstitem, $lastitem) {
-    debugging('Function feedback_check_values() is deprecated and does nothing. '
+    \Moodle\Logger::create()->debug('Function feedback_check_values() is deprecated and does nothing. '
             . 'Items must implement complete_form_element()', DEBUG_DEVELOPER);
     return true;
 }
@@ -2347,7 +2347,7 @@ function feedback_check_values($firstitem, $lastitem) {
 function feedback_create_values($usrid, $timemodified, $tmp = false, $guestid = false) {
     global $DB;
 
-    debugging('Function feedback_create_values() was deprecated because it did not have '.
+    \Moodle\Logger::create()->debug('Function feedback_create_values() was deprecated because it did not have '.
             'enough arguments, was not suitable for non-temporary table and was taking '.
             'data directly from input', DEBUG_DEVELOPER);
 
@@ -2415,7 +2415,7 @@ function feedback_create_values($usrid, $timemodified, $tmp = false, $guestid = 
 function feedback_update_values($completed, $tmp = false) {
     global $DB;
 
-    debugging('Function feedback_update_values() was deprecated because it did not have '.
+    \Moodle\Logger::create()->debug('Function feedback_update_values() was deprecated because it did not have '.
             'enough arguments, was not suitable for non-temporary table and was taking '.
             'data directly from input', DEBUG_DEVELOPER);
 
@@ -2589,7 +2589,7 @@ function feedback_get_current_completed($feedbackid,
                                         $courseid = false,
                                         $guestid = false) {
 
-    debugging('Function feedback_get_current_completed() is deprecated. Please use either '.
+    \Moodle\Logger::create()->debug('Function feedback_get_current_completed() is deprecated. Please use either '.
             'feedback_get_current_completed_tmp() or feedback_get_last_completed()',
             DEBUG_DEVELOPER);
 
@@ -2811,7 +2811,7 @@ function feedback_delete_completed($completed, $feedback = null, $cm = null, $co
  * @return int the count of records
  */
 function feedback_is_course_in_sitecourse_map($feedbackid, $courseid) {
-    debugging('Function feedback_is_course_in_sitecourse_map() is deprecated because it was not used.',
+    \Moodle\Logger::create()->debug('Function feedback_is_course_in_sitecourse_map() is deprecated because it was not used.',
             DEBUG_DEVELOPER);
     global $DB;
     $params = array('feedbackid'=>$feedbackid, 'courseid'=>$courseid);
@@ -2826,7 +2826,7 @@ function feedback_is_course_in_sitecourse_map($feedbackid, $courseid) {
  * @return boolean
  */
 function feedback_is_feedback_in_sitecourse_map($feedbackid) {
-    debugging('Function feedback_is_feedback_in_sitecourse_map() is deprecated because it was not used.',
+    \Moodle\Logger::create()->debug('Function feedback_is_feedback_in_sitecourse_map() is deprecated because it was not used.',
             DEBUG_DEVELOPER);
     global $DB;
     return $DB->record_exists('feedback_sitecourse_map', array('feedbackid'=>$feedbackid));
@@ -2945,7 +2945,7 @@ function feedback_update_sitecourse_map($feedback, $courses) {
  */
 function feedback_clean_up_sitecourse_map() {
     global $DB;
-    debugging('Function feedback_clean_up_sitecourse_map() is deprecated because it was not used.',
+    \Moodle\Logger::create()->debug('Function feedback_clean_up_sitecourse_map() is deprecated because it was not used.',
             DEBUG_DEVELOPER);
 
     $maps = $DB->get_records('feedback_sitecourse_map');
@@ -2980,7 +2980,7 @@ function feedback_clean_up_sitecourse_map() {
  * @return void
  */
 function feedback_print_numeric_option_list($startval, $endval, $selectval = '', $interval = 1) {
-    debugging('Function feedback_print_numeric_option_list() is deprecated because it was not used.',
+    \Moodle\Logger::create()->debug('Function feedback_print_numeric_option_list() is deprecated because it was not used.',
             DEBUG_DEVELOPER);
     for ($i = $startval; $i <= $endval; $i += $interval) {
         if ($selectval == ($i)) {

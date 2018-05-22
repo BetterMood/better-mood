@@ -50,7 +50,7 @@ class mod_wiki_edit_form extends moodleform {
             // Hack alert
             // This is being done ONLY to aid those who may have created there own wiki pages. It should be removed sometime
             // after the release of 2.3 (not creating an issue because this whole thing should be reviewed)
-            debugging('You must always provide mod_wiki_edit_form with a contextid in its custom data', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('You must always provide mod_wiki_edit_form with a contextid in its custom data', DEBUG_DEVELOPER);
             global $PAGE;
             $contextid = $PAGE->context->id;
         } else {

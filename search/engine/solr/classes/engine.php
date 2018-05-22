@@ -211,7 +211,7 @@ class engine extends \core_search\engine {
         try {
             return $this->get_search_client()->query($query)->getResponse();
         } catch (\SolrClientException $ex) {
-            debugging('Error executing the provided query: ' . $ex->getMessage(), DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Error executing the provided query: ' . $ex->getMessage(), DEBUG_DEVELOPER);
             $this->queryerror = $ex->getMessage();
             return false;
         } catch (\SolrServerException $ex) {

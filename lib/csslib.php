@@ -230,7 +230,7 @@ function css_chunk_by_selector_count($css, $importurl, $maxselectors = 4095, $bu
 
     // Report offset errors.
     if (!empty($offseterrors)) {
-        debugging('Could not find a safe place to split at offset(s): ' . implode(', ', $offseterrors) . '. Those were ignored.',
+        \Moodle\Logger::create()->debug('Could not find a safe place to split at offset(s): ' . implode(', ', $offseterrors) . '. Those were ignored.',
             DEBUG_DEVELOPER);
     }
 

@@ -398,7 +398,7 @@ function get_array_of_activities($courseid) {
             'section ASC', 'id,section,sequence,visible')) {
         // First check and correct obvious mismatches between course_sections.sequence and course_modules.section.
         if ($errormessages = course_integrity_check($courseid, $rawmods, $sections)) {
-            debugging(join('<br>', $errormessages));
+            \Moodle\Logger::create()->debug(join('<br>', $errormessages));
             $rawmods = get_course_mods($courseid);
             $sections = $DB->get_records('course_sections', array('course' => $courseid),
                 'section ASC', 'id,section,sequence,visible');
@@ -700,7 +700,7 @@ function get_module_metadata($course, $modnames, $sectionreturn = null) {
             }
             $return += $modlist[$course->id][$modname];
             if ($typescallbackexists) {
-                debugging('Both callbacks get_shortcuts() and get_types() are found in module ' . $modname .
+                \Moodle\Logger::create()->debug('Both callbacks get_shortcuts() and get_types() are found in module ' . $modname .
                     '. Callback get_types() will be completely ignored', DEBUG_DEVELOPER);
             }
             // If get_shortcuts() callback is defined, the default module action is not added.
@@ -709,7 +709,7 @@ function get_module_metadata($course, $modnames, $sectionreturn = null) {
         }
 
         if ($typescallbackexists) {
-            debugging('Callback get_types() is found in module ' . $modname . ', this functionality is deprecated, ' .
+            \Moodle\Logger::create()->debug('Callback get_types() is found in module ' . $modname . ', this functionality is deprecated, ' .
                 'please use callback get_shortcuts() instead', DEBUG_DEVELOPER);
         }
         $types = component_callback($modname, 'get_types', array(), MOD_SUBTYPE_NO_CHILDREN);
@@ -2181,7 +2181,7 @@ function course_allowed_module($course, $modname) {
         static $warned = array();
         $archetype = plugin_supports('mod', $modname, FEATURE_MOD_ARCHETYPE, MOD_ARCHETYPE_OTHER);
         if (!isset($warned[$modname]) && $archetype !== MOD_ARCHETYPE_SYSTEM) {
-            debugging('The module ' . $modname . ' does not define the standard capability ' .
+            \Moodle\Logger::create()->debug('The module ' . $modname . ' does not define the standard capability ' .
                     $capability , DEBUG_DEVELOPER);
             $warned[$modname] = 1;
         }
@@ -2938,7 +2938,7 @@ class course_request {
         }
 
         if (empty($this->properties->shortname)) {
-            debugging('Attempting to check a course request shortname before it has been set', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Attempting to check a course request shortname before it has been set', DEBUG_DEVELOPER);
             $this->properties->collision = false;
         } else if ($DB->record_exists('course', array('shortname' => $this->properties->shortname))) {
             if (!empty($shortnamemark)) {
@@ -3659,13 +3659,13 @@ function course_change_sortorder_after_course($courseorid, $moveaftercourseid) {
         $DB->set_field('course', 'sortorder', $sortorder, array('id' => $course->id));
     } else if ($course->id === $moveaftercourseid) {
         // They're the same - moronic.
-        debugging("Invalid move after course given.", DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug("Invalid move after course given.", DEBUG_DEVELOPER);
         return false;
     } else {
         // Moving this course after the given course. It could be before it could be after.
         $moveaftercourse = get_course($moveaftercourseid);
         if ($course->category !== $moveaftercourse->category) {
-            debugging("Cannot re-order courses. The given courses do not belong to the same category.", DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug("Cannot re-order courses. The given courses do not belong to the same category.", DEBUG_DEVELOPER);
             return false;
         }
         // Increment all courses in the same category that are ordered after the moveafter course.

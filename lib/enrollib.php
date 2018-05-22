@@ -754,7 +754,7 @@ function enrol_get_course_info_icons($course, array $instances = NULL) {
         $pis = array();
         foreach ($instances as $instance) {
             if ($instance->status != ENROL_INSTANCE_ENABLED or $instance->courseid != $course->id) {
-                debugging('Invalid instances parameter submitted in enrol_get_info_icons()');
+                \Moodle\Logger::create()->debug('Invalid instances parameter submitted in enrol_get_info_icons()');
                 continue;
             }
             if ($instance->enrol == $name) {
@@ -1114,7 +1114,7 @@ function enrol_get_enrolment_end($courseid, $userid) {
         $start = (int)$ue->timestart;
         $end = (int)$ue->timeend;
         if ($end != 0 and $end < $start) {
-            debugging('Invalid enrolment start or end in user_enrolment id:'.$ue->id);
+            \Moodle\Logger::create()->debug('Invalid enrolment start or end in user_enrolment id:'.$ue->id);
             continue;
         }
         if (isset($changes[$start])) {
@@ -2191,7 +2191,7 @@ abstract class enrol_plugin {
      * @return bool
      */
     public function can_hide_show_instance($instance) {
-        debugging("The enrolment plugin '".$this->get_name()."' should override the function can_hide_show_instance().", DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug("The enrolment plugin '".$this->get_name()."' should override the function can_hide_show_instance().", DEBUG_DEVELOPER);
         return true;
     }
 
@@ -2288,7 +2288,7 @@ abstract class enrol_plugin {
      */
     public function edit_instance_validation($data, $files, $instance, $context) {
         // No errors by default.
-        debugging('enrol_plugin::edit_instance_validation() is missing. This plugin has no validation!', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('enrol_plugin::edit_instance_validation() is missing. This plugin has no validation!', DEBUG_DEVELOPER);
         return array();
     }
 
@@ -2817,14 +2817,14 @@ abstract class enrol_plugin {
         $expirynotifylast = $this->get_config('expirynotifylast', 0);
         $expirynotifyhour = $this->get_config('expirynotifyhour');
         if (is_null($expirynotifyhour)) {
-            debugging("send_expiry_notifications() in $name enrolment plugin needs expirynotifyhour setting");
+            \Moodle\Logger::create()->debug("send_expiry_notifications() in $name enrolment plugin needs expirynotifyhour setting");
             $trace->finished();
             return;
         }
 
         if (!($trace instanceof progress_trace)) {
             $trace = $trace ? new text_progress_trace() : new null_progress_trace();
-            debugging('enrol_plugin::send_expiry_notifications() now expects progress_trace instance as parameter!', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('enrol_plugin::send_expiry_notifications() now expects progress_trace instance as parameter!', DEBUG_DEVELOPER);
         }
 
         $timenow = time();

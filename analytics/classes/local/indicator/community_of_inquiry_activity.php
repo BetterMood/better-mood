@@ -853,7 +853,7 @@ abstract class community_of_inquiry_activity extends linear {
         }
 
         if (!$this->course->get_end() || !$this->course->get_start()) {
-            debugging('Activities which due date is in a time range can not be calculated ' .
+            \Moodle\Logger::create()->debug('Activities which due date is in a time range can not be calculated ' .
                 'if the course doesn\'t have start and end date', DEBUG_DEVELOPER);
             return false;
         }

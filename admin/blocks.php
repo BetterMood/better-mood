@@ -143,7 +143,7 @@
                 // If the block's settings node was not found, we check that the block really provides the settings.php file.
                 // Note that blocks can inject their settings to other nodes in the admin tree without using the default locations.
                 // This can be done by assigning null to $setting in settings.php and it is a valid case.
-                debugging('Warning: block_'.$block->name.' returns true in has_config() but does not provide a settings.php file',
+                \Moodle\Logger::create()->debug('Warning: block_'.$block->name.' returns true in has_config() but does not provide a settings.php file',
                     DEBUG_DEVELOPER);
             }
         }

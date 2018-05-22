@@ -345,7 +345,7 @@ class view {
      * @todo MDL-41978 This will be deleted in Moodle 2.8
      */
     protected function build_query_sql($category, $recurse, $showhidden) {
-        debugging('build_query_sql() is deprecated, please use \core_question\bank\view::build_query() and ' .
+        \Moodle\Logger::create()->debug('build_query_sql() is deprecated, please use \core_question\bank\view::build_query() and ' .
                 '\core_question\bank\search\condition classes instead.', DEBUG_DEVELOPER);
         self::build_query();
     }
@@ -538,7 +538,7 @@ class view {
     protected function display_category_form($contexts, $pageurl, $current) {
         global $OUTPUT;
 
-        debugging('display_category_form() is deprecated, please use ' .
+        \Moodle\Logger::create()->debug('display_category_form() is deprecated, please use ' .
                 '\core_question\bank\search\condition instead.', DEBUG_DEVELOPER);
         // Get all the existing categories now.
         echo '<div class="choosecategory">';
@@ -561,7 +561,7 @@ class view {
      * @see \core_question\bank\search\condition
      */
     protected function display_options($recurse, $showhidden, $showquestiontext) {
-        debugging('display_options() is deprecated, please use display_options_form instead.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('display_options() is deprecated, please use display_options_form instead.', DEBUG_DEVELOPER);
         return $this->display_options_form($showquestiontext);
     }
 
@@ -573,7 +573,7 @@ class view {
      * @todo MDL-41978 This will be deleted in Moodle 2.8
      */
     protected function display_category_form_checkbox($name, $value, $label) {
-        debugging('display_category_form_checkbox() is deprecated, ' .
+        \Moodle\Logger::create()->debug('display_category_form_checkbox() is deprecated, ' .
                 'please use \core_question\bank\search\condition instead.', DEBUG_DEVELOPER);
         echo '<div><input type="hidden" id="' . $name . '_off" name="' . $name . '" value="0" />';
         echo '<input type="checkbox" id="' . $name . '_on" name="' . $name . '" value="1"';

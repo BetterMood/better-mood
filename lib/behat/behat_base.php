@@ -641,7 +641,7 @@ class behat_base extends Behat\MinkExtension\Context\RawMinkContext {
         global $CFG;
 
         if (empty($CFG->behat_usedeprecated)) {
-            debugging('Function behat_base::ensure_editors_are_loaded() is deprecated. It is no longer required.');
+            \Moodle\Logger::create()->debug('Function behat_base::ensure_editors_are_loaded() is deprecated. It is no longer required.');
         }
         return;
     }

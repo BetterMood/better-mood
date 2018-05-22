@@ -57,7 +57,7 @@
          * @deprecated since Moodle 3.1
          */
         public function ParallelRegex($case) {
-            debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
             self::__construct($case);
         }
 
@@ -157,7 +157,7 @@
          * @deprecated since Moodle 3.1
          */
         public function StateStack($start) {
-            debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
             self::__construct($start);
         }
 
@@ -237,7 +237,7 @@
          * @deprecated since Moodle 3.1
          */
         public function Lexer(&$parser, $start = "accept", $case = false) {
-            debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
             self::__construct($parser, $start, $case);
         }
         

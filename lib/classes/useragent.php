@@ -124,7 +124,7 @@ class core_useragent {
         }
         if ($this->devicetypecustoms === null) {
             // This shouldn't happen unless you're hardcoding the config value.
-            debugging('Config devicedetectregex is not valid JSON object');
+            \Moodle\Logger::create()->debug('Config devicedetectregex is not valid JSON object');
             $this->devicetypecustoms = array();
         }
         if ($forceuseragent !== null) {

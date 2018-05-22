@@ -76,7 +76,7 @@ final class util {
             $info = get_exception_info($ex);
 
             $logerrmsg = "enrol_paypal IPN exception handler: ".$info->message;
-            if (debugging('', DEBUG_NORMAL)) {
+            if (\Moodle\Logger::create()->debug('', DEBUG_NORMAL)) {
                 $backtraceFormatter = new \Moodle\BacktraceFormatter(
                     new \Moodle\RootDirectory()
                 );

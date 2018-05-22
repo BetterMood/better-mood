@@ -167,7 +167,7 @@ class file_storage {
      * @return stored_file|bool false if unable to create the conversion, stored file otherwise
      */
     public function get_converted_document(stored_file $file, $format, $forcerefresh = false) {
-        debugging('The get_converted_document function has been deprecated and the unoconv functions been removed. '
+        \Moodle\Logger::create()->debug('The get_converted_document function has been deprecated and the unoconv functions been removed. '
                 . 'The file has not been converted. '
                 . 'Please update your code to use the file conversion API instead.', DEBUG_DEVELOPER);
 
@@ -181,7 +181,7 @@ class file_storage {
      * @return bool - True if the format is supported for input.
      */
     protected function is_format_supported_by_unoconv($format) {
-        debugging('The is_format_supported_by_unoconv function has been deprecated and the unoconv functions been removed. '
+        \Moodle\Logger::create()->debug('The is_format_supported_by_unoconv function has been deprecated and the unoconv functions been removed. '
                 . 'Please update your code to use the file conversion API instead.', DEBUG_DEVELOPER);
 
         return false;
@@ -193,7 +193,7 @@ class file_storage {
      * @return bool true if the present version is supported, false otherwise.
      */
     public static function can_convert_documents() {
-        debugging('The can_convert_documents function has been deprecated and the unoconv functions been removed. '
+        \Moodle\Logger::create()->debug('The can_convert_documents function has been deprecated and the unoconv functions been removed. '
                 . 'Please update your code to use the file conversion API instead.', DEBUG_DEVELOPER);
 
         return false;
@@ -203,7 +203,7 @@ class file_storage {
      * Regenerate the test pdf and send it direct to the browser.
      */
     public static function send_test_pdf() {
-        debugging('The send_test_pdf function has been deprecated and the unoconv functions been removed. '
+        \Moodle\Logger::create()->debug('The send_test_pdf function has been deprecated and the unoconv functions been removed. '
                 . 'Please update your code to use the file conversion API instead.', DEBUG_DEVELOPER);
 
         return false;
@@ -215,7 +215,7 @@ class file_storage {
      * @return \stdClass an object with the test status and the UNOCONVPATH_ constant message.
      */
     public static function test_unoconv_path() {
-        debugging('The test_unoconv_path function has been deprecated and the unoconv functions been removed. '
+        \Moodle\Logger::create()->debug('The test_unoconv_path function has been deprecated and the unoconv functions been removed. '
                 . 'Please update your code to use the file conversion API instead.', DEBUG_DEVELOPER);
 
         return false;
@@ -1839,7 +1839,7 @@ class file_storage {
      * @deprecated since 3.3
      */
     public function content_exists($contenthash) {
-        debugging('The content_exists function has been deprecated and should no longer be used.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('The content_exists function has been deprecated and should no longer be used.', DEBUG_DEVELOPER);
 
         return false;
     }
@@ -1852,7 +1852,7 @@ class file_storage {
      * @deprecated since 3.3
      */
     public function try_content_recovery($file) {
-        debugging('The try_content_recovery function has been deprecated and should no longer be used.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('The try_content_recovery function has been deprecated and should no longer be used.', DEBUG_DEVELOPER);
 
         return false;
     }

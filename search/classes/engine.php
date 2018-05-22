@@ -563,7 +563,7 @@ abstract class engine {
      * @return bool|string True if schema is updated successfully, a string if it needs updating manually
      */
     protected function update_schema($oldversion, $newversion) {
-        debugging('Unable to update search engine schema: ' . $this->pluginname, DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Unable to update search engine schema: ' . $this->pluginname, DEBUG_DEVELOPER);
         return get_string('schemanotupdated', 'search');
     }
 

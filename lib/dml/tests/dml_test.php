@@ -1411,7 +1411,7 @@ class core_dml_testcase extends database_driver_testcase {
         $conditions = array('onetext' => '1');
         try {
             $records = $DB->get_records($tablename, $conditions);
-            if (debugging()) {
+            if (\Moodle\Logger::create()->debug()) {
                 // Only in debug mode - hopefully all devs test code in debug mode...
                 $this->fail('An Exception is missing, expected due to equating of text fields');
             }

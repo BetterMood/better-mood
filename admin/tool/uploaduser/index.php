@@ -1039,7 +1039,7 @@ if ($formdata = $mform2->is_cancelled()) {
                         } else if ($enrolstatus === (string)ENROL_USER_SUSPENDED) {
                             $status = ENROL_USER_SUSPENDED;
                         } else {
-                            debugging('Unknown enrolment status.');
+                            \Moodle\Logger::create()->debug('Unknown enrolment status.');
                         }
                     }
 

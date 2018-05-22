@@ -879,7 +879,7 @@ function groups_print_activity_menu($cm, $urlroot, $return=false, $hideallpartic
     } else {
         if (strpos($urlroot, 'http') !== 0) { // Will also work for https
             // Display error if urlroot is not absolute (this causes the non-JS version to break)
-            debugging('groups_print_activity_menu requires absolute URL for ' .
+            \Moodle\Logger::create()->debug('groups_print_activity_menu requires absolute URL for ' .
                       '$urlroot, not <tt>' . s($urlroot) . '</tt>. Example: ' .
                       'groups_print_activity_menu($cm, $CFG->wwwroot . \'/mod/mymodule/view.php?id=13\');',
                       DEBUG_DEVELOPER);

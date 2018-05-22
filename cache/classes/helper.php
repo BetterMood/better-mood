@@ -398,7 +398,7 @@ class cache_helper {
             // We'll use application as the default as that is the most common, really this is not accurate of course but
             // at this point we can only guess and as it only affects calls to cache stat outside of core (of which there should
             // be none) I think that is fine.
-            debugging('Please update you cache stat calls to pass the definition rather than just its ID.', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Please update you cache stat calls to pass the definition rather than just its ID.', DEBUG_DEVELOPER);
             return array((string)$definition, cache_store::MODE_APPLICATION);
         }
         return array($definition->get_id(), $definition->get_mode());
@@ -580,7 +580,7 @@ class cache_helper {
      */
     public static function hash_key($key, cache_definition $definition) {
         if ($definition->uses_simple_keys()) {
-            if (debugging() && preg_match('#[^a-zA-Z0-9_]#', $key)) {
+            if (\Moodle\Logger::create()->debug() && preg_match('#[^a-zA-Z0-9_]#', $key)) {
                 throw new coding_exception('Cache definition '.$definition->get_id().' requires simple keys. Invalid key provided.', $key);
             }
             // We put the key first so that we can be sure the start of the key changes.
@@ -701,7 +701,7 @@ class cache_helper {
             foreach ($stores as $store) {
                 // If the store doesn't support searching we can skip it.
                 if (!($store instanceof cache_is_searchable)) {
-                    debugging('Cache stores used for session definitions should ideally be searchable.', DEBUG_DEVELOPER);
+                    \Moodle\Logger::create()->debug('Cache stores used for session definitions should ideally be searchable.', DEBUG_DEVELOPER);
                     continue;
                 }
                 // Get all of the keys.

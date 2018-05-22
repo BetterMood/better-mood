@@ -471,7 +471,7 @@ abstract class file_system {
             }
             if ($filehash !== $contenthash) {
                 // Hopefully this never happens, if yes we need to fix calling code.
-                debugging("Invalid contenthash submitted for file $pathname", DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug("Invalid contenthash submitted for file $pathname", DEBUG_DEVELOPER);
                 $contenthash = $filehash;
             }
         }

@@ -236,7 +236,7 @@ class api {
                     return $this->validate_pluginfo_format($response->data->pluginfo);
 
             } else {
-                debugging('cURL: Unexpected response', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('cURL: Unexpected response', DEBUG_DEVELOPER);
                 return false;
             }
         }
@@ -273,14 +273,14 @@ class api {
         $curlerrno = $curl->get_errno();
 
         if (!empty($curlerrno)) {
-            debugging('cURL: Error '.$curlerrno.' when calling '.$serviceurl, DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('cURL: Error '.$curlerrno.' when calling '.$serviceurl, DEBUG_DEVELOPER);
             return false;
         }
 
         $response->info = $curl->get_info();
 
         if (isset($response->info['ssl_verify_result']) and $response->info['ssl_verify_result'] != 0) {
-            debugging('cURL/SSL: Unable to verify remote service response when calling '.$serviceurl, DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('cURL/SSL: Unable to verify remote service response when calling '.$serviceurl, DEBUG_DEVELOPER);
             return false;
         }
 

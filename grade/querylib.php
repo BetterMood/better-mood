@@ -260,7 +260,7 @@ function grade_get_grade_items_for_activity($cm, $only_main_item=false) {
 
 
     if (empty($cm) or empty($cm->instance) or empty($cm->course)) {
-        debugging("Incorrect cm parameter in grade_get_grade_items_for_activity()!");
+        \Moodle\Logger::create()->debug("Incorrect cm parameter in grade_get_grade_items_for_activity()!");
         return false;
     }
 

@@ -151,7 +151,7 @@ class external_api {
                 $function->allowed_from_ajax = $functions[$function->name]['ajax'];
             } else if (method_exists($function->classname, $function->ajax_method)) {
                 if (call_user_func(array($function->classname, $function->ajax_method)) === true) {
-                    debugging('External function ' . $function->ajax_method . '() function is deprecated.' .
+                    \Moodle\Logger::create()->debug('External function ' . $function->ajax_method . '() function is deprecated.' .
                               'Set ajax=>true in db/service.php instead.', DEBUG_DEVELOPER);
                     $function->allowed_from_ajax = true;
                 }
@@ -243,7 +243,7 @@ class external_api {
             );
             $exception->backtrace = $backtraceFormatter->format($exception->backtrace, true);
             
-            if (!debugging('', DEBUG_DEVELOPER)) {
+            if (!\Moodle\Logger::create()->debug('', DEBUG_DEVELOPER)) {
                 unset($exception->debuginfo);
                 unset($exception->backtrace);
             }
@@ -695,7 +695,7 @@ class external_function_parameters extends external_single_structure {
             foreach ($keys as $key => $value) {
                 if ($value instanceof external_value) {
                     if ($value->required == VALUE_OPTIONAL) {
-                        debugging('External function parameters: invalid OPTIONAL value specified.', DEBUG_DEVELOPER);
+                        \Moodle\Logger::create()->debug('External function parameters: invalid OPTIONAL value specified.', DEBUG_DEVELOPER);
                         break;
                     }
                 }
@@ -991,7 +991,7 @@ function external_format_text($text, $textformat, $contextorid, $component = nul
         if (isset($options['context'])) {
             if ((is_object($options['context']) && $options['context']->id != $contextid)
                     || (!is_object($options['context']) && $options['context'] != $contextid)) {
-                debugging('Different contexts found in external_format_text parameters. $options[\'context\'] not allowed.
+                \Moodle\Logger::create()->debug('Different contexts found in external_format_text parameters. $options[\'context\'] not allowed.
                     Using $contextid parameter...', DEBUG_DEVELOPER);
             }
         }

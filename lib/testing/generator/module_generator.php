@@ -257,10 +257,10 @@ abstract class testing_module_generator extends component_generator_base {
         // it is not setup for course and/or site-wide. Display debugging message so it is
         // easier to trace an error in unittests.
         if ($record->completion && empty($CFG->enablecompletion)) {
-            debugging('Did you forget to set $CFG->enablecompletion before generating module with completion tracking?', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Did you forget to set $CFG->enablecompletion before generating module with completion tracking?', DEBUG_DEVELOPER);
         }
         if ($record->completion && empty($course->enablecompletion)) {
-            debugging('Did you forget to enable completion tracking for the course before generating module with completion tracking?', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Did you forget to enable completion tracking for the course before generating module with completion tracking?', DEBUG_DEVELOPER);
         }
 
         // Add the module to the course.

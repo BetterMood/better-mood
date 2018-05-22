@@ -123,7 +123,7 @@ abstract class format_base {
             // when default format is not set correctly, use the first available format
             $defaultformat = reset($plugins);
         }
-        debugging('Format plugin format_'.$format.' is not found. Using default format_'.$defaultformat, DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Format plugin format_'.$format.' is not found. Using default format_'.$defaultformat, DEBUG_DEVELOPER);
 
         self::$classesforformat[$format] = $defaultformat;
         return $defaultformat;
@@ -253,7 +253,7 @@ abstract class format_base {
                         $dbcoursecolumns = $DB->get_columns('course');
                     }
                     if (isset($dbcoursecolumns[$optionname])) {
-                        debugging('The option name '.$optionname.' in course format '.$this->format.
+                        \Moodle\Logger::create()->debug('The option name '.$optionname.' in course format '.$this->format.
                             ' is invalid because the field with the same name exists in {course} table',
                             DEBUG_DEVELOPER);
                         continue;

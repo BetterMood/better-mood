@@ -654,18 +654,18 @@ class auth_plugin_mnet extends auth_plugin_base {
 
             if ($mnet_request->send($mnet_peer) === true) {
                 if (!isset($mnet_request->response['code'])) {
-                    debugging("Server side error has occured on host $mnethostid");
+                    \Moodle\Logger::create()->debug("Server side error has occured on host $mnethostid");
                     continue;
                 } elseif ($mnet_request->response['code'] > 0) {
-                    debugging($mnet_request->response['message']);
+                    \Moodle\Logger::create()->debug($mnet_request->response['message']);
                 }
 
                 if (!isset($mnet_request->response['last log id'])) {
-                    debugging("Server side error has occured on host $mnethostid\nNo log ID was received.");
+                    \Moodle\Logger::create()->debug("Server side error has occured on host $mnethostid\nNo log ID was received.");
                     continue;
                 }
             } else {
-                debugging("Server side error has occured on host $mnethostid: " .
+                \Moodle\Logger::create()->debug("Server side error has occured on host $mnethostid: " .
                           join("\n", $mnet_request->error));
                 break;
             }
@@ -681,7 +681,7 @@ class auth_plugin_mnet extends auth_plugin_base {
      * @return  string              "All ok" or an error message
      */
     function refresh_log($array) {
-        debugging('refresh_log() is deprecated, The transfer of logs through mnet are no longer recorded.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('refresh_log() is deprecated, The transfer of logs through mnet are no longer recorded.', DEBUG_DEVELOPER);
         return array('code' => 0, 'message' => 'All ok');
     }
 
@@ -810,7 +810,7 @@ class auth_plugin_mnet extends auth_plugin_base {
             $mnet_request->add_param($username);
             $mnet_request->add_param($useragent);
             if ($mnet_request->send($mnet_peer) === false) {
-                debugging(join("\n", $mnet_request->error));
+                \Moodle\Logger::create()->debug(join("\n", $mnet_request->error));
                 return false;
             }
         }
@@ -863,7 +863,7 @@ class auth_plugin_mnet extends auth_plugin_base {
             $mnet_request->add_param($username);
             $mnet_request->add_param($useragent);
             if ($mnet_request->send($mnet_peer) === false) {
-                debugging("Server side error has occured on host $mnetsession->mnethostid: " .
+                \Moodle\Logger::create()->debug("Server side error has occured on host $mnetsession->mnethostid: " .
                           join("\n", $mnet_request->error));
             }
         }

@@ -98,7 +98,7 @@ function user_create_user($user, $updatepassword = true, $triggerevent = true) {
     $uservalidation = core_user::validate($user);
     if ($uservalidation !== true) {
         foreach ($uservalidation as $field => $message) {
-            debugging("The property '$field' has invalid data and has been cleaned.", DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug("The property '$field' has invalid data and has been cleaned.", DEBUG_DEVELOPER);
             $user->$field = core_user::clean_field($user->$field, $field);
         }
     }
@@ -177,7 +177,7 @@ function user_update_user($user, $updatepassword = true, $triggerevent = true) {
     $uservalidation = core_user::validate($user);
     if ($uservalidation !== true) {
         foreach ($uservalidation as $field => $message) {
-            debugging("The property '$field' has invalid data and has been cleaned.", DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug("The property '$field' has invalid data and has been cleaned.", DEBUG_DEVELOPER);
             $user->$field = core_user::clean_field($user->$field, $field);
         }
     }

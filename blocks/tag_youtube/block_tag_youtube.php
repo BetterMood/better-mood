@@ -116,7 +116,7 @@ class block_tag_youtube extends block_base {
                 'maxResults' => $numberofvideos
             ));
         } catch (Google_Service_Exception $e) {
-            debugging('Google service exception: ' . $e->getMessage(), DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Google service exception: ' . $e->getMessage(), DEBUG_DEVELOPER);
             return $this->get_error_message(get_string('requesterror', 'block_tag_youtube'));
         }
 
@@ -157,7 +157,7 @@ class block_tag_youtube extends block_base {
                 'maxResults' => $numberofvideos
             ));
         } catch (Google_Service_Exception $e) {
-            debugging('Google service exception: ' . $e->getMessage(), DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Google service exception: ' . $e->getMessage(), DEBUG_DEVELOPER);
             return $this->get_error_message(get_string('requesterror', 'block_tag_youtube'));
         }
 
@@ -199,7 +199,7 @@ class block_tag_youtube extends block_base {
                 'videoCategoryId' => $this->config->category
             ));
         } catch (Google_Service_Exception $e) {
-            debugging('Google service exception: ' . $e->getMessage(), DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Google service exception: ' . $e->getMessage(), DEBUG_DEVELOPER);
             return $this->get_error_message(get_string('requesterror', 'block_tag_youtube'));
         }
 
@@ -289,7 +289,7 @@ class block_tag_youtube extends block_base {
 
         if (!$videosdata || empty($videosdata->items)) {
             if (!empty($videosdata->error)) {
-                debugging('Error fetching data from youtube: ' . $videosdata->error->message, DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Error fetching data from youtube: ' . $videosdata->error->message, DEBUG_DEVELOPER);
             }
             return '';
         }

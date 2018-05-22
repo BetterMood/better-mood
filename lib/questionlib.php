@@ -2242,7 +2242,7 @@ function question_module_uses_questions($modname) {
 
     $component = 'mod_'.$modname;
     if (component_callback_exists($component, 'question_pluginfile')) {
-        debugging("{$component} uses questions but doesn't declare FEATURE_USES_QUESTIONS", DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug("{$component} uses questions but doesn't declare FEATURE_USES_QUESTIONS", DEBUG_DEVELOPER);
         return true;
     }
 

@@ -35,7 +35,7 @@ class grade_export_form extends moodleform {
         }
 
         if (empty($features['simpleui'])) {
-            debugging('Grade export plugin needs updating to support one step exports.', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Grade export plugin needs updating to support one step exports.', DEBUG_DEVELOPER);
         }
 
         $mform->addElement('header', 'gradeitems', get_string('gradeitemsinc', 'grades'));

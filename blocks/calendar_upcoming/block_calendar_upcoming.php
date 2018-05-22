@@ -80,7 +80,7 @@ class block_calendar_upcoming extends block_base {
      * @deprecated since 3.4
      */
     public static function get_upcoming_content($events, $linkhref = null, $showcourselink = false) {
-        debugging(
+        \Moodle\Logger::create()->debug(
                 'get_upcoming_content() is deprecated. ' .
                 'Please see block_calendar_upcoming::get_content() for the correct API usage.',
                 DEBUG_DEVELOPER

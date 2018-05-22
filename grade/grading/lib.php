@@ -188,7 +188,7 @@ class grading_manager {
             if ($cm && strval($cm->name) !== '') {
                 $title = format_string($cm->name, true, array('context' => $context));
             } else {
-                debugging('Gradable areas are currently supported at the course module level only', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Gradable areas are currently supported at the course module level only', DEBUG_DEVELOPER);
                 $title = $this->get_component();
             }
 
@@ -215,7 +215,7 @@ class grading_manager {
             if (array_key_exists($this->get_area(), $areas)) {
                 return $areas[$this->get_area()];
             } else {
-                debugging('Unknown area!');
+                \Moodle\Logger::create()->debug('Unknown area!');
                 return '???';
             }
 

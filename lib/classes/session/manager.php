@@ -55,7 +55,7 @@ class manager {
         global $CFG, $DB;
 
         if (isset(self::$sessionactive)) {
-            debugging('Session was already started!', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Session was already started!', DEBUG_DEVELOPER);
             return;
         }
 
@@ -801,7 +801,7 @@ class manager {
             $rs->close();
 
         } catch (\Exception $ex) {
-            debugging('Error gc-ing sessions: '.$ex->getMessage(), DEBUG_NORMAL, $ex->getTrace());
+            \Moodle\Logger::create()->debug('Error gc-ing sessions: '.$ex->getMessage(), DEBUG_NORMAL, $ex->getTrace());
         }
     }
 

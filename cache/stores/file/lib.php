@@ -140,16 +140,16 @@ class cachestore_file extends cache_store implements cache_is_key_aware, cache_i
                 if ($this->autocreate) {
                     if (!make_writable_directory($path, false)) {
                         $path = false;
-                        debugging('Error trying to autocreate file store path. '.$path, DEBUG_DEVELOPER);
+                        \Moodle\Logger::create()->debug('Error trying to autocreate file store path. '.$path, DEBUG_DEVELOPER);
                     }
                 } else {
                     $path = false;
-                    debugging('The given file cache store path does not exist. '.$path, DEBUG_DEVELOPER);
+                    \Moodle\Logger::create()->debug('The given file cache store path does not exist. '.$path, DEBUG_DEVELOPER);
                 }
             }
             if ($path !== false && !is_writable($path)) {
                 $path = false;
-                debugging('The file cache store path is not writable for `'.$name.'`', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('The file cache store path is not writable for `'.$name.'`', DEBUG_DEVELOPER);
             }
         } else {
             $path = make_cache_directory('cachestore_file/'.preg_replace('#[^a-zA-Z0-9\.\-_]+#', '', $name));

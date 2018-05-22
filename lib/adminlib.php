@@ -446,7 +446,7 @@ function get_db_directories() {
 function set_cron_lock($name, $until, $ignorecurrent=false) {
     global $DB;
     if (empty($name)) {
-        debugging("Tried to get a cron lock for a null fieldname");
+        \Moodle\Logger::create()->debug("Tried to get a cron lock for a null fieldname");
         return false;
     }
 
@@ -855,7 +855,7 @@ class admin_category implements parentable_part_of_admin_tree {
         foreach ($this->get_children() as $child) {
             $subsearch = $child->search($query);
             if (!is_array($subsearch)) {
-                debugging('Incorrect search result from '.$child->name);
+                \Moodle\Logger::create()->debug('Incorrect search result from '.$child->name);
                 continue;
             }
             $result = array_merge($result, $subsearch);
@@ -910,19 +910,19 @@ class admin_category implements parentable_part_of_admin_tree {
 
         $parent = $this->locate($parentname);
         if (is_null($parent)) {
-            debugging('parent does not exist!');
+            \Moodle\Logger::create()->debug('parent does not exist!');
             return false;
         }
 
         if ($something instanceof part_of_admin_tree) {
             if (!($parent instanceof parentable_part_of_admin_tree)) {
-                debugging('error - parts of tree can be inserted only into parentable parts');
+                \Moodle\Logger::create()->debug('error - parts of tree can be inserted only into parentable parts');
                 return false;
             }
             if ($CFG->debugdeveloper && !is_null($this->locate($something->name))) {
                 // The name of the node is already used, simply warn the developer that this should not happen.
                 // It is intentional to check for the debug level before performing the check.
-                debugging('Duplicate admin page name: ' . $something->name, DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Duplicate admin page name: ' . $something->name, DEBUG_DEVELOPER);
             }
             if (is_null($beforesibling)) {
                 // Append $something as the parent's last child.
@@ -940,7 +940,7 @@ class admin_category implements parentable_part_of_admin_tree {
                     }
                 }
                 if (is_null($siblingposition)) {
-                    debugging('Sibling '.$beforesibling.' not found', DEBUG_DEVELOPER);
+                    \Moodle\Logger::create()->debug('Sibling '.$beforesibling.' not found', DEBUG_DEVELOPER);
                     $parent->children[] = $something;
                 } else {
                     $parent->children = array_merge(
@@ -952,7 +952,7 @@ class admin_category implements parentable_part_of_admin_tree {
             }
             if ($something instanceof admin_category) {
                 if (isset($this->category_cache[$something->name])) {
-                    debugging('Duplicate admin category name: '.$something->name);
+                    \Moodle\Logger::create()->debug('Duplicate admin category name: '.$something->name);
                 } else {
                     $this->category_cache[$something->name] = $something;
                     $something->category_cache =& $this->category_cache;
@@ -960,7 +960,7 @@ class admin_category implements parentable_part_of_admin_tree {
                         // just in case somebody already added subcategories
                         if ($child instanceof admin_category) {
                             if (isset($this->category_cache[$child->name])) {
-                                debugging('Duplicate admin category name: '.$child->name);
+                                \Moodle\Logger::create()->debug('Duplicate admin category name: '.$child->name);
                             } else {
                                 $this->category_cache[$child->name] = $child;
                                 $child->category_cache =& $this->category_cache;
@@ -972,7 +972,7 @@ class admin_category implements parentable_part_of_admin_tree {
             return true;
 
         } else {
-            debugging('error - can not add this element');
+            \Moodle\Logger::create()->debug('error - can not add this element');
             return false;
         }
 
@@ -1454,7 +1454,7 @@ class admin_settingpage implements part_of_admin_tree {
      */
     public function add($setting) {
         if (!($setting instanceof admin_setting)) {
-            debugging('error - not a setting instance');
+            \Moodle\Logger::create()->debug('error - not a setting instance');
             return false;
         }
 
@@ -3056,7 +3056,7 @@ class admin_setting_configselect extends admin_setting {
      * @deprecated since Moodle 3.2
      */
     public function output_select_html($data, $current, $default, $extraname = '') {
-        debugging('The method admin_setting_configselect::output_select_html is depreacted, do not use any more.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('The method admin_setting_configselect::output_select_html is depreacted, do not use any more.', DEBUG_DEVELOPER);
     }
 
     /**
@@ -5228,7 +5228,7 @@ class admin_setting_special_gradelimiting extends admin_setting_configcheckbox {
      * @deprecated since Moodle 3.1
      */
     public function admin_setting_special_gradelimiting() {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
         self::__construct();
     }
 

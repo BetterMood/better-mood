@@ -53,7 +53,7 @@ class MoodleQuickForm_submitlink extends MoodleQuickForm_submit {
      * @param string $attributes (optional) Either a typical HTML attribute string or an associative array
      */
     public function __construct($elementName=null, $value=null, $attributes=null) {
-        debugging('Element type submitlink is deprecated.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Element type submitlink is deprecated.', DEBUG_DEVELOPER);
         parent::__construct($elementName, $value, $attributes);
     }
 
@@ -63,7 +63,7 @@ class MoodleQuickForm_submitlink extends MoodleQuickForm_submit {
      * @deprecated since Moodle 3.1
      */
     public function MoodleQuickForm_submitlink($elementName=null, $value=null, $attributes=null) {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
         self::__construct($elementName, $value, $attributes);
     }
 

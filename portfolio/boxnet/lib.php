@@ -195,7 +195,7 @@ class portfolio_plugin_boxnet extends portfolio_plugin_push_base {
                 return true;
             } else {
                 // We could not rename the file for some reason...
-                debugging('Error while renaming the file on Box.net', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Error while renaming the file on Box.net', DEBUG_DEVELOPER);
             }
         } else {
             return true;

@@ -236,7 +236,7 @@ abstract class backup_general_helper extends backup_helper {
                     $info->activities[$setting['activity']]->settings[$setting['name']] = $setting['value'];
                     break;
                 default: // Shouldn't happen but tolerated for portability of customized backups.
-                    debugging("Unknown backup setting level: {$setting['level']}", DEBUG_DEVELOPER);
+                    \Moodle\Logger::create()->debug("Unknown backup setting level: {$setting['level']}", DEBUG_DEVELOPER);
                     break;
             }
         }

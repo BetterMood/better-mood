@@ -244,6 +244,5 @@ function groups_param_action($prefix = 'act_') {
         $action = false;
         print_error('unknowaction');
     }
-    ///if (debugging()) echo 'Debug: '.$action;
     return $action;
 }

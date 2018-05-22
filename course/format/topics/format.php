@@ -32,7 +32,7 @@ require_once($CFG->libdir.'/completionlib.php');
 if ($topic = optional_param('topic', 0, PARAM_INT)) {
     $url = $PAGE->url;
     $url->param('section', $topic);
-    debugging('Outdated topic param passed to course/view.php', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('Outdated topic param passed to course/view.php', DEBUG_DEVELOPER);
     redirect($url);
 }
 // End backwards-compatible aliasing..

@@ -246,7 +246,7 @@ class enrol_meta_handler {
             role_unassign_all(array('userid'=>$userid, 'contextid'=>$context->id, 'component'=>'enrol_meta', 'itemid'=>$instance->id));
 
         } else {
-            debugging('Unknown unenrol action '.$unenrolaction);
+            \Moodle\Logger::create()->debug('Unknown unenrol action '.$unenrolaction);
         }
     }
 }

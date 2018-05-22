@@ -475,7 +475,7 @@ class grade_item extends grade_object {
             return $this->id;
 
         } else {
-            debugging("Could not insert this grade_item in the database!");
+            \Moodle\Logger::create()->debug("Could not insert this grade_item in the database!");
             return false;
         }
     }
@@ -853,7 +853,7 @@ class grade_item extends grade_object {
             return null;
 
         } else {
-            debugging("Unknown grade type");
+            \Moodle\Logger::create()->debug("Unknown grade type");
             return null;
         }
     }
@@ -943,7 +943,7 @@ class grade_item extends grade_object {
             if (empty($this->scale->id) or $this->scale->id != $this->scaleid) {
                 $this->scale = grade_scale::fetch(array('id'=>$this->scaleid));
                 if (!$this->scale) {
-                    debugging('Incorrect scale id: '.$this->scaleid);
+                    \Moodle\Logger::create()->debug('Incorrect scale id: '.$this->scaleid);
                     $this->scale = null;
                     return null;
                 }
@@ -1280,7 +1280,7 @@ class grade_item extends grade_object {
      */
     public function get_grade($userid, $create=true) {
         if (empty($this->id)) {
-            debugging('Can not use before insert');
+            \Moodle\Logger::create()->debug('Can not use before insert');
             return false;
         }
 
@@ -1686,12 +1686,12 @@ class grade_item extends grade_object {
             }
 
             if (!$activity = $DB->get_record($this->itemmodule, array('id' => $this->iteminstance))) {
-                debugging("Can not find $this->itemmodule activity with id $this->iteminstance");
+                \Moodle\Logger::create()->debug("Can not find $this->itemmodule activity with id $this->iteminstance");
                 return false;
             }
 
             if (!$cm = get_coursemodule_from_instance($this->itemmodule, $activity->id, $this->courseid)) {
-                debugging('Can not find course module');
+                \Moodle\Logger::create()->debug('Can not find course module');
                 return false;
             }
 

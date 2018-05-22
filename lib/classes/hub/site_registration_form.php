@@ -260,14 +260,14 @@ class site_registration_form extends \moodleform {
             // Always return 'contactable'.
             $data->contactable = empty($data->contactable) ? 0 : 1;
 
-            if (debugging('', DEBUG_DEVELOPER)) {
+            if (\Moodle\Logger::create()->debug('', DEBUG_DEVELOPER)) {
                 // Display debugging message for developers who added fields to the form and forgot to add them to registration::FORM_FIELDS.
                 $keys = array_diff(array_keys((array)$data), ['returnurl', 'mform_isexpanded_id_sitestats', 'submitbutton', 'update']);
                 if ($extrafields = array_diff($keys, registration::FORM_FIELDS)) {
-                    debugging('Found extra fields in the form results: ' . join(', ', $extrafields), DEBUG_DEVELOPER);
+                    \Moodle\Logger::create()->debug('Found extra fields in the form results: ' . join(', ', $extrafields), DEBUG_DEVELOPER);
                 }
                 if ($missingfields = array_diff(registration::FORM_FIELDS, $keys)) {
-                    debugging('Some fields are missing in the form results: ' . join(', ', $missingfields), DEBUG_DEVELOPER);
+                    \Moodle\Logger::create()->debug('Some fields are missing in the form results: ' . join(', ', $missingfields), DEBUG_DEVELOPER);
                 }
             }
         }

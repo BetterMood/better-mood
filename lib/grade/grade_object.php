@@ -245,7 +245,7 @@ abstract class grade_object {
         global $USER, $CFG, $DB;
 
         if (empty($this->id)) {
-            debugging('Can not update grade object, no id!');
+            \Moodle\Logger::create()->debug('Can not update grade object, no id!');
             return false;
         }
 
@@ -277,7 +277,7 @@ abstract class grade_object {
         global $USER, $CFG, $DB;
 
         if (empty($this->id)) {
-            debugging('Can not delete grade object, no id!');
+            \Moodle\Logger::create()->debug('Can not delete grade object, no id!');
             return false;
         }
 
@@ -313,7 +313,7 @@ abstract class grade_object {
         foreach ($this as $var=>$value) {
             if (in_array($var, $this->required_fields) or array_key_exists($var, $this->optional_fields)) {
                 if (is_object($value) or is_array($value)) {
-                    debugging("Incorrect property '$var' found when inserting grade object");
+                    \Moodle\Logger::create()->debug("Incorrect property '$var' found when inserting grade object");
                 } else {
                     $data->$var = $value;
                 }
@@ -334,7 +334,7 @@ abstract class grade_object {
         global $USER, $CFG, $DB;
 
         if (!empty($this->id)) {
-            debugging("Grade object already exists!");
+            \Moodle\Logger::create()->debug("Grade object already exists!");
             return false;
         }
 
@@ -371,12 +371,12 @@ abstract class grade_object {
      */
     public function update_from_db() {
         if (empty($this->id)) {
-            debugging("The object could not be used in its state to retrieve a matching record from the DB, because its id field is not set.");
+            \Moodle\Logger::create()->debug("The object could not be used in its state to retrieve a matching record from the DB, because its id field is not set.");
             return false;
         }
         global $DB;
         if (!$params = $DB->get_record($this->table, array('id' => $this->id))) {
-            debugging("Object with this id:{$this->id} does not exist in table:{$this->table}, can not update from db!");
+            \Moodle\Logger::create()->debug("Object with this id:{$this->id} does not exist in table:{$this->table}, can not update from db!");
             return false;
         }
 

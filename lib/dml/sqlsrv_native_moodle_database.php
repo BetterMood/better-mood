@@ -978,7 +978,7 @@ class sqlsrv_native_moodle_database extends moodle_database {
 
             if (isset($results[$id])) {
                 $colname = key($row);
-                debugging("Did you remember to make the first column something unique in your call to get_records? Duplicate value '$id' found in column '$colname'.", DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug("Did you remember to make the first column something unique in your call to get_records? Duplicate value '$id' found in column '$colname'.", DEBUG_DEVELOPER);
             }
             $results[$id] = (object)$row;
         }
@@ -1384,7 +1384,7 @@ class sqlsrv_native_moodle_database extends moodle_database {
      */
     public function sql_like($fieldname, $param, $casesensitive = true, $accentsensitive = true, $notlike = false, $escapechar = '\\') {
         if (strpos($param, '%') !== false) {
-            debugging('Potential SQL injection detected, sql_like() expects bound parameters (? or :named)');
+            \Moodle\Logger::create()->debug('Potential SQL injection detected, sql_like() expects bound parameters (? or :named)');
         }
 
         $collation = $this->get_collation();

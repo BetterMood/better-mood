@@ -26,5 +26,5 @@
 require('../../config.php');
 require_once($CFG->libdir . '/filelib.php');
 
-debugging('This way of generating the chart is deprecated, refer to report_stats_print_chart().', DEBUG_DEVELOPER);
+\Moodle\Logger::create()->debug('This way of generating the chart is deprecated, refer to report_stats_print_chart().', DEBUG_DEVELOPER);
 send_file_not_found();

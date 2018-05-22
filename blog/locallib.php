@@ -352,7 +352,7 @@ class blog_entry implements renderable {
     public function add_associations($unused = null) {
 
         if ($unused !== null) {
-            debugging('Illegal argument used in blog_entry->add_associations()', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Illegal argument used in blog_entry->add_associations()', DEBUG_DEVELOPER);
         }
 
         $this->remove_associations();
@@ -376,7 +376,7 @@ class blog_entry implements renderable {
         global $DB;
 
         if ($unused !== null) {
-            debugging('Illegal argument used in blog_entry->add_association()', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Illegal argument used in blog_entry->add_association()', DEBUG_DEVELOPER);
         }
 
         $assocobject = new StdClass;

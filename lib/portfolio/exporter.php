@@ -242,8 +242,8 @@ class portfolio_exporter {
         } catch (portfolio_export_exception $e) {
             throw $e;
         } catch (Exception $e) {
-            debugging(get_string('thirdpartyexception', 'portfolio', get_class($e)));
-            debugging($e);
+            \Moodle\Logger::create()->debug(get_string('thirdpartyexception', 'portfolio', get_class($e)));
+            \Moodle\Logger::create()->debug($e);
             portfolio_export_rethrow_exception($this, $e);
         }
     }
@@ -655,7 +655,7 @@ class portfolio_exporter {
         } else {
             if (!$r = $DB->get_record('portfolio_tempdata', array('id' => $this->id))) {
                 if (!$this->deleted) {
-                    //debugging("tried to save current object, but failed - see MDL-20872");
+                    //\Moodle\Logger::create()->debug("tried to save current object, but failed - see MDL-20872");
                 }
                 return;
             }

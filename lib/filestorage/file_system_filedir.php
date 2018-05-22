@@ -363,7 +363,7 @@ class file_system_filedir extends file_system {
                 copy($hashfile, "$this->filedir/jackpot/{$contenthash}_2");
                 throw new file_pool_content_exception($contenthash);
             }
-            debugging("Replacing invalid content file $contenthash");
+            \Moodle\Logger::create()->debug("Replacing invalid content file $contenthash");
             unlink($hashfile);
             $newfile = false;
         }
@@ -432,7 +432,7 @@ class file_system_filedir extends file_system {
                 file_put_contents("$this->filedir/jackpot/{$contenthash}_2", $content);
                 throw new file_pool_content_exception($contenthash);
             }
-            debugging("Replacing invalid content file $contenthash");
+            \Moodle\Logger::create()->debug("Replacing invalid content file $contenthash");
             unlink($hashfile);
             $newfile = false;
         }

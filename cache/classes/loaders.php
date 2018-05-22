@@ -1390,7 +1390,7 @@ class cache_application extends cache implements cache_loader_with_locking {
         }
         $result = parent::set($key, $data);
         if ($this->requirelockingwrite && !$this->release_lock($key)) {
-            debugging('Failed to release cache lock on set operation... this should not happen.', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Failed to release cache lock on set operation... this should not happen.', DEBUG_DEVELOPER);
         }
         return $result;
     }
@@ -1434,7 +1434,7 @@ class cache_application extends cache implements cache_loader_with_locking {
         if ($this->requirelockingwrite) {
             foreach ($locks as $key) {
                 if ($this->release_lock($key)) {
-                    debugging('Failed to release cache lock on set_many operation... this should not happen.', DEBUG_DEVELOPER);
+                    \Moodle\Logger::create()->debug('Failed to release cache lock on set_many operation... this should not happen.', DEBUG_DEVELOPER);
                 }
             }
         }
@@ -1504,7 +1504,7 @@ class cache_application extends cache implements cache_loader_with_locking {
         }
         $result = parent::delete($key, $recurse);
         if ($this->requirelockingwrite && !$this->release_lock($key)) {
-            debugging('Failed to release cache lock on delete operation... this should not happen.', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Failed to release cache lock on delete operation... this should not happen.', DEBUG_DEVELOPER);
         }
         return $result;
     }
@@ -1532,7 +1532,7 @@ class cache_application extends cache implements cache_loader_with_locking {
         if ($this->requirelockingwrite) {
             foreach ($locks as $key) {
                 if ($this->release_lock($key)) {
-                    debugging('Failed to release cache lock on delete_many operation... this should not happen.', DEBUG_DEVELOPER);
+                    \Moodle\Logger::create()->debug('Failed to release cache lock on delete_many operation... this should not happen.', DEBUG_DEVELOPER);
                 }
             }
         }

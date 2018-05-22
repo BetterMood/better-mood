@@ -133,7 +133,7 @@ class uu_progress_tracker {
             $this->flush(); //init arrays
         }
         if (!in_array($col, $this->columns)) {
-            debugging('Incorrect column:'.$col);
+            \Moodle\Logger::create()->debug('Incorrect column:'.$col);
             return;
         }
         if ($merge) {

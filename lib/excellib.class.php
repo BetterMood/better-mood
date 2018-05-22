@@ -60,7 +60,7 @@ class MoodleExcelWorkbook {
         $this->filename = $filename;
 
         if (strtolower($type) === 'excel5') {
-            debugging('Excel5 is no longer supported, using Excel2007 instead');
+            \Moodle\Logger::create()->debug('Excel5 is no longer supported, using Excel2007 instead');
             $this->type = 'Excel2007';
         } else {
             $this->type = 'Excel2007';

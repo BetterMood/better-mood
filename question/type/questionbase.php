@@ -675,7 +675,7 @@ abstract class question_graded_automatically extends question_with_responses
         $state = $qa->get_state();
 
         if ($args === null) {
-            debugging('You must pass $args as the fourth argument to check_combined_feedback_file_access.',
+            \Moodle\Logger::create()->debug('You must pass $args as the fourth argument to check_combined_feedback_file_access.',
                     DEBUG_DEVELOPER);
             $args = array($this->id); // Fake it for now, so the rest of this method works.
         }

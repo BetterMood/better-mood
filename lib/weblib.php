@@ -552,7 +552,7 @@ class moodle_url {
         global $CFG;
 
         if (!is_bool($escaped)) {
-            debugging('Escape parameter must be of type boolean, '.gettype($escaped).' given instead.');
+            \Moodle\Logger::create()->debug('Escape parameter must be of type boolean, '.gettype($escaped).' given instead.');
         }
 
         $url = $this;
@@ -581,7 +581,7 @@ class moodle_url {
      */
     public function raw_out($escaped = true, array $overrideparams = null) {
         if (!is_bool($escaped)) {
-            debugging('Escape parameter must be of type boolean, '.gettype($escaped).' given instead.');
+            \Moodle\Logger::create()->debug('Escape parameter must be of type boolean, '.gettype($escaped).' given instead.');
         }
 
         $uri = $this->out_omit_querystring().$this->slashargument;
@@ -1319,7 +1319,7 @@ function format_text($text, $format = FORMAT_MOODLE, $options = null, $courseidd
 
         if ($CFG->debugdeveloper) {
             if (strpos($text, '@@PLUGINFILE@@/') !== false) {
-                debugging('Before calling format_text(), the content must be processed with file_rewrite_pluginfile_urls()',
+                \Moodle\Logger::create()->debug('Before calling format_text(), the content must be processed with file_rewrite_pluginfile_urls()',
                     DEBUG_DEVELOPER);
             }
         }
@@ -1674,7 +1674,6 @@ function clean_text($text, $format = FORMAT_HTML, $options = array()) {
 
     if ($format != FORMAT_HTML and $format != FORMAT_HTML) {
         // TODO: we need to standardise cleanup of text when loading it into editor first.
-        // debugging('clean_text() is designed to work only with html');.
     }
 
     if ($format == FORMAT_PLAIN) {
@@ -2762,7 +2761,7 @@ function redirect($url, $message='', $delay=null, $messagetype = \core\output\no
 
     $debugdisableredirect = false;
     do {
-        if (defined('DEBUGGING_PRINTED')) {
+        if (\Moodle\DebuggingPrinted::getInstance()->check()) {
             // Some debugging already printed, no need to look more.
             $debugdisableredirect = true;
             break;
@@ -3100,65 +3099,16 @@ function set_debugging($level, $debugdisplay = null) {
  *
  * It is also possible to define NO_DEBUG_DISPLAY which redirects the message to error_log.
  *
+ * @deprecated Use \Moodle\Logger->debug()
  * @param string $message a message to print
  * @param int $level the level at which this debugging statement should show
  * @param array $backtrace use different backtrace
  * @return bool
  */
 function debugging($message = '', $level = DEBUG_NORMAL, $backtrace = null) {
-    global $CFG, $USER;
-
-    $forcedebug = false;
-    if (!empty($CFG->debugusers) && $USER) {
-        $debugusers = explode(',', $CFG->debugusers);
-        $forcedebug = in_array($USER->id, $debugusers);
-    }
-
-    if (!$forcedebug and (empty($CFG->debug) || ($CFG->debug != -1 and $CFG->debug < $level))) {
-        return false;
-    }
-
-    if (!isset($CFG->debugdisplay)) {
-        $CFG->debugdisplay = ini_get_bool('display_errors');
-    }
-
-    if ($message) {
-        if (!$backtrace) {
-            $backtrace = debug_backtrace();
-        }
-        
-        $backtraceFormatter = new \Moodle\BacktraceFormatter(
-            new \Moodle\RootDirectory()
-        );
-        $from = $backtraceFormatter->format($backtrace, CLI_SCRIPT || NO_DEBUG_DISPLAY);
-        
-        if (PHPUNIT_TEST) {
-            if (phpunit_util::debugging_triggered($message, $level, $from)) {
-                // We are inside test, the debug message was logged.
-                return true;
-            }
-        }
-
-        if (NO_DEBUG_DISPLAY) {
-            // Script does not want any errors or debugging in output,
-            // we send the info to error log instead.
-            error_log('Debugging: ' . $message . ' in '. PHP_EOL . $from);
-
-        } else if ($forcedebug or $CFG->debugdisplay) {
-            if (!defined('DEBUGGING_PRINTED')) {
-                define('DEBUGGING_PRINTED', 1); // Indicates we have printed something.
-            }
-            if (CLI_SCRIPT) {
-                echo "++ $message ++\n$from";
-            } else {
-                echo '<div class="notifytiny debuggingmessage" data-rel="debugging">' , $message , $from , '</div>';
-            }
-
-        } else {
-            trigger_error($message . $from, E_USER_NOTICE);
-        }
-    }
-    return true;
+    $logger = new \Moodle\Logger::create();
+    
+    return $logger->debug($message, $level, $backtrace);
 }
 
 /**

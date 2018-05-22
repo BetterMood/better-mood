@@ -90,7 +90,7 @@ abstract class moodleform_mod extends moodleform {
         if (is_null($this->_modname)) {
             $matches = array();
             if (!preg_match('/^mod_([^_]+)_mod_form$/', get_class($this), $matches)) {
-                debugging('Rename form to mod_xx_mod_form, where xx is name of your module');
+                \Moodle\Logger::create()->debug('Rename form to mod_xx_mod_form, where xx is name of your module');
                 print_error('unknownmodulename');
             }
             $this->_modname = $matches[1];
@@ -105,7 +105,7 @@ abstract class moodleform_mod extends moodleform {
      * @deprecated since Moodle 3.1
      */
     public function moodleform_mod($current, $section, $cm, $course) {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
         self::__construct($current, $section, $cm, $course);
     }
 
@@ -904,7 +904,7 @@ abstract class moodleform_mod extends moodleform {
      */
     protected function add_intro_editor($required=null, $customlabel=null) {
         $str = "Function moodleform_mod::add_intro_editor() is deprecated, use moodleform_mod::standard_intro_elements() instead.";
-        debugging($str, DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug($str, DEBUG_DEVELOPER);
 
         $this->standard_intro_elements($customlabel);
     }

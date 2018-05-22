@@ -76,7 +76,7 @@ class custom_view extends \core_question\bank\view {
                 } else if (class_exists('core_question\\bank\\' . $fullname)) {
                     $fullname = 'core_question\\bank\\' . $fullname;
                 } else if (class_exists('question_bank_' . $fullname)) {
-                    debugging('Legacy question bank column class question_bank_' .
+                    \Moodle\Logger::create()->debug('Legacy question bank column class question_bank_' .
                             $fullname . ' should be renamed to mod_quiz\\question\\bank\\' .
                             $fullname, DEBUG_DEVELOPER);
                     $fullname = 'question_bank_' . $fullname;
@@ -188,7 +188,7 @@ class custom_view extends \core_question\bank\view {
      */
     protected function print_choose_category_message($categoryandcontext) {
         global $OUTPUT;
-        debugging('print_choose_category_message() is deprecated, ' .
+        \Moodle\Logger::create()->debug('print_choose_category_message() is deprecated, ' .
                 'please use \core_question\bank\search\category_condition instead.', DEBUG_DEVELOPER);
         echo $OUTPUT->box_start('generalbox questionbank');
         $this->display_category_form($this->contexts->having_one_edit_tab_cap('edit'),
@@ -221,7 +221,7 @@ class custom_view extends \core_question\bank\view {
     }
 
     protected function display_options($recurse, $showhidden, $showquestiontext) {
-        debugging('display_options() is deprecated, see display_options_form() instead.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('display_options() is deprecated, see display_options_form() instead.', DEBUG_DEVELOPER);
         echo '<form method="get" action="edit.php" id="displayoptions">';
         echo "<fieldset class='invisiblefieldset'>";
         echo \html_writer::input_hidden_params($this->baseurl,

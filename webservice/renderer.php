@@ -251,7 +251,7 @@ class core_webservice_renderer extends plugin_renderer_base {
         if (empty($service->component)) {
 
             if (!empty($anydeprecated)) {
-                debugging('This service uses deprecated functions, replace them by the proposed ones and update your client/s.', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('This service uses deprecated functions, replace them by the proposed ones and update your client/s.', DEBUG_DEVELOPER);
             }
             $addurl = new moodle_url('/' . $CFG->admin . '/webservice/service_functions.php',
                             array('sesskey' => sesskey(), 'id' => $service->id, 'action' => 'add'));

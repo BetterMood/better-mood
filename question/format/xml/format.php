@@ -80,7 +80,7 @@ class qformat_xml extends qformat_default {
         } else if ($name == 'markdown') {
             return FORMAT_MARKDOWN;
         } else {
-            debugging("Unrecognised text format '{$name}' in the import file. Assuming 'html'.");
+            \Moodle\Logger::create()->debug("Unrecognised text format '{$name}' in the import file. Assuming 'html'.");
             return FORMAT_HTML;
         }
     }
@@ -175,7 +175,7 @@ class qformat_xml extends qformat_default {
             $filepath = $this->getpath($file, array('@', 'path'), '/', true);
             $fullpath = $filepath . $filename;
             if (in_array($fullpath, $filepaths)) {
-                debugging('Duplicate file in XML: ' . $fullpath, DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Duplicate file in XML: ' . $fullpath, DEBUG_DEVELOPER);
                 continue;
             }
             $filerecord = array(

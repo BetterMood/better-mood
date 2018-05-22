@@ -375,7 +375,7 @@ class gradebookservices extends service_base {
             $result = ($status == GRADE_UPDATE_OK);
         }
         if (!$result) {
-            debugging("failed to save score for item ".$gradeitem->id." and user ".$grade->userid);
+            \Moodle\Logger::create()->debug("failed to save score for item ".$gradeitem->id." and user ".$grade->userid);
             throw new \Exception(null, 500);
         }
 

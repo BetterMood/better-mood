@@ -213,7 +213,7 @@ class webservice_soap_server extends webservice_base_server {
     protected function send_error($ex = null) {
         if ($ex) {
             $info = $ex->getMessage();
-            if (debugging() and isset($ex->debuginfo)) {
+            if (\Moodle\Logger::create()->debug() and isset($ex->debuginfo)) {
                 $info .= ' - '.$ex->debuginfo;
             }
         } else {
@@ -297,7 +297,7 @@ class webservice_soap_server extends webservice_base_server {
             // Add the debuginfo to the exception message if debuginfo must be returned.
             $actor = isset($fault->errorcode) ? $fault->errorcode : null;
             $errorcode = $actor;
-            if (debugging()) {
+            if (\Moodle\Logger::create()->debug()) {
                 $message = $fault->getMessage();
                 $details = isset($fault->debuginfo) ? $fault->debuginfo : null;
             }

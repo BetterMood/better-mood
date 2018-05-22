@@ -127,7 +127,7 @@ class moodle_phpmailer extends \PHPMailer\PHPMailer\PHPMailer {
         // Now ask phpunit if it wants to catch this message.
         if (PHPUNIT_TEST) {
             if (!phpunit_util::is_redirecting_phpmailer()) {
-                debugging('Unit tests must not send real emails! Use $this->redirectEmails()');
+                \Moodle\Logger::create()->debug('Unit tests must not send real emails! Use $this->redirectEmails()');
                 return true;
             }
             $mail = new stdClass();

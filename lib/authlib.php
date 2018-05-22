@@ -396,7 +396,7 @@ class auth_plugin_base {
      * @deprecated since Moodle 3.3
      */
     function config_form($config, $err, $user_fields) {
-        debugging('Use of config.html files have been deprecated, please update your code to use the admin settings API.');
+        \Moodle\Logger::create()->debug('Use of config.html files have been deprecated, please update your code to use the admin settings API.');
         //override if needed
     }
 
@@ -408,7 +408,7 @@ class auth_plugin_base {
      * @deprecated since Moodle 3.3
      */
      function validate_form($form, &$err) {
-        debugging('Use of config.html files have been deprecated, please update your code to use the admin settings API.');
+        \Moodle\Logger::create()->debug('Use of config.html files have been deprecated, please update your code to use the admin settings API.');
         //override if needed
     }
 
@@ -419,7 +419,7 @@ class auth_plugin_base {
      * @deprecated since Moodle 3.3
      */
     function process_config($config) {
-        debugging('Use of config.html files have been deprecated, please update your code to use the admin settings API.');
+        \Moodle\Logger::create()->debug('Use of config.html files have been deprecated, please update your code to use the admin settings API.');
         //override if needed
         return true;
     }

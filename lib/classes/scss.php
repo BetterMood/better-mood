@@ -166,7 +166,7 @@ class core_scss extends \Leafo\ScssPhp\Compiler {
                         return parent::compileChild($child, $out);
                     } else {
                         // Sneaky stuff, don't let non scss file in.
-                        debugging("Can't import scss file - " . $path, DEBUG_DEVELOPER);
+                        \Moodle\Logger::create()->debug("Can't import scss file - " . $path, DEBUG_DEVELOPER);
                     }
                 }
                 break;

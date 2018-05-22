@@ -142,7 +142,7 @@ class behat_config_manager {
      */
     public static function get_features_with_tags($features, $tags) {
 
-        debugging('Use of get_features_with_tags is deprecated, please see behat_config_util', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of get_features_with_tags is deprecated, please see behat_config_util', DEBUG_DEVELOPER);
         return self::get_behat_config_util()->filtered_features_with_tags($features, $tags);
     }
 
@@ -160,7 +160,7 @@ class behat_config_manager {
      */
     public static function get_components_steps_definitions() {
 
-        debugging('Use of get_components_steps_definitions is deprecated, please see behat_config_util::get_components_contexts',
+        \Moodle\Logger::create()->debug('Use of get_components_steps_definitions is deprecated, please see behat_config_util::get_components_contexts',
             DEBUG_DEVELOPER);
         return self::get_behat_config_util()->get_components_contexts();
     }
@@ -332,7 +332,7 @@ class behat_config_manager {
      */
     protected static function get_config_file_contents($features, $stepsdefinitions) {
 
-        debugging('Use of get_config_file_contents is deprecated, please see behat_config_util', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of get_config_file_contents is deprecated, please see behat_config_util', DEBUG_DEVELOPER);
         return self::get_behat_config_util()->get_config_file_contents($features, $stepsdefinitions);
     }
 
@@ -347,7 +347,7 @@ class behat_config_manager {
      */
     protected static function merge_behat_config($profile, $values) {
 
-        debugging('Use of merge_behat_config is deprecated, please see behat_config_util', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of merge_behat_config is deprecated, please see behat_config_util', DEBUG_DEVELOPER);
         self::get_behat_config_util()->get_behat_config_for_profile($profile, $values);
     }
 
@@ -429,7 +429,7 @@ class behat_config_manager {
      */
     protected static function profile_guided_allocate($features, $nbuckets, $instance) {
 
-        debugging('Use of profile_guided_allocate is deprecated, please see behat_config_util', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of profile_guided_allocate is deprecated, please see behat_config_util', DEBUG_DEVELOPER);
         return self::get_behat_config_util()->profile_guided_allocate($features, $nbuckets, $instance);
     }
 
@@ -446,7 +446,7 @@ class behat_config_manager {
      */
     protected static function merge_config($config, $localconfig) {
 
-        debugging('Use of merge_config is deprecated, please see behat_config_util', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of merge_config is deprecated, please see behat_config_util', DEBUG_DEVELOPER);
         return self::get_behat_config_util()->merge_config($config, $localconfig);
     }
 
@@ -461,7 +461,7 @@ class behat_config_manager {
      */
     protected final static function clean_path($path) {
 
-        debugging('Use of clean_path is deprecated, please see behat_config_util', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of clean_path is deprecated, please see behat_config_util', DEBUG_DEVELOPER);
         return self::get_behat_config_util()->clean_path($path);
     }
 
@@ -473,7 +473,7 @@ class behat_config_manager {
      * @todo MDL-55365 This will be deleted in Moodle 3.6.
      */
     protected final static function get_behat_tests_path() {
-        debugging('Use of get_behat_tests_path is deprecated, please see behat_config_util', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of get_behat_tests_path is deprecated, please see behat_config_util', DEBUG_DEVELOPER);
         return self::get_behat_config_util()->get_behat_tests_path();
     }
 

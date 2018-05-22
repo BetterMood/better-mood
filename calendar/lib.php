@@ -686,7 +686,7 @@ class calendar_event {
 
         // If $this->properties->id is not set then something is wrong.
         if (empty($this->properties->id)) {
-            debugging('Attempting to delete an event before it has been loaded', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Attempting to delete an event before it has been loaded', DEBUG_DEVELOPER);
             return false;
         }
         $calevent = $DB->get_record('event',  array('id' => $this->properties->id), '*', MUST_EXIST);
@@ -1120,7 +1120,7 @@ class calendar_information {
      * @param bool $ignorefilters options to use filter
      */
     public function prepare_for_view(stdClass $course, array $coursestoload, $ignorefilters = false) {
-        debugging('The prepare_for_view() function has been deprecated. Please update your code to use set_sources()',
+        \Moodle\Logger::create()->debug('The prepare_for_view() function has been deprecated. Please update your code to use set_sources()',
                 DEBUG_DEVELOPER);
         $this->set_sources($course, $coursestoload);
     }

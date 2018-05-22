@@ -371,7 +371,7 @@ class search_parser {
  */
 function search_generate_text_SQL($parsetree, $datafield, $metafield, $mainidfield, $useridfield,
                              $userfirstnamefield, $userlastnamefield, $timefield, $instancefield) {
-    debugging('search_generate_text_SQL() is deprecated, please use search_generate_SQL() instead.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('search_generate_text_SQL() is deprecated, please use search_generate_SQL() instead.', DEBUG_DEVELOPER);
 
     return search_generate_SQL($parsetree, $datafield, $metafield, $mainidfield, $useridfield,
                                $userfirstnamefield, $userlastnamefield, $timefield, $instancefield);

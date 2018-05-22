@@ -204,7 +204,7 @@ if ($userform->is_cancelled()) {
         if (!$authplugin->is_internal() and $authplugin->can_change_password() and !empty($usernew->newpassword)) {
             if (!$authplugin->user_update_password($usernew, $usernew->newpassword)) {
                 // Do not stop here, we need to finish user creation.
-                debugging(get_string('cannotupdatepasswordonextauth', '', '', $usernew->auth), DEBUG_NONE);
+                \Moodle\Logger::create()->debug(get_string('cannotupdatepasswordonextauth', '', '', $usernew->auth), DEBUG_NONE);
             }
         }
         $usercreated = true;

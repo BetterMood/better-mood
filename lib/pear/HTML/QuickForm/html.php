@@ -51,7 +51,7 @@ class HTML_QuickForm_html extends HTML_QuickForm_static
      * @deprecated since Moodle 3.1
      */
     public function HTML_QuickForm_html($text = null) {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
         self::__construct($text);
     }
 

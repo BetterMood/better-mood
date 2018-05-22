@@ -36,7 +36,7 @@ $confirm  = optional_param('confirm', 0, PARAM_BOOL);
 // This script used to support group delete, but that has been moved. In case
 // anyone still links to it, let's redirect to the new script.
 if ($delete) {
-    debugging('Deleting a group through group/group.php is deprecated and will be removed soon. Please use group/delete.php instead');
+    \Moodle\Logger::create()->debug('Deleting a group through group/group.php is deprecated and will be removed soon. Please use group/delete.php instead');
     redirect(new moodle_url('delete.php', array('courseid' => $courseid, 'groups' => $id)));
 }
 

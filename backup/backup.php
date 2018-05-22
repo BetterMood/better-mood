@@ -124,7 +124,7 @@ $backup->get_controller()->set_progress($slowprogress);
 $backup->process();
 
 if ($backup->enforce_changed_dependencies()) {
-    debugging('Your settings have been altered due to unmet dependencies', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('Your settings have been altered due to unmet dependencies', DEBUG_DEVELOPER);
 }
 
 $loghtml = '';

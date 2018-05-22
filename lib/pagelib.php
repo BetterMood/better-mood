@@ -488,7 +488,7 @@ class moodle_page {
                 throw new coding_exception('$PAGE->context was not set. You may have forgotten '
                     .'to call require_login() or $PAGE->set_context()');
             } else {
-                debugging('Coding problem: $PAGE->context was not set. You may have forgotten '
+                \Moodle\Logger::create()->debug('Coding problem: $PAGE->context was not set. You may have forgotten '
                     .'to call require_login() or $PAGE->set_context(). The page may not display '
                     .'correctly as a result');
             }
@@ -597,7 +597,7 @@ class moodle_page {
     protected function magic_get_url() {
         global $FULLME;
         if (is_null($this->_url)) {
-            debugging('This page did not call $PAGE->set_url(...). Using '.s($FULLME), DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('This page did not call $PAGE->set_url(...). Using '.s($FULLME), DEBUG_DEVELOPER);
             $this->_url = new moodle_url($FULLME);
             // Make sure the guessed URL cannot lead to dangerous redirects.
             $this->_url->remove_params('sesskey');
@@ -1051,7 +1051,7 @@ class moodle_page {
             } else {
                 // We do not want devs to do weird switching of context levels on the fly because we might have used
                 // the context already such as in text filter in page title.
-                debugging("Coding problem: unsupported modification of PAGE->context from {$current} to {$context->contextlevel}");
+                \Moodle\Logger::create()->debug("Coding problem: unsupported modification of PAGE->context from {$current} to {$context->contextlevel}");
             }
         }
 
@@ -1169,7 +1169,7 @@ class moodle_page {
         } else {
             // Uncomment this to debug theme pagelayout issues like missing blocks.
             // if (!empty($this->_wherethemewasinitialised) && $pagelayout != $this->_pagelayout)
-            //     debugging('Page layout has already been set and cannot be changed.', DEBUG_DEVELOPER);
+            //     \Moodle\Logger::create()->debug('Page layout has already been set and cannot be changed.', DEBUG_DEVELOPER);
             $this->_pagelayout = $pagelayout;
         }
     }
@@ -1312,7 +1312,7 @@ class moodle_page {
 
         $fullurl = $this->_url->out_omit_querystring();
         if (strpos($fullurl, "$CFG->wwwroot/") !== 0) {
-            debugging('Most probably incorrect set_page() url argument, it does not match the wwwroot!');
+            \Moodle\Logger::create()->debug('Most probably incorrect set_page() url argument, it does not match the wwwroot!');
         }
         $shorturl = str_replace("$CFG->wwwroot/", '', $fullurl);
 
@@ -1469,7 +1469,7 @@ class moodle_page {
      * @throws coding_exception
      */
     public function https_required() {
-        debugging('https_required() has been deprecated. It no longer needs to be called.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('https_required() has been deprecated. It no longer needs to be called.', DEBUG_DEVELOPER);
     }
 
     /**
@@ -1482,7 +1482,7 @@ class moodle_page {
      * @throws coding_exception
      */
     public function verify_https_required() {
-        debugging('verify_https_required() has been deprecated. It no longer needs to be called.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('verify_https_required() has been deprecated. It no longer needs to be called.', DEBUG_DEVELOPER);
     }
 
     // Initialisation methods =====================================================
@@ -1691,7 +1691,7 @@ class moodle_page {
         }
 
         // We should most certainly have resolved a theme by now. Something has gone wrong.
-        debugging('Error resolving the theme to use for this page.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Error resolving the theme to use for this page.', DEBUG_DEVELOPER);
         return theme_config::DEFAULT_THEME;
     }
 
@@ -1709,7 +1709,7 @@ class moodle_page {
         global $CFG, $SCRIPT;
 
         if (isset($CFG->pagepath)) {
-            debugging('Some code appears to have set $CFG->pagepath. That was a horrible deprecated thing. ' .
+            \Moodle\Logger::create()->debug('Some code appears to have set $CFG->pagepath. That was a horrible deprecated thing. ' .
                     'Don\'t do it! Try calling $PAGE->set_pagetype() instead.');
             $script = $CFG->pagepath;
             unset($CFG->pagepath);

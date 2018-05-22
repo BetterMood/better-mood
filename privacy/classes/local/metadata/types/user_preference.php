@@ -54,7 +54,7 @@ class user_preference implements type {
         if (debugging('', DEBUG_DEVELOPER)) {
             $teststring = clean_param($summary, PARAM_STRINGID);
             if ($teststring !== $summary) {
-                debugging("Summary information for use of the '{$name}' subsystem " .
+                \Moodle\Logger::create()->debug("Summary information for use of the '{$name}' subsystem " .
                     " has an invalid langstring identifier: '{$summary}'",
                     DEBUG_DEVELOPER);
             }

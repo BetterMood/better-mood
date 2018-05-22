@@ -789,14 +789,14 @@ class moodle1_xml_transformer extends xml_contenttransformer {
         // the content should be a string. If array or object is given, try our best recursively
         // but inform the developer
         if (is_array($content)) {
-            debugging('Moodle1 XML transformer should not process arrays but plain content always', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Moodle1 XML transformer should not process arrays but plain content always', DEBUG_DEVELOPER);
             foreach($content as $key => $plaincontent) {
                 $content[$key] = $this->process($plaincontent);
             }
             return $content;
 
         } else if (is_object($content)) {
-            debugging('Moodle1 XML transformer should not process objects but plain content always', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Moodle1 XML transformer should not process objects but plain content always', DEBUG_DEVELOPER);
             foreach((array)$content as $key => $plaincontent) {
                 $content[$key] = $this->process($plaincontent);
             }
@@ -1294,7 +1294,7 @@ class moodle1_file_manager implements loggable {
 
         // Check the trailing slash in the $rootpath
         if (substr($rootpath, -1) === '/') {
-            debugging('moodle1_file_manager::migrate_directory() expects $rootpath without the trailing slash', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('moodle1_file_manager::migrate_directory() expects $rootpath without the trailing slash', DEBUG_DEVELOPER);
             $rootpath = substr($rootpath, 0, strlen($rootpath) - 1);
         }
 

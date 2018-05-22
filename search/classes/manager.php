@@ -903,7 +903,7 @@ class manager {
             } else {
                 // Backward compatibility for engines that don't support partial adding.
                 list($numrecords, $numdocs, $numdocsignored, $lastindexeddoc) = $result;
-                debugging('engine::add_documents() should return $partial (4-value return is deprecated)',
+                \Moodle\Logger::create()->debug('engine::add_documents() should return $partial (4-value return is deprecated)',
                         DEBUG_DEVELOPER);
                 $partial = false;
             }

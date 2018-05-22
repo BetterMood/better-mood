@@ -177,7 +177,7 @@ class autoprefixer {
                             $block->insert($newnode, $node);
 
                         } else {
-                            debugging('Unhandled atRule prefixing.', DEBUG_DEVELOPER);
+                            \Moodle\Logger::create()->debug('Unhandled atRule prefixing.', DEBUG_DEVELOPER);
                         }
                     }
                 }

@@ -364,7 +364,7 @@ class grade_category extends grade_object {
         $this->timecreated = $this->timemodified = time();
 
         if (!parent::insert($source)) {
-            debugging("Could not insert this category: " . print_r($this, true));
+            \Moodle\Logger::create()->debug("Could not insert this category: " . print_r($this, true));
             return false;
         }
 
@@ -396,7 +396,7 @@ class grade_category extends grade_object {
         $this->timecreated = $this->timemodified = time();
 
         if (!parent::insert('system')) {
-            debugging("Could not insert this category: " . print_r($this, true));
+            \Moodle\Logger::create()->debug("Could not insert this category: " . print_r($this, true));
             return false;
         }
 
@@ -415,7 +415,7 @@ class grade_category extends grade_object {
      */
     public function qualifies_for_regrading() {
         if (empty($this->id)) {
-            debugging("Can not regrade non existing category");
+            \Moodle\Logger::create()->debug("Can not regrade non existing category");
             return false;
         }
 
@@ -1468,7 +1468,7 @@ class grade_category extends grade_object {
      * @return float The aggregate grade for this grade category
      */
     public function aggregate_values($grade_values, $items) {
-        debugging('grade_category::aggregate_values() is deprecated.
+        \Moodle\Logger::create()->debug('grade_category::aggregate_values() is deprecated.
                    Call grade_category::aggregate_values_and_adjust_bounds() instead.', DEBUG_DEVELOPER);
         $result = $this->aggregate_values_and_adjust_bounds($grade_values, $items);
         return $result['grade'];
@@ -2104,7 +2104,7 @@ class grade_category extends grade_object {
             } else {
                 $categoryid = $item->categoryid;
                 if (empty($categoryid)) {
-                    debugging('Found a grade item that isnt in a category');
+                    \Moodle\Logger::create()->debug('Found a grade item that isnt in a category');
                 }
             }
 
@@ -2156,7 +2156,7 @@ class grade_category extends grade_object {
                 $sortorder = $cat->sortorder;
 
                 while (array_key_exists($sortorder, $cats[$cat->parent]->children)) {
-                    //debugging("$sortorder exists in cat loop");
+                    //\Moodle\Logger::create()->debug("$sortorder exists in cat loop");
                     $sortorder++;
                 }
 
@@ -2243,7 +2243,7 @@ class grade_category extends grade_object {
      */
     public function get_grade_item() {
         if (empty($this->id)) {
-            debugging("Attempt to obtain a grade_category's associated grade_item without the category's ID being set.");
+            \Moodle\Logger::create()->debug("Attempt to obtain a grade_category's associated grade_item without the category's ID being set.");
             return false;
         }
 
@@ -2265,7 +2265,7 @@ class grade_category extends grade_object {
             $grade_item = reset($grade_items);
 
         } else {
-            debugging("Found more than one grade_item attached to category id:".$this->id);
+            \Moodle\Logger::create()->debug("Found more than one grade_item attached to category id:".$this->id);
             // return first one
             $grade_item = reset($grade_items);
         }
@@ -2458,7 +2458,7 @@ class grade_category extends grade_object {
      */
     public static function fetch_course_category($courseid) {
         if (empty($courseid)) {
-            debugging('Missing course id!');
+            \Moodle\Logger::create()->debug('Missing course id!');
             return false;
         }
 

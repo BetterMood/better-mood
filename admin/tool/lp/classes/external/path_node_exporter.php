@@ -45,7 +45,7 @@ class path_node_exporter extends \core\external\exporter {
             // Previous code was automatically using the system context which was not always correct.
             // We let developers know that they must fix their code without breaking anything,
             // and fallback on the previous behaviour. This should be removed at a later stage: Moodle 3.5.
-            debugging('Missing related context in path_node_exporter.', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Missing related context in path_node_exporter.', DEBUG_DEVELOPER);
             $related['context'] = context_system::instance();
         }
         parent::__construct($data, $related);

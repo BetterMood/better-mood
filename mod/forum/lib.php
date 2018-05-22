@@ -1340,7 +1340,7 @@ function forum_user_complete($course, $user, $mod, $forum) {
  */
 function forum_filter_user_groups_discussions($discussions) {
 
-    debugging('The function forum_filter_user_groups_discussions() is now deprecated.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('The function forum_filter_user_groups_discussions() is now deprecated.', DEBUG_DEVELOPER);
 
     // Group the remaining discussions posts by their forumid.
     $filteredforums = array();
@@ -1408,7 +1408,7 @@ function forum_is_user_group_discussion(cm_info $cm, $discussiongroupid) {
 function forum_print_overview($courses,&$htmlarray) {
     global $USER, $CFG, $DB, $SESSION;
 
-    debugging('The function forum_print_overview() is now deprecated.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('The function forum_print_overview() is now deprecated.', DEBUG_DEVELOPER);
 
     if (empty($courses) || !is_array($courses) || count($courses) == 0) {
         return array();
@@ -5067,7 +5067,7 @@ function forum_user_can_post_discussion($forum, $currentgroup=null, $unused=-1, 
     }
 
     if (!$cm) {
-        debugging('missing cm', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('missing cm', DEBUG_DEVELOPER);
         if (!$cm = get_coursemodule_from_instance('forum', $forum->id, $forum->course)) {
             print_error('invalidcoursemodule');
         }
@@ -5148,19 +5148,19 @@ function forum_user_can_post($forum, $discussion, $user=NULL, $cm=NULL, $course=
     }
 
     if (!isset($discussion->groupid)) {
-        debugging('incorrect discussion parameter', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('incorrect discussion parameter', DEBUG_DEVELOPER);
         return false;
     }
 
     if (!$cm) {
-        debugging('missing cm', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('missing cm', DEBUG_DEVELOPER);
         if (!$cm = get_coursemodule_from_instance('forum', $forum->id, $forum->course)) {
             print_error('invalidcoursemodule');
         }
     }
 
     if (!$course) {
-        debugging('missing course', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('missing course', DEBUG_DEVELOPER);
         if (!$course = $DB->get_record('course', array('id' => $forum->course))) {
             print_error('invalidcourseid');
         }
@@ -5281,13 +5281,13 @@ function forum_user_can_see_discussion($forum, $discussion, $context, $user=NULL
 
     // retrieve objects (yuk)
     if (is_numeric($forum)) {
-        debugging('missing full forum', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('missing full forum', DEBUG_DEVELOPER);
         if (!$forum = $DB->get_record('forum',array('id'=>$forum))) {
             return false;
         }
     }
     if (is_numeric($discussion)) {
-        debugging('missing full discussion', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('missing full discussion', DEBUG_DEVELOPER);
         if (!$discussion = $DB->get_record('forum_discussions',array('id'=>$discussion))) {
             return false;
         }
@@ -5327,20 +5327,20 @@ function forum_user_can_see_post($forum, $discussion, $post, $user = null, $cm =
 
     // retrieve objects (yuk)
     if (is_numeric($forum)) {
-        debugging('missing full forum', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('missing full forum', DEBUG_DEVELOPER);
         if (!$forum = $DB->get_record('forum',array('id'=>$forum))) {
             return false;
         }
     }
 
     if (is_numeric($discussion)) {
-        debugging('missing full discussion', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('missing full discussion', DEBUG_DEVELOPER);
         if (!$discussion = $DB->get_record('forum_discussions',array('id'=>$discussion))) {
             return false;
         }
     }
     if (is_numeric($post)) {
-        debugging('missing full post', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('missing full post', DEBUG_DEVELOPER);
         if (!$post = $DB->get_record('forum_posts',array('id'=>$post))) {
             return false;
         }
@@ -5355,7 +5355,7 @@ function forum_user_can_see_post($forum, $discussion, $post, $user = null, $cm =
     }
 
     if (!$cm) {
-        debugging('missing cm', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('missing cm', DEBUG_DEVELOPER);
         if (!$cm = get_coursemodule_from_instance('forum', $forum->id, $forum->course)) {
             print_error('invalidcoursemodule');
         }
@@ -6707,7 +6707,7 @@ function forum_tp_can_track_forums($forum=false, $user=false) {
 
     // Work toward always passing an object...
     if (is_numeric($forum)) {
-        debugging('Better use proper forum object.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Better use proper forum object.', DEBUG_DEVELOPER);
         $forum = $DB->get_record('forum', array('id' => $forum), '', 'id,trackingtype');
     }
 
@@ -6747,7 +6747,7 @@ function forum_tp_is_tracked($forum, $user=false) {
 
     // Work toward always passing an object...
     if (is_numeric($forum)) {
-        debugging('Better use proper forum object.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Better use proper forum object.', DEBUG_DEVELOPER);
         $forum = $DB->get_record('forum', array('id' => $forum));
     }
 

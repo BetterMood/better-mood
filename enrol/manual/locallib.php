@@ -418,7 +418,7 @@ function enrol_manual_migrate_plugin_enrolments($enrol) {
 
         if (!$minstance) {
             // This should never happen unless adding of default instance fails unexpectedly.
-            debugging('Failed to find manual enrolment instance', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Failed to find manual enrolment instance', DEBUG_DEVELOPER);
             continue;
         }
 

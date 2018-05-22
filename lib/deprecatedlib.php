@@ -47,7 +47,7 @@ defined('MOODLE_INTERNAL') || die();
  * @return void
  */
 function add_to_log($courseid, $module, $action, $url='', $info='', $cm=0, $user=0) {
-    debugging('add_to_log() has been deprecated, please rewrite your code to the new events API', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('add_to_log() has been deprecated, please rewrite your code to the new events API', DEBUG_DEVELOPER);
 
     // This is a nasty hack that allows us to put all the legacy stuff into legacy storage,
     // this way we may move all the legacy settings there too.
@@ -67,7 +67,7 @@ function add_to_log($courseid, $module, $action, $url='', $info='', $cm=0, $user
  * @return int number of failed events
  */
 function events_trigger($eventname, $eventdata) {
-    debugging('events_trigger() is deprecated, please use new events instead', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('events_trigger() is deprecated, please use new events instead', DEBUG_DEVELOPER);
     return events_trigger_legacy($eventname, $eventdata);
 }
 
@@ -99,7 +99,7 @@ function get_core_subsystems($fullpaths = false) {
         return $subsystems;
     }
 
-    debugging('Short paths are deprecated when using get_core_subsystems(), please fix the code to use fullpaths instead.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('Short paths are deprecated when using get_core_subsystems(), please fix the code to use fullpaths instead.', DEBUG_DEVELOPER);
 
     $dlength = strlen($CFG->dirroot);
 
@@ -132,7 +132,7 @@ function get_plugin_types($fullpaths = true) {
         return $types;
     }
 
-    debugging('Short paths are deprecated when using get_plugin_types(), please fix the code to use fullpaths instead.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('Short paths are deprecated when using get_plugin_types(), please fix the code to use fullpaths instead.', DEBUG_DEVELOPER);
 
     $dlength = strlen($CFG->dirroot);
 
@@ -233,7 +233,7 @@ function normalize_component($component) {
  */
 function get_component_directory($component) {
 
-    // NOTE: do not add any other debugging here, keep forever.
+    // NOTE: do not add any other \Moodle\Logger::create()->debug here, keep forever.
 
     return core_component::get_component_directory($component);
 }
@@ -253,7 +253,7 @@ function get_component_directory($component) {
  */
 function get_context_instance($contextlevel, $instance = 0, $strictness = IGNORE_MISSING) {
 
-    debugging('get_context_instance() is deprecated, please use context_xxxx::instance() instead.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('get_context_instance() is deprecated, please use context_xxxx::instance() instead.', DEBUG_DEVELOPER);
 
     $instances = (array)$instance;
     $contexts = array();
@@ -520,7 +520,7 @@ function httpsrequired() {
  * @return string URL to file
  */
 function get_file_url($path, $options=null, $type='coursefile') {
-    debugging('Function get_file_url() is deprecated, please use moodle_url factory methods instead.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('Function get_file_url() is deprecated, please use moodle_url factory methods instead.', DEBUG_DEVELOPER);
     global $CFG;
 
     $path = str_replace('//', '/', $path);
@@ -608,7 +608,7 @@ function detect_munged_arguments($string, $allowdots=1) {
  * @deprecated since 2.0 MDL-15919
  */
 function unzip_file($zipfile, $destination = '', $showstatus_ignored = true) {
-    debugging(__FUNCTION__ . '() is deprecated. '
+    \Moodle\Logger::create()->debug(__FUNCTION__ . '() is deprecated. '
             . 'Please use the application/zip file_packer implementation instead.', DEBUG_DEVELOPER);
 
     // Extract everything from zipfile.
@@ -677,7 +677,7 @@ function unzip_file($zipfile, $destination = '', $showstatus_ignored = true) {
  * @deprecated since 2.0 MDL-15919
  */
 function zip_files($originalfiles, $destination) {
-    debugging(__FUNCTION__ . '() is deprecated. '
+    \Moodle\Logger::create()->debug(__FUNCTION__ . '() is deprecated. '
             . 'Please use the application/zip file_packer implementation instead.', DEBUG_DEVELOPER);
 
     // Extract everything from destination.
@@ -903,7 +903,7 @@ function print_textarea($unused, $rows, $cols, $width, $height, $name, $value=''
     /// However, you can set them to zero to override the mincols and minrows values below.
 
     // Disabling because there is not yet a viable $OUTPUT option for cases when mforms can't be used
-    // debugging('print_textarea() has been deprecated. You should be using mforms and the editor element.');
+    // \Moodle\Logger::create()->debug('print_textarea() has been deprecated. You should be using mforms and the editor element.');
 
     global $CFG;
 
@@ -956,7 +956,7 @@ function print_textarea($unused, $rows, $cols, $width, $height, $name, $value=''
 function print_arrow($direction='up', $strsort=null, $return=false) {
     global $OUTPUT;
 
-    debugging('print_arrow() is deprecated. Please use $OUTPUT->arrow() instead.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('print_arrow() is deprecated. Please use $OUTPUT->arrow() instead.', DEBUG_DEVELOPER);
 
     if (!in_array($direction, array('up', 'down', 'right', 'left', 'move'))) {
         return null;
@@ -1032,7 +1032,7 @@ function print_checkbox($name, $value, $checked = true, $label = '', $alt = '', 
 function update_module_button($cmid, $ignored, $string) {
     global $CFG, $OUTPUT;
 
-    debugging('update_module_button() has been deprecated and should not be used anymore. Activity modules should not add the ' .
+    \Moodle\Logger::create()->debug('update_module_button() has been deprecated and should not be used anymore. Activity modules should not add the ' .
         'edit module button, the link is already available in the Administration block. Themes can choose to display the link ' .
         'in the buttons row consistently for all module types.', DEBUG_DEVELOPER);
 
@@ -1650,7 +1650,7 @@ function convert_tabrows_to_tree($tabrows, $selected, $inactive, $activated) {
  * @deprecated since 2.5 - do not use, the textrotate.js will work it out automatically
  */
 function can_use_rotated_text() {
-    debugging('can_use_rotated_text() is removed. JS feature detection is used automatically.');
+    \Moodle\Logger::create()->debug('can_use_rotated_text() is removed. JS feature detection is used automatically.');
 }
 
 /**
@@ -1670,7 +1670,7 @@ function get_context_instance_by_id($id, $strictness = IGNORE_MISSING) {
  * @return context system context (null if context table not created yet)
  */
 function get_system_context($cache = true) {
-    debugging('get_system_context() is deprecated, please use context_system::instance() instead.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('get_system_context() is deprecated, please use context_system::instance() instead.', DEBUG_DEVELOPER);
     return context_system::instance(0, IGNORE_MISSING, $cache);
 }
 
@@ -2221,7 +2221,7 @@ function coursetag_delete_course_tags($courseid, $showfeedback=false) {
  * @return   bool     true on success, false otherwise
  */
 function tag_type_set($tagid, $type) {
-    debugging('Function tag_type_set() is deprecated and can be replaced with use core_tag_tag::get($tagid)->update().', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('Function tag_type_set() is deprecated and can be replaced with use core_tag_tag::get($tagid)->update().', DEBUG_DEVELOPER);
     if ($tag = core_tag_tag::get($tagid, '*')) {
         return $tag->update(array('isstandard' => ($type === 'official') ? 1 : 0));
     }
@@ -2240,7 +2240,7 @@ function tag_type_set($tagid, $type) {
  * @return   bool     true on success, false otherwise
  */
 function tag_description_set($tagid, $description, $descriptionformat) {
-    debugging('Function tag_type_set() is deprecated and can be replaced with core_tag_tag::get($tagid)->update().', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('Function tag_type_set() is deprecated and can be replaced with core_tag_tag::get($tagid)->update().', DEBUG_DEVELOPER);
     if ($tag = core_tag_tag::get($tagid, '*')) {
         return $tag->update(array('description' => $description, 'descriptionformat' => $descriptionformat));
     }
@@ -2259,7 +2259,7 @@ function tag_description_set($tagid, $description, $descriptionformat) {
  * @return array the array of tags
  */
 function tag_get_tags($record_type, $record_id, $type=null, $userid=0) {
-    debugging('Method tag_get_tags() is deprecated and replaced with core_tag_tag::get_item_tags(). ' .
+    \Moodle\Logger::create()->debug('Method tag_get_tags() is deprecated and replaced with core_tag_tag::get_item_tags(). ' .
         'Component is now required when retrieving tag instances.', DEBUG_DEVELOPER);
     $standardonly = ($type === 'official' ? core_tag_tag::STANDARD_ONLY :
         (!empty($type) ? core_tag_tag::NOT_STANDARD_ONLY : core_tag_tag::BOTH_STANDARD_AND_NOT));
@@ -2282,7 +2282,7 @@ function tag_get_tags($record_type, $record_id, $type=null, $userid=0) {
  * @return   array  the array of tags (with the value returned by core_tag_tag::make_display_name), indexed by id
  */
 function tag_get_tags_array($record_type, $record_id, $type=null) {
-    debugging('Method tag_get_tags_array() is deprecated and replaced with core_tag_tag::get_item_tags_array(). ' .
+    \Moodle\Logger::create()->debug('Method tag_get_tags_array() is deprecated and replaced with core_tag_tag::get_item_tags_array(). ' .
         'Component is now required when retrieving tag instances.', DEBUG_DEVELOPER);
     $standardonly = ($type === 'official' ? core_tag_tag::STANDARD_ONLY :
         (!empty($type) ? core_tag_tag::NOT_STANDARD_ONLY : core_tag_tag::BOTH_STANDARD_AND_NOT));
@@ -2304,7 +2304,7 @@ function tag_get_tags_array($record_type, $record_id, $type=null) {
  */
 function tag_get_tags_csv($record_type, $record_id, $html=null, $type=null) {
     global $CFG, $OUTPUT;
-    debugging('Method tag_get_tags_csv() is deprecated. Instead you should use either ' .
+    \Moodle\Logger::create()->debug('Method tag_get_tags_csv() is deprecated. Instead you should use either ' .
             'core_tag_tag::get_item_tags_array() or $OUTPUT->tag_list(core_tag_tag::get_item_tags()). ' .
         'Component is now required when retrieving tag instances.', DEBUG_DEVELOPER);
     $standardonly = ($type === 'official' ? core_tag_tag::STANDARD_ONLY :
@@ -2326,7 +2326,7 @@ function tag_get_tags_csv($record_type, $record_id, $html=null, $type=null) {
  * @return   array     tag ids, indexed and sorted by 'ordering'
  */
 function tag_get_tags_ids($record_type, $record_id) {
-    debugging('Method tag_get_tags_ids() is deprecated. Please consider using core_tag_tag::get_item_tags() or similar methods.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('Method tag_get_tags_ids() is deprecated. Please consider using core_tag_tag::get_item_tags() or similar methods.', DEBUG_DEVELOPER);
     $tag_ids = array();
     $tagobjects = core_tag_tag::get_item_tags(null, $record_type, $record_id);
     foreach ($tagobjects as $tagobject) {
@@ -2352,7 +2352,7 @@ function tag_get_tags_ids($record_type, $record_id) {
  */
 function tag_get_id($tags, $return_value = null) {
     global $CFG, $DB;
-    debugging('Method tag_get_id() is deprecated and can be replaced with core_tag_tag::get_by_name() or core_tag_tag::get_by_name_bulk(). ' .
+    \Moodle\Logger::create()->debug('Method tag_get_id() is deprecated and can be replaced with core_tag_tag::get_by_name() or core_tag_tag::get_by_name_bulk(). ' .
         'You need to specify tag collection when retrieving tag by name', DEBUG_DEVELOPER);
 
     if (!is_array($tags)) {
@@ -2388,7 +2388,7 @@ function tag_get_id($tags, $return_value = null) {
  * @return   bool     true on success, false otherwise
  */
 function tag_rename($tagid, $newrawname) {
-    debugging('Function tag_rename() is deprecated and may be replaced with core_tag_tag::get($tagid)->update().', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('Function tag_rename() is deprecated and may be replaced with core_tag_tag::get($tagid)->update().', DEBUG_DEVELOPER);
     if ($tag = core_tag_tag::get($tagid, '*')) {
         return $tag->update(array('rawname' => $newrawname));
     }
@@ -2407,7 +2407,7 @@ function tag_rename($tagid, $newrawname) {
  * @return   bool   true on success, false otherwise
  */
 function tag_delete_instance($record_type, $record_id, $tagid, $userid = null) {
-    debugging('Function tag_delete_instance() is deprecated and replaced with core_tag_tag::remove_item_tag() instead. ' .
+    \Moodle\Logger::create()->debug('Function tag_delete_instance() is deprecated and replaced with core_tag_tag::remove_item_tag() instead. ' .
         'Component is required for retrieving instances', DEBUG_DEVELOPER);
     $tag = core_tag_tag::get($tagid);
     core_tag_tag::remove_item_tag('', $record_type, $record_id, $tag->rawname, $userid);
@@ -2426,7 +2426,7 @@ function tag_delete_instance($record_type, $record_id, $tagid, $userid = null) {
  * @return   array of matching objects, indexed by record id, from the table containing the type requested
  */
 function tag_find_records($tag, $type, $limitfrom='', $limitnum='') {
-    debugging('Function tag_find_records() is deprecated and replaced with core_tag_tag::get_by_name()->get_tagged_items(). '.
+    \Moodle\Logger::create()->debug('Function tag_find_records() is deprecated and replaced with core_tag_tag::get_by_name()->get_tagged_items(). '.
         'You need to specify tag collection when retrieving tag by name', DEBUG_DEVELOPER);
 
     if (!$tag || !$type) {
@@ -2450,7 +2450,7 @@ function tag_find_records($tag, $type, $limitfrom='', $limitnum='') {
  *                             adding the tag.
  */
 function tag_add($tags, $type="default") {
-    debugging('Function tag_add() is deprecated. You can use core_tag_tag::create_if_missing(), however it should not be necessary ' .
+    \Moodle\Logger::create()->debug('Function tag_add() is deprecated. You can use core_tag_tag::create_if_missing(), however it should not be necessary ' .
         'since tags are created automatically when assigned to items', DEBUG_DEVELOPER);
     if (!is_array($tags)) {
         $tags = array($tags);
@@ -2491,7 +2491,7 @@ function tag_assign($record_type, $record_id, $tagid, $ordering, $userid = 0, $c
     if ($component === null || $contextid === null) {
         $message .= '. You should specify the component and contextid of the item being tagged in your call to tag_assign.';
     }
-    debugging($message, DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug($message, DEBUG_DEVELOPER);
 
     if ($contextid) {
         $context = context::instance_by_id($contextid);
@@ -2525,7 +2525,7 @@ function tag_assign($record_type, $record_id, $tagid, $ordering, $userid = 0, $c
  * @return  int      number of mathing tags.
  */
 function tag_record_count($record_type, $tagid) {
-    debugging('Method tag_record_count() is deprecated and replaced with core_tag_tag::get($tagid)->count_tagged_items(). '.
+    \Moodle\Logger::create()->debug('Method tag_record_count() is deprecated and replaced with core_tag_tag::get($tagid)->count_tagged_items(). '.
         'Component is now required when retrieving tag instances.', DEBUG_DEVELOPER);
     return core_tag_tag::get($tagid)->count_tagged_items('', $record_type);
 }
@@ -2541,7 +2541,7 @@ function tag_record_count($record_type, $tagid) {
  * @return  bool/int true if it is tagged, 0 (false) otherwise
  */
 function tag_record_tagged_with($record_type, $record_id, $tag) {
-    debugging('Method tag_record_tagged_with() is deprecated and replaced with core_tag_tag::get($tagid)->is_item_tagged_with(). '.
+    \Moodle\Logger::create()->debug('Method tag_record_tagged_with() is deprecated and replaced with core_tag_tag::get($tagid)->is_item_tagged_with(). '.
         'Component is now required when retrieving tag instances.', DEBUG_DEVELOPER);
     return core_tag_tag::is_item_tagged_with('', $record_type, $record_id, $tag);
 }
@@ -2553,7 +2553,7 @@ function tag_record_tagged_with($record_type, $record_id, $tag) {
  * @param int|array $tagids a single tagid, or an array of tagids
  */
 function tag_set_flag($tagids) {
-    debugging('Function tag_set_flag() is deprecated and replaced with core_tag_tag::get($tagid)->flag().', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('Function tag_set_flag() is deprecated and replaced with core_tag_tag::get($tagid)->flag().', DEBUG_DEVELOPER);
     $tagids = (array) $tagids;
     foreach ($tagids as $tagid) {
         if ($tag = core_tag_tag::get($tagid, '*')) {
@@ -2569,7 +2569,7 @@ function tag_set_flag($tagids) {
  * @param int|array $tagids a single tagid, or an array of tagids
  */
 function tag_unset_flag($tagids) {
-    debugging('Function tag_unset_flag() is deprecated and replaced with core_tag_tag::get($tagid)->reset_flag().', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('Function tag_unset_flag() is deprecated and replaced with core_tag_tag::get($tagid)->reset_flag().', DEBUG_DEVELOPER);
     $tagids = (array) $tagids;
     foreach ($tagids as $tagid) {
         if ($tag = core_tag_tag::get($tagid, '*')) {
@@ -2592,7 +2592,7 @@ function tag_unset_flag($tagids) {
 function tag_print_cloud($tagset=null, $nr_of_tags=150, $return=false, $sort='') {
     global $OUTPUT;
 
-    debugging('Function tag_print_cloud() is deprecated and replaced with function core_tag_collection::get_tag_cloud(), '
+    \Moodle\Logger::create()->debug('Function tag_print_cloud() is deprecated and replaced with function core_tag_collection::get_tag_cloud(), '
             . 'templateable core_tag\output\tagcloud and template core_tag/tagcloud.', DEBUG_DEVELOPER);
 
     // Set up sort global - used to pass sort type into core_tag_collection::cloud_sort through usort() avoiding multiple sort functions.
@@ -2640,7 +2640,7 @@ function tag_print_cloud($tagset=null, $nr_of_tags=150, $return=false, $sort='')
  * @return  mixed    an array of objects, or false if no records were found or an error occured.
  */
 function tag_autocomplete($text) {
-    debugging('Function tag_autocomplete() is deprecated without replacement. ' .
+    \Moodle\Logger::create()->debug('Function tag_autocomplete() is deprecated without replacement. ' .
             'New form element "tags" does proper autocomplete.', DEBUG_DEVELOPER);
     global $DB;
     return $DB->get_records_sql("SELECT tg.id, tg.name, tg.rawname
@@ -2662,7 +2662,7 @@ function tag_print_description_box($tag_object, $return=false) {
     global $USER, $CFG, $OUTPUT;
     require_once($CFG->libdir.'/filelib.php');
 
-    debugging('Function tag_print_description_box() is deprecated without replacement. ' .
+    \Moodle\Logger::create()->debug('Function tag_print_description_box() is deprecated without replacement. ' .
             'See core_tag_renderer for similar code.', DEBUG_DEVELOPER);
 
     $relatedtags = array();
@@ -2711,7 +2711,7 @@ function tag_print_description_box($tag_object, $return=false) {
 function tag_print_management_box($tag_object, $return=false) {
     global $USER, $CFG, $OUTPUT;
 
-    debugging('Function tag_print_description_box() is deprecated without replacement. ' .
+    \Moodle\Logger::create()->debug('Function tag_print_description_box() is deprecated without replacement. ' .
             'See core_tag_renderer for similar code.', DEBUG_DEVELOPER);
 
     $tagname  = core_tag_tag::make_display_name($tag_object);
@@ -2770,7 +2770,7 @@ function tag_print_management_box($tag_object, $return=false) {
 function tag_print_search_box($return=false) {
     global $CFG, $OUTPUT;
 
-    debugging('Function tag_print_search_box() is deprecated without replacement. ' .
+    \Moodle\Logger::create()->debug('Function tag_print_search_box() is deprecated without replacement. ' .
             'See core_tag_renderer for similar code.', DEBUG_DEVELOPER);
 
     $query = optional_param('query', '', PARAM_RAW);
@@ -2806,7 +2806,7 @@ function tag_print_search_box($return=false) {
 function tag_print_search_results($query,  $page, $perpage, $return=false) {
     global $CFG, $USER, $OUTPUT;
 
-    debugging('Function tag_print_search_results() is deprecated without replacement. ' .
+    \Moodle\Logger::create()->debug('Function tag_print_search_results() is deprecated without replacement. ' .
             'In /tag/search.php the search results are printed using the core_tag/tagcloud template.', DEBUG_DEVELOPER);
 
     $query = clean_param($query, PARAM_TAG);
@@ -2883,7 +2883,7 @@ function tag_print_search_results($query,  $page, $perpage, $return=false) {
  */
 function tag_print_tagged_users_table($tagobject, $limitfrom='', $limitnum='', $return=false) {
 
-    debugging('Function tag_print_tagged_users_table() is deprecated without replacement. ' .
+    \Moodle\Logger::create()->debug('Function tag_print_tagged_users_table() is deprecated without replacement. ' .
             'See core_user_renderer for similar code.', DEBUG_DEVELOPER);
 
     //List of users with this tag
@@ -2911,7 +2911,7 @@ function tag_print_tagged_users_table($tagobject, $limitfrom='', $limitnum='', $
 function tag_print_user_box($user, $return=false) {
     global $CFG, $OUTPUT;
 
-    debugging('Function tag_print_user_box() is deprecated without replacement. ' .
+    \Moodle\Logger::create()->debug('Function tag_print_user_box() is deprecated without replacement. ' .
             'See core_user_renderer for similar code.', DEBUG_DEVELOPER);
 
     $usercontext = context_user::instance($user->id);
@@ -2963,7 +2963,7 @@ function tag_print_user_box($user, $return=false) {
  */
 function tag_print_user_list($userlist, $return=false) {
 
-    debugging('Function tag_print_user_list() is deprecated without replacement. ' .
+    \Moodle\Logger::create()->debug('Function tag_print_user_list() is deprecated without replacement. ' .
             'See core_user_renderer for similar code.', DEBUG_DEVELOPER);
 
     $output = '<div><ul class="inline-list">';
@@ -2992,7 +2992,7 @@ function tag_print_user_list($userlist, $return=false) {
  * @return   string
  */
 function tag_display_name($tagobject, $html=TAG_RETURN_HTML) {
-    debugging('Function tag_display_name() is deprecated. Use core_tag_tag::make_display_name().', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('Function tag_display_name() is deprecated. Use core_tag_tag::make_display_name().', DEBUG_DEVELOPER);
     if (!isset($tagobject->name)) {
         return '';
     }
@@ -3010,7 +3010,7 @@ function tag_display_name($tagobject, $html=TAG_RETURN_HTML) {
  *                       (Eg: 'Banana' => 'banana').
  */
 function tag_normalize($rawtags, $case = TAG_CASE_LOWER) {
-    debugging('Function tag_normalize() is deprecated. Use core_tag_tag::normalize().', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('Function tag_normalize() is deprecated. Use core_tag_tag::normalize().', DEBUG_DEVELOPER);
 
     if ( !is_array($rawtags) ) {
         $rawtags = array($rawtags);
@@ -3030,7 +3030,7 @@ function tag_normalize($rawtags, $case = TAG_CASE_LOWER) {
  */
 function tag_get_related_tags_csv($related_tags, $html=TAG_RETURN_HTML) {
     global $OUTPUT;
-    debugging('Method tag_get_related_tags_csv() is deprecated. Consider '
+    \Moodle\Logger::create()->debug('Method tag_get_related_tags_csv() is deprecated. Consider '
             . 'looping through array or using $OUTPUT->tag_list(core_tag_tag::get_item_tags())',
         DEBUG_DEVELOPER);
     if ($html != TAG_RETURN_TEXT) {
@@ -3122,7 +3122,7 @@ define('TAG_RELATED_CORRELATED', 2);
  * @return bool|null
  */
 function tag_set($itemtype, $itemid, $tags, $component = null, $contextid = null) {
-    debugging('Function tag_set() is deprecated. Use ' .
+    \Moodle\Logger::create()->debug('Function tag_set() is deprecated. Use ' .
         ' core_tag_tag::set_item_tags() instead', DEBUG_DEVELOPER);
 
     if ($itemtype === 'tag') {
@@ -3149,7 +3149,7 @@ function tag_set($itemtype, $itemid, $tags, $component = null, $contextid = null
  * @return bool|null
  */
 function tag_set_add($itemtype, $itemid, $tag, $component = null, $contextid = null) {
-    debugging('Function tag_set_add() is deprecated. Use ' .
+    \Moodle\Logger::create()->debug('Function tag_set_add() is deprecated. Use ' .
         ' core_tag_tag::add_item_tag() instead', DEBUG_DEVELOPER);
 
     if ($itemtype === 'tag') {
@@ -3176,7 +3176,7 @@ function tag_set_add($itemtype, $itemid, $tag, $component = null, $contextid = n
  * @return bool|null
  */
 function tag_set_delete($itemtype, $itemid, $tag, $component = null, $contextid = null) {
-    debugging('Function tag_set_delete() is deprecated. Use ' .
+    \Moodle\Logger::create()->debug('Function tag_set_delete() is deprecated. Use ' .
         ' core_tag_tag::remove_item_tag() instead', DEBUG_DEVELOPER);
     return core_tag_tag::remove_item_tag($component, $itemtype, $itemid, $tag);
 }
@@ -3196,7 +3196,7 @@ function tag_set_delete($itemtype, $itemid, $tag, $component = null, $contextid 
  */
 function tag_get($field, $value, $returnfields='id, name, rawname, tagcollid') {
     global $DB;
-    debugging('Function tag_get() is deprecated. Use ' .
+    \Moodle\Logger::create()->debug('Function tag_get() is deprecated. Use ' .
         ' core_tag_tag::get() or core_tag_tag::get_by_name()',
         DEBUG_DEVELOPER);
     if ($field === 'id') {
@@ -3229,7 +3229,7 @@ function tag_get($field, $value, $returnfields='id, name, rawname, tagcollid') {
  * @return   array    an array of tag objects
  */
 function tag_get_related_tags($tagid, $type=TAG_RELATED_ALL, $limitnum=10) {
-    debugging('Method tag_get_related_tags() is deprecated, '
+    \Moodle\Logger::create()->debug('Method tag_get_related_tags() is deprecated, '
         . 'use core_tag_tag::get_correlated_tags(), core_tag_tag::get_related_tags() or '
         . 'core_tag_tag::get_manual_related_tags()', DEBUG_DEVELOPER);
     $result = array();
@@ -3258,7 +3258,7 @@ function tag_get_related_tags($tagid, $type=TAG_RELATED_ALL, $limitnum=10) {
  * @return   bool     true on success, false otherwise
  */
 function tag_delete($tagids) {
-    debugging('Method tag_delete() is deprecated, use core_tag_tag::delete_tags()',
+    \Moodle\Logger::create()->debug('Method tag_delete() is deprecated, use core_tag_tag::delete_tags()',
         DEBUG_DEVELOPER);
     return core_tag_tag::delete_tags($tagids);
 }
@@ -3271,7 +3271,7 @@ function tag_delete($tagids) {
  * @param int $contextid if null, then we delete all tag instances for the $component
  */
 function tag_delete_instances($component, $contextid = null) {
-    debugging('Method tag_delete() is deprecated, use core_tag_tag::delete_instances()',
+    \Moodle\Logger::create()->debug('Method tag_delete() is deprecated, use core_tag_tag::delete_instances()',
         DEBUG_DEVELOPER);
     core_tag_tag::delete_instances($component, null, $contextid);
 }
@@ -3287,7 +3287,7 @@ function tag_delete_instances($component, $contextid = null) {
  * @deprecated since 3.1
  */
 function tag_cleanup() {
-    debugging('Method tag_cleanup() is deprecated, use \core\task\tag_cron_task::cleanup()',
+    \Moodle\Logger::create()->debug('Method tag_cleanup() is deprecated, use \core\task\tag_cron_task::cleanup()',
         DEBUG_DEVELOPER);
 
     $task = new \core\task\tag_cron_task();
@@ -3303,7 +3303,7 @@ function tag_cleanup() {
  *        (used for recording a delete event).
  */
 function tag_bulk_delete_instances($instances) {
-    debugging('Method tag_bulk_delete_instances() is deprecated, '
+    \Moodle\Logger::create()->debug('Method tag_bulk_delete_instances() is deprecated, '
         . 'use \core\task\tag_cron_task::bulk_delete_instances()',
         DEBUG_DEVELOPER);
 
@@ -3324,7 +3324,7 @@ function tag_bulk_delete_instances($instances) {
  * @param   int      $mincorrelation Only tags with more than $mincorrelation correlations will be identified.
  */
 function tag_compute_correlations($mincorrelation = 2) {
-    debugging('Method tag_compute_correlations() is deprecated, '
+    \Moodle\Logger::create()->debug('Method tag_compute_correlations() is deprecated, '
         . 'use \core\task\tag_cron_task::compute_correlations()',
         DEBUG_DEVELOPER);
 
@@ -3343,7 +3343,7 @@ function tag_compute_correlations($mincorrelation = 2) {
  * @return  int/bool The id of the tag correlation that was just processed or false.
  */
 function tag_process_computed_correlation(stdClass $tagcorrelation) {
-    debugging('Method tag_process_computed_correlation() is deprecated, '
+    \Moodle\Logger::create()->debug('Method tag_process_computed_correlation() is deprecated, '
         . 'use \core\task\tag_cron_task::process_computed_correlation()',
         DEBUG_DEVELOPER);
 
@@ -3358,7 +3358,7 @@ function tag_process_computed_correlation(stdClass $tagcorrelation) {
  * @deprecated since 3.1
  */
 function tag_cron() {
-    debugging('Method tag_cron() is deprecated, use \core\task\tag_cron_task::execute()',
+    \Moodle\Logger::create()->debug('Method tag_cron() is deprecated, use \core\task\tag_cron_task::execute()',
         DEBUG_DEVELOPER);
 
     $task = new \core\task\tag_cron_task();
@@ -3378,7 +3378,7 @@ function tag_cron() {
  * @return  array/boolean an array of objects, or false if no records were found or an error occured.
  */
 function tag_find_tags($text, $ordered=true, $limitfrom='', $limitnum='', $tagcollid = null) {
-    debugging('Method tag_find_tags() is deprecated without replacement', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('Method tag_find_tags() is deprecated without replacement', DEBUG_DEVELOPER);
     global $DB;
 
     $text = core_text::strtolower(clean_param($text, PARAM_TAG));
@@ -3410,7 +3410,7 @@ function tag_find_tags($text, $ordered=true, $limitfrom='', $limitnum='', $tagco
  * @return  mixed    string name of one tag, or id-indexed array of strings
  */
 function tag_get_name($tagids) {
-    debugging('Method tag_get_name() is deprecated without replacement', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('Method tag_get_name() is deprecated without replacement', DEBUG_DEVELOPER);
     global $DB;
 
     if (!is_array($tagids)) {
@@ -3441,7 +3441,7 @@ function tag_get_name($tagids) {
  * @return  array    an array of tag objects or an empty if no correlated tags are found
  */
 function tag_get_correlated($tagid, $notused = null) {
-    debugging('Method tag_get_correlated() is deprecated, '
+    \Moodle\Logger::create()->debug('Method tag_get_correlated() is deprecated, '
         . 'use core_tag_tag::get_correlated_tags()', DEBUG_DEVELOPER);
     $result = array();
     if ($tag = core_tag_tag::get($tagid)) {
@@ -3465,7 +3465,7 @@ function tag_get_correlated($tagid, $notused = null) {
  * @return  int    The result of the comparison/validation 1, 0 or -1
  */
 function tag_cloud_sort($a, $b) {
-    debugging('Method tag_cloud_sort() is deprecated, similar method can be found in core_tag_collection::cloud_sort()', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('Method tag_cloud_sort() is deprecated, similar method can be found in core_tag_collection::cloud_sort()', DEBUG_DEVELOPER);
     global $CFG;
 
     if (empty($CFG->tagsort)) {
@@ -3509,22 +3509,22 @@ function events_load_def($component) {
     // make sure the definitions are valid and complete; tell devs what is wrong
     foreach ($handlers as $eventname => $handler) {
         if ($eventname === 'reset') {
-            debugging("'reset' can not be used as event name.");
+            \Moodle\Logger::create()->debug("'reset' can not be used as event name.");
             unset($handlers['reset']);
             continue;
         }
         if (!is_array($handler)) {
-            debugging("Handler of '$eventname' must be specified as array'");
+            \Moodle\Logger::create()->debug("Handler of '$eventname' must be specified as array'");
             unset($handlers[$eventname]);
             continue;
         }
         if (!isset($handler['handlerfile'])) {
-            debugging("Handler of '$eventname' must include 'handlerfile' key'");
+            \Moodle\Logger::create()->debug("Handler of '$eventname' must include 'handlerfile' key'");
             unset($handlers[$eventname]);
             continue;
         }
         if (!isset($handler['handlerfunction'])) {
-            debugging("Handler of '$eventname' must include 'handlerfunction' key'");
+            \Moodle\Logger::create()->debug("Handler of '$eventname' must include 'handlerfunction' key'");
             unset($handlers[$eventname]);
             continue;
         }
@@ -3532,7 +3532,7 @@ function events_load_def($component) {
             $handler['schedule'] = 'instant';
         }
         if ($handler['schedule'] !== 'instant' and $handler['schedule'] !== 'cron') {
-            debugging("Handler of '$eventname' must include valid 'schedule' type (instant or cron)'");
+            \Moodle\Logger::create()->debug("Handler of '$eventname' must include valid 'schedule' type (instant or cron)'");
             unset($handlers[$eventname]);
             continue;
         }
@@ -3559,7 +3559,7 @@ function events_queue_handler($handler, $event, $errormessage) {
     global $DB;
 
     if ($qhandler = $DB->get_record('events_queue_handlers', array('queuedeventid'=>$event->id, 'handlerid'=>$handler->id))) {
-        debugging("Please check code: Event id $event->id is already queued in handler id $qhandler->id");
+        \Moodle\Logger::create()->debug("Please check code: Event id $event->id is already queued in handler id $qhandler->id");
         return $qhandler->id;
     }
 
@@ -3591,7 +3591,7 @@ function events_queue_handler($handler, $event, $errormessage) {
 function events_dispatch($handler, $eventdata, &$errormessage) {
     global $CFG;
 
-    debugging('Events API using $handlers array has been deprecated in favour of Events 2 API, please use it instead.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('Events API using $handlers array has been deprecated in favour of Events 2 API, please use it instead.', DEBUG_DEVELOPER);
 
     $function = unserialize($handler->handlerfunction);
 
@@ -3634,7 +3634,7 @@ function events_process_queued_handler($qhandler) {
 
     // get handler
     if (!$handler = $DB->get_record('events_handlers', array('id'=>$qhandler->handlerid))) {
-        debugging("Error processing queue handler $qhandler->id, missing handler id: $qhandler->handlerid");
+        \Moodle\Logger::create()->debug("Error processing queue handler $qhandler->id, missing handler id: $qhandler->handlerid");
         //irrecoverable error, remove broken queue handler
         events_dequeue($qhandler);
         return NULL;
@@ -3643,7 +3643,7 @@ function events_process_queued_handler($qhandler) {
     // get event object
     if (!$event = $DB->get_record('events_queue', array('id'=>$qhandler->queuedeventid))) {
         // can't proceed with no event object - might happen when two crons running at the same time
-        debugging("Error processing queue handler $qhandler->id, missing event id: $qhandler->queuedeventid");
+        \Moodle\Logger::create()->debug("Error processing queue handler $qhandler->id, missing event id: $qhandler->queuedeventid");
         //irrecoverable error, remove broken queue handler
         events_dequeue($qhandler);
         return NULL;
@@ -3678,7 +3678,7 @@ function events_process_queued_handler($qhandler) {
     $qh->status       = $qhandler->status + 1;
     $DB->update_record('events_queue_handlers', $qh);
 
-    debugging($errormessage);
+    \Moodle\Logger::create()->debug($errormessage);
 
     return false;
 }
@@ -3706,7 +3706,7 @@ function events_update_definition($component='moodle') {
     $filehandlers = events_load_def($component);
 
     if ($filehandlers) {
-        debugging('Events API using $handlers array has been deprecated in favour of Events 2 API, please use it instead.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Events API using $handlers array has been deprecated in favour of Events 2 API, please use it instead.', DEBUG_DEVELOPER);
     }
 
     // load event definitions from db tables
@@ -3795,7 +3795,7 @@ function events_cron($eventname='') {
 
     $rs = $DB->get_recordset_sql($sql, $params);
     if ($rs->valid()) {
-        debugging('Events API using $handlers array has been deprecated in favour of Events 2 API, please use it instead.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Events API using $handlers array has been deprecated in favour of Events 2 API, please use it instead.', DEBUG_DEVELOPER);
     }
 
     foreach ($rs as $qhandler) {
@@ -3823,7 +3823,7 @@ function events_cron($eventname='') {
              WHERE qh.id IS NULL";
     $rs = $DB->get_recordset_sql($sql);
     foreach ($rs as $event) {
-        //debugging('Purging stale event '.$event->id);
+        //\Moodle\Logger::create()->debug('Purging stale event '.$event->id);
         $DB->delete_records('events_queue', array('id'=>$event->id));
     }
     $rs->close();
@@ -3896,7 +3896,7 @@ function events_trigger_legacy($eventname, $eventdata) {
 
             } else {
                 // unknown schedule - ignore event completely
-                debugging("Unknown handler schedule type: $handler->schedule");
+                \Moodle\Logger::create()->debug("Unknown handler schedule type: $handler->schedule");
                 $failedcount ++;
                 continue;
             }
@@ -3906,7 +3906,7 @@ function events_trigger_legacy($eventname, $eventdata) {
             $event->userid      = $USER->id;
             $event->eventdata   = base64_encode(serialize($eventdata));
             $event->timecreated = time();
-            if (debugging()) {
+            if (\Moodle\Logger::create()->debug()) {
                 $dump = '';
                 $callers = debug_backtrace();
                 foreach ($callers as $caller) {
@@ -3952,7 +3952,7 @@ function events_trigger_legacy($eventname, $eventdata) {
 function events_is_registered($eventname, $component) {
     global $DB;
 
-    debugging('events_is_registered() has been deprecated along with all Events 1 API in favour of Events 2 API,' .
+    \Moodle\Logger::create()->debug('events_is_registered() has been deprecated along with all Events 1 API in favour of Events 2 API,' .
         ' please use it instead.', DEBUG_DEVELOPER);
 
     return $DB->record_exists('events_handlers', array('component'=>$component, 'eventname'=>$eventname));
@@ -3969,7 +3969,7 @@ function events_is_registered($eventname, $component) {
 function events_pending_count($eventname) {
     global $DB;
 
-    debugging('events_pending_count() has been deprecated along with all Events 1 API in favour of Events 2 API,' .
+    \Moodle\Logger::create()->debug('events_pending_count() has been deprecated along with all Events 1 API in favour of Events 2 API,' .
         ' please use it instead.', DEBUG_DEVELOPER);
 
     $sql = "SELECT COUNT('x')
@@ -3988,7 +3988,7 @@ function events_pending_count($eventname) {
  * @return void
  */
 function clam_message_admins($notice) {
-    debugging('clam_message_admins() is deprecated, please use message_admins() method of \antivirus_clamav\scanner class.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('clam_message_admins() is deprecated, please use message_admins() method of \antivirus_clamav\scanner class.', DEBUG_DEVELOPER);
 
     $antivirus = \core\antivirus\manager::get_antivirus('clamav');
     $antivirus->message_admins($notice);
@@ -4002,7 +4002,7 @@ function clam_message_admins($notice) {
  * @return string The definition of the error code
  */
 function get_clam_error_code($returncode) {
-    debugging('get_clam_error_code() is deprecated, please use get_clam_error_code() method of \antivirus_clamav\scanner class.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('get_clam_error_code() is deprecated, please use get_clam_error_code() method of \antivirus_clamav\scanner class.', DEBUG_DEVELOPER);
 
     $antivirus = \core\antivirus\manager::get_antivirus('clamav');
     return $antivirus->get_clam_error_code($returncode);
@@ -4022,7 +4022,7 @@ function course_get_cm_rename_action(cm_info $mod, $sr = null) {
     static $str;
     static $baseurl;
 
-    debugging('Function course_get_cm_rename_action() is deprecated. Please use inplace_editable ' .
+    \Moodle\Logger::create()->debug('Function course_get_cm_rename_action() is deprecated. Please use inplace_editable ' .
         'https://docs.moodle.org/dev/Inplace_editable', DEBUG_DEVELOPER);
 
     $modcontext = context_module::instance($mod->id);
@@ -4070,7 +4070,7 @@ function course_get_cm_rename_action(cm_info $mod, $sr = null) {
 function course_scale_used($courseid, $scaleid) {
     global $CFG, $DB;
 
-    debugging('course_scale_used() is deprecated and never used, plugins can implement <modname>_scale_used_anywhere, '.
+    \Moodle\Logger::create()->debug('course_scale_used() is deprecated and never used, plugins can implement <modname>_scale_used_anywhere, '.
         'all implementations of <modname>_scale_used are now ignored', DEBUG_DEVELOPER);
 
     $return = 0;
@@ -4116,7 +4116,7 @@ function course_scale_used($courseid, $scaleid) {
 function site_scale_used($scaleid, &$courses) {
     $return = 0;
 
-    debugging('site_scale_used() is deprecated and never used, plugins can implement <modname>_scale_used_anywhere, '.
+    \Moodle\Logger::create()->debug('site_scale_used() is deprecated and never used, plugins can implement <modname>_scale_used_anywhere, '.
         'all implementations of <modname>_scale_used are now ignored', DEBUG_DEVELOPER);
 
     if (!is_array($courses) || count($courses) == 0) {
@@ -4144,7 +4144,7 @@ function site_scale_used($scaleid, &$courses) {
  * @since Moodle 2.0
  */
 function external_function_info($function, $strictness=MUST_EXIST) {
-    debugging('external_function_info() is deprecated. Please use external_api::external_function_info() instead.',
+    \Moodle\Logger::create()->debug('external_function_info() is deprecated. Please use external_api::external_function_info() instead.',
               DEBUG_DEVELOPER);
     return external_api::external_function_info($function, $strictness);
 }
@@ -4166,7 +4166,7 @@ function external_function_info($function, $strictness=MUST_EXIST) {
 function get_records_csv($file, $table) {
     global $CFG, $DB;
 
-    debugging('get_records_csv() is deprecated. Please use lib/csvlib.class.php csv_import_reader() instead.');
+    \Moodle\Logger::create()->debug('get_records_csv() is deprecated. Please use lib/csvlib.class.php csv_import_reader() instead.');
 
     if (!$metacolumns = $DB->get_columns($table)) {
         return false;
@@ -4222,7 +4222,7 @@ function get_records_csv($file, $table) {
 function put_records_csv($file, $records, $table = NULL) {
     global $CFG, $DB;
 
-    debugging('put_records_csv() is deprecated. Please use lib/dataformatlib.php download_as_dataformat()');
+    \Moodle\Logger::create()->debug('put_records_csv() is deprecated. Please use lib/dataformatlib.php download_as_dataformat()');
 
     if (empty($records)) {
         return true;
@@ -4299,7 +4299,7 @@ function put_records_csv($file, $records, $table = NULL) {
  * @return bool
  */
 function css_is_colour($value) {
-    debugging('css_is_colour() is deprecated without a replacement. Please copy the implementation '.
+    \Moodle\Logger::create()->debug('css_is_colour() is deprecated without a replacement. Please copy the implementation '.
         'into your plugin if you need this functionality.', DEBUG_DEVELOPER);
 
     $value = trim($value);
@@ -4344,7 +4344,7 @@ function css_is_colour($value) {
  * @todo MDL-56173 for final deprecation in Moodle 3.6
  */
 function css_is_width($value) {
-    debugging('css_is_width() is deprecated without a replacement. Please copy the implementation '.
+    \Moodle\Logger::create()->debug('css_is_width() is deprecated without a replacement. Please copy the implementation '.
         'into your plugin if you need this functionality.', DEBUG_DEVELOPER);
 
     $value = trim($value);
@@ -4367,7 +4367,7 @@ function css_is_width($value) {
  * @todo MDL-56173 for final deprecation in Moodle 3.6
  */
 function css_sort_by_count(array $a, array $b) {
-    debugging('css_sort_by_count() is deprecated without a replacement. Please copy the implementation '.
+    \Moodle\Logger::create()->debug('css_sort_by_count() is deprecated without a replacement. Please copy the implementation '.
         'into your plugin if you need this functionality.', DEBUG_DEVELOPER);
 
     $a = count($a);
@@ -4555,7 +4555,7 @@ class css_optimiser {
      * @todo MDL-56173 for final deprecation in Moodle 3.6
      */
     public function process($css) {
-        debugging('class css_optimiser is deprecated and no longer does anything, '.
+        \Moodle\Logger::create()->debug('class css_optimiser is deprecated and no longer does anything, '.
             'please consider using stylelint to optimise your css.', DEBUG_DEVELOPER);
 
         return $css;
@@ -4570,7 +4570,7 @@ class css_optimiser {
  * @return array of course contexts
  */
 function message_get_course_contexts($courses) {
-    debugging('message_get_course_contexts() is deprecated and is no longer used.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('message_get_course_contexts() is deprecated and is no longer used.', DEBUG_DEVELOPER);
 
     $coursecontexts = array();
 
@@ -4589,7 +4589,7 @@ function message_get_course_contexts($courses) {
  * @return string the URL minus parameters that perform actions (like adding/removing/blocking a contact).
  */
 function message_remove_url_params($moodleurl) {
-    debugging('message_remove_url_params() is deprecated and is no longer used.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('message_remove_url_params() is deprecated and is no longer used.', DEBUG_DEVELOPER);
 
     $newurl = new moodle_url($moodleurl);
     $newurl->remove_params('addcontact','removecontact','blockcontact','unblockcontact');
@@ -4607,7 +4607,7 @@ function message_remove_url_params($moodleurl) {
  * @param string $value the value to test the field against
  */
 function message_count_messages($messagearray, $field='', $value='') {
-    debugging('message_count_messages() is deprecated and is no longer used.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('message_count_messages() is deprecated and is no longer used.', DEBUG_DEVELOPER);
 
     if (!is_array($messagearray)) return 0;
     if ($field == '' or empty($messagearray)) return count($messagearray);
@@ -4627,7 +4627,7 @@ function message_count_messages($messagearray, $field='', $value='') {
  * @return int the number of blocked users
  */
 function message_count_blocked_users($user1=null) {
-    debugging('message_count_blocked_users() is deprecated, please use \core_message\api::count_blocked_users() instead.',
+    \Moodle\Logger::create()->debug('message_count_blocked_users() is deprecated, please use \core_message\api::count_blocked_users() instead.',
         DEBUG_DEVELOPER);
 
     return \core_message\api::count_blocked_users($user1);
@@ -4646,7 +4646,7 @@ function message_count_blocked_users($user1=null) {
  * @return string  if $return is true otherwise bool
  */
 function message_contact_link($userid, $linktype='add', $return=false, $script=null, $text=false, $icon=true) {
-    debugging('message_contact_link() is deprecated and is no longer used.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('message_contact_link() is deprecated and is no longer used.', DEBUG_DEVELOPER);
 
     global $OUTPUT, $PAGE;
 
@@ -4731,7 +4731,7 @@ function message_get_recent_notifications($user, $limitfrom=0, $limitto=100) {
  * @return string|bool. Returns a string if $return is true. Otherwise returns a boolean.
  */
 function message_history_link($userid1, $userid2, $return=false, $keywords='', $position='', $linktext='') {
-    debugging('message_history_link() is deprecated and is no longer used.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('message_history_link() is deprecated and is no longer used.', DEBUG_DEVELOPER);
 
     global $OUTPUT, $PAGE;
     static $strmessagehistory;
@@ -4802,7 +4802,7 @@ function message_search($searchterms, $fromme=true, $tome=true, $courseid='none'
  * @return string the shortened message
  */
 function message_shorten_message($message, $minlength = 0) {
-    debugging('message_shorten_message() is deprecated and is no longer used.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('message_shorten_message() is deprecated and is no longer used.', DEBUG_DEVELOPER);
 
     $i = 0;
     $tag = false;
@@ -4859,7 +4859,7 @@ function message_shorten_message($message, $minlength = 0) {
  * @param array $keywords array of keywords to find
  */
 function message_get_fragment($message, $keywords) {
-    debugging('message_get_fragment() is deprecated and is no longer used.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('message_get_fragment() is deprecated and is no longer used.', DEBUG_DEVELOPER);
 
     $fullsize = 160;
     $halfsize = (int)($fullsize/2);
@@ -4921,7 +4921,7 @@ function message_get_history($user1, $user2, $limitnum=0, $viewingnewmessages=fa
  * @return string
  */
 function message_get_contact_add_remove_link($incontactlist, $isblocked, $contact, $script=null, $text=false, $icon=true) {
-    debugging('message_get_contact_add_remove_link() is deprecated and is no longer used.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('message_get_contact_add_remove_link() is deprecated and is no longer used.', DEBUG_DEVELOPER);
 
     $strcontact = '';
 
@@ -4949,7 +4949,7 @@ function message_get_contact_add_remove_link($incontactlist, $isblocked, $contac
  * @return string
  */
 function message_get_contact_block_link($incontactlist, $isblocked, $contact, $script=null, $text=false, $icon=true) {
-    debugging('message_get_contact_block_link() is deprecated and is no longer used.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('message_get_contact_block_link() is deprecated and is no longer used.', DEBUG_DEVELOPER);
 
     $strblock   = '';
 
@@ -4975,7 +4975,7 @@ function message_get_contact_block_link($incontactlist, $isblocked, $contact, $s
  * @return void
  */
 function message_mark_messages_read($touserid, $fromuserid) {
-    debugging('message_mark_messages_read() is deprecated and is no longer used, please use
+    \Moodle\Logger::create()->debug('message_mark_messages_read() is deprecated and is no longer used, please use
         \core_message\api::mark_all_messages_as_read() instead.', DEBUG_DEVELOPER);
 
     \core_message\api::mark_all_messages_as_read($touserid, $fromuserid);
@@ -4990,7 +4990,7 @@ function message_mark_messages_read($touserid, $fromuserid) {
  * @param stdClass $currentcontext Current context of block
  */
 function message_page_type_list($pagetype, $parentcontext, $currentcontext) {
-    debugging('message_page_type_list() is deprecated and is no longer used.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('message_page_type_list() is deprecated and is no longer used.', DEBUG_DEVELOPER);
 
     return array('messages-*'=>get_string('page-message-x', 'message'));
 }
@@ -5005,7 +5005,7 @@ function message_page_type_list($pagetype, $parentcontext, $currentcontext) {
  * @return bool true if user is permitted, false otherwise.
  */
 function message_can_post_message($recipient, $sender = null) {
-    debugging('message_can_post_message() is deprecated and is no longer used, please use
+    \Moodle\Logger::create()->debug('message_can_post_message() is deprecated and is no longer used, please use
         \core_message\api::can_post_message() instead.', DEBUG_DEVELOPER);
 
     return \core_message\api::can_post_message($recipient, $sender);
@@ -5022,7 +5022,7 @@ function message_can_post_message($recipient, $sender = null) {
  * @return bool true if $sender is blocked, false otherwise.
  */
 function message_is_user_non_contact_blocked($recipient, $sender = null) {
-    debugging('message_is_user_non_contact_blocked() is deprecated and is no longer used, please use
+    \Moodle\Logger::create()->debug('message_is_user_non_contact_blocked() is deprecated and is no longer used, please use
         \core_message\api::is_user_non_contact_blocked() instead.', DEBUG_DEVELOPER);
 
     return \core_message\api::is_user_non_contact_blocked($recipient, $sender);
@@ -5040,7 +5040,7 @@ function message_is_user_non_contact_blocked($recipient, $sender = null) {
  * @return bool true if $sender is blocked, false otherwise.
  */
 function message_is_user_blocked($recipient, $sender = null) {
-    debugging('message_is_user_blocked() is deprecated and is no longer used, please use
+    \Moodle\Logger::create()->debug('message_is_user_blocked() is deprecated and is no longer used, please use
         \core_message\api::is_user_blocked() instead.', DEBUG_DEVELOPER);
 
     $senderid = null;
@@ -5057,7 +5057,7 @@ function message_is_user_blocked($recipient, $sender = null) {
  */
 function print_log($course, $user=0, $date=0, $order="l.time ASC", $page=0, $perpage=100,
                    $url="", $modname="", $modid=0, $modaction="", $groupid=0) {
-    debugging(__FUNCTION__ . '() is deprecated. Please use the report_log framework instead.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug(__FUNCTION__ . '() is deprecated. Please use the report_log framework instead.', DEBUG_DEVELOPER);
 
     global $CFG, $DB, $OUTPUT;
 
@@ -5176,7 +5176,7 @@ function print_log($course, $user=0, $date=0, $order="l.time ASC", $page=0, $per
  */
 function print_mnet_log($hostid, $course, $user=0, $date=0, $order="l.time ASC", $page=0, $perpage=100,
                    $url="", $modname="", $modid=0, $modaction="", $groupid=0) {
-    debugging(__FUNCTION__ . '() is deprecated. Please use the report_log framework instead.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug(__FUNCTION__ . '() is deprecated. Please use the report_log framework instead.', DEBUG_DEVELOPER);
 
     global $CFG, $DB, $OUTPUT;
 
@@ -5283,7 +5283,7 @@ function print_mnet_log($hostid, $course, $user=0, $date=0, $order="l.time ASC",
  */
 function print_log_csv($course, $user, $date, $order='l.time DESC', $modname,
                         $modid, $modaction, $groupid) {
-    debugging(__FUNCTION__ . '() is deprecated. Please use the report_log framework instead.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug(__FUNCTION__ . '() is deprecated. Please use the report_log framework instead.', DEBUG_DEVELOPER);
 
     global $DB, $CFG;
 
@@ -5371,7 +5371,7 @@ function print_log_csv($course, $user, $date, $order='l.time DESC', $modname,
  */
 function print_log_xls($course, $user, $date, $order='l.time DESC', $modname,
                         $modid, $modaction, $groupid) {
-    debugging(__FUNCTION__ . '() is deprecated. Please use the report_log framework instead.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug(__FUNCTION__ . '() is deprecated. Please use the report_log framework instead.', DEBUG_DEVELOPER);
 
     global $CFG, $DB;
 
@@ -5491,7 +5491,7 @@ function print_log_xls($course, $user, $date, $order='l.time DESC', $modname,
  */
 function print_log_ods($course, $user, $date, $order='l.time DESC', $modname,
                         $modid, $modaction, $groupid) {
-    debugging(__FUNCTION__ . '() is deprecated. Please use the report_log framework instead.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug(__FUNCTION__ . '() is deprecated. Please use the report_log framework instead.', DEBUG_DEVELOPER);
 
     global $CFG, $DB;
 
@@ -5610,7 +5610,7 @@ function build_logs_array($course, $user=0, $date=0, $order="l.time ASC", $limit
                    $modname="", $modid=0, $modaction="", $groupid=0) {
     global $DB, $SESSION, $USER;
 
-    debugging(__FUNCTION__ . '() is deprecated. Please use the report_log framework instead.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug(__FUNCTION__ . '() is deprecated. Please use the report_log framework instead.', DEBUG_DEVELOPER);
     // It is assumed that $date is the GMT time of midnight for that day,
     // and so the next 86400 seconds worth of logs are printed.
 
@@ -5710,7 +5710,7 @@ function build_logs_array($course, $user=0, $date=0, $order="l.time ASC", $limit
 function get_logs_usercourse($userid, $courseid, $coursestart) {
     global $DB;
 
-    debugging(__FUNCTION__ . '() is deprecated. Please use the report_log framework instead.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug(__FUNCTION__ . '() is deprecated. Please use the report_log framework instead.', DEBUG_DEVELOPER);
 
     $params = array();
 
@@ -5744,7 +5744,7 @@ function get_logs_usercourse($userid, $courseid, $coursestart) {
 function get_logs_userday($userid, $courseid, $daystart) {
     global $DB;
 
-    debugging(__FUNCTION__ . '() is deprecated. Please use the report_log framework instead.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug(__FUNCTION__ . '() is deprecated. Please use the report_log framework instead.', DEBUG_DEVELOPER);
 
     $params = array('userid'=>$userid);
 
@@ -5778,7 +5778,7 @@ function get_logs_userday($userid, $courseid, $daystart) {
 function get_logs($select, array $params=null, $order='l.time DESC', $limitfrom='', $limitnum='', &$totalcount) {
     global $DB;
 
-    debugging(__FUNCTION__ . '() is deprecated. Please use the report_log framework instead.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug(__FUNCTION__ . '() is deprecated. Please use the report_log framework instead.', DEBUG_DEVELOPER);
 
     if ($order) {
         $order = "ORDER BY $order";
@@ -5809,7 +5809,7 @@ function get_logs($select, array $params=null, $order='l.time DESC', $limitfrom=
  * @deprecated since Moodle 3.2 MDL-53048
  */
 function prevent_form_autofill_password() {
-    debugging('prevent_form_autofill_password has been deprecated and is no longer in use.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('prevent_form_autofill_password has been deprecated and is no longer in use.', DEBUG_DEVELOPER);
     return '';
 }
 
@@ -5829,7 +5829,7 @@ function message_get_recent_conversations($userorid, $limitfrom = 0, $limitto = 
  * @return string return preference button in html
  */
 function calendar_preferences_button(stdClass $course) {
-    debugging('This should no longer be used, the calendar preferences are now linked to the user preferences page.');
+    \Moodle\Logger::create()->debug('This should no longer be used, the calendar preferences are now linked to the user preferences page.');
 
     global $OUTPUT;
 
@@ -5850,7 +5850,7 @@ function calendar_preferences_button(stdClass $course) {
  * @return string of the weekeday
  */
 function calendar_wday_name($englishname) {
-    debugging(__FUNCTION__ . '() is deprecated and no longer used in core.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug(__FUNCTION__ . '() is deprecated and no longer used in core.', DEBUG_DEVELOPER);
     return get_string(strtolower($englishname), 'calendar');
 }
 
@@ -5867,7 +5867,7 @@ function calendar_wday_name($englishname) {
 function calendar_get_block_upcoming($events, $linkhref = null, $showcourselink = false) {
     global $CFG;
 
-    debugging(
+    \Moodle\Logger::create()->debug(
             __FUNCTION__ . '() has been deprecated. ' .
             'Please see block_calendar_upcoming::get_content() for the correct API usage.',
             DEBUG_DEVELOPER
@@ -5887,7 +5887,7 @@ function calendar_get_block_upcoming($events, $linkhref = null, $showcourselink 
  * @param string|array $selected options for select elements
  */
 function calendar_print_month_selector($name, $selected) {
-    debugging(__FUNCTION__ . '() is deprecated and no longer used in core.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug(__FUNCTION__ . '() is deprecated and no longer used in core.', DEBUG_DEVELOPER);
     $months = array();
     for ($i = 1; $i <= 12; $i++) {
         $months[$i] = userdate(gmmktime(12, 0, 0, $i, 15, 2000), '%B');
@@ -5904,7 +5904,7 @@ function calendar_print_month_selector($name, $selected) {
  * @return bool
  */
 function calendar_cron() {
-    debugging(__FUNCTION__ . '() is deprecated and should not be used. Please use the core\task\calendar_cron_task instead.',
+    \Moodle\Logger::create()->debug(__FUNCTION__ . '() is deprecated and should not be used. Please use the core\task\calendar_cron_task instead.',
         DEBUG_DEVELOPER);
 
     global $CFG, $DB;
@@ -5987,7 +5987,7 @@ function dedupe_user_access() {
  * @return array access info array
  */
 function get_user_access_sitewide($userid) {
-    debugging('get_user_access_sitewide() is deprecated. Do not use private functions or data structures.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('get_user_access_sitewide() is deprecated. Do not use private functions or data structures.', DEBUG_DEVELOPER);
 
     $accessdata = get_user_accessdata($userid);
     $accessdata['rdef'] = array();
@@ -6027,7 +6027,7 @@ function calendar_get_mini($courses, $groups, $users, $calmonth = false, $calyea
                            $courseid = false, $time = 0) {
     global $PAGE;
 
-    debugging('calendar_get_mini() has been deprecated. Please update your code to use calendar_get_view.',
+    \Moodle\Logger::create()->debug('calendar_get_mini() has been deprecated. Please update your code to use calendar_get_view.',
         DEBUG_DEVELOPER);
 
     if (!empty($calmonth) && !empty($calyear)) {
@@ -6071,7 +6071,7 @@ function calendar_get_mini($courses, $groups, $users, $calmonth = false, $calyea
  * @deprecated since Moodle 3.4. MDL-59333
  */
 function calendar_get_upcoming($courses, $groups, $users, $daysinfuture, $maxevents, $fromtime=0) {
-    debugging(
+    \Moodle\Logger::create()->debug(
             'calendar_get_upcoming() has been deprecated. ' .
             'Please see block_calendar_upcoming::get_content() for the correct API usage.',
             DEBUG_DEVELOPER
@@ -6145,7 +6145,7 @@ function calendar_get_upcoming($courses, $groups, $users, $daysinfuture, $maxeve
  * @deprecated since Moodle 3.4. MDL-50666
  */
 function allow_override($sroleid, $troleid) {
-    debugging('allow_override() has been deprecated. Please update your code to use core_role_set_override_allowed.',
+    \Moodle\Logger::create()->debug('allow_override() has been deprecated. Please update your code to use core_role_set_override_allowed.',
             DEBUG_DEVELOPER);
 
     core_role_set_override_allowed($sroleid, $troleid);
@@ -6160,7 +6160,7 @@ function allow_override($sroleid, $troleid) {
  * @deprecated since Moodle 3.4. MDL-50666
  */
 function allow_assign($fromroleid, $targetroleid) {
-    debugging('allow_assign() has been deprecated. Please update your code to use core_role_set_assign_allowed.',
+    \Moodle\Logger::create()->debug('allow_assign() has been deprecated. Please update your code to use core_role_set_assign_allowed.',
             DEBUG_DEVELOPER);
 
     core_role_set_assign_allowed($fromroleid, $targetroleid);
@@ -6175,7 +6175,7 @@ function allow_assign($fromroleid, $targetroleid) {
  * @deprecated since Moodle 3.4. MDL-50666
  */
 function allow_switch($fromroleid, $targetroleid) {
-    debugging('allow_switch() has been deprecated. Please update your code to use core_role_set_switch_allowed.',
+    \Moodle\Logger::create()->debug('allow_switch() has been deprecated. Please update your code to use core_role_set_switch_allowed.',
             DEBUG_DEVELOPER);
 
     core_role_set_switch_allowed($fromroleid, $targetroleid);
@@ -6190,7 +6190,7 @@ function allow_switch($fromroleid, $targetroleid) {
  * @deprecated since Moodle 3.5. MDL-61132
  */
 function question_add_tops($categories, $pcontexts) {
-    debugging('question_add_tops() has been deprecated. You may want to pass $top = true to get_categories_for_contexts().',
+    \Moodle\Logger::create()->debug('question_add_tops() has been deprecated. You may want to pass $top = true to get_categories_for_contexts().',
             DEBUG_DEVELOPER);
 
     $topcats = array();
@@ -6217,7 +6217,7 @@ function question_add_tops($categories, $pcontexts) {
  * @deprecated since Moodle 3.5. MDL-61132
  */
 function question_is_only_toplevel_category_in_context($categoryid) {
-    debugging('question_is_only_toplevel_category_in_context() has been deprecated. '
+    \Moodle\Logger::create()->debug('question_is_only_toplevel_category_in_context() has been deprecated. '
             . 'Please update your code to use question_is_only_child_of_top_category_in_context() instead.',
             DEBUG_DEVELOPER);
 
@@ -6233,7 +6233,7 @@ function question_is_only_toplevel_category_in_context($categoryid) {
  * @deprecated since Moodle 3.5
  */
 function message_move_userfrom_unread2read($userid) {
-    debugging('message_move_userfrom_unread2read() is deprecated and is no longer used.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('message_move_userfrom_unread2read() is deprecated and is no longer used.', DEBUG_DEVELOPER);
 
     global $DB;
 
@@ -6256,7 +6256,7 @@ function message_move_userfrom_unread2read($userid) {
  * @deprecated since Moodle 3.5
  */
 function message_get_blocked_users($user1=null, $user2=null) {
-    debugging('message_get_blocked_users() is deprecated, please use \core_message\api::get_blocked_users() instead.',
+    \Moodle\Logger::create()->debug('message_get_blocked_users() is deprecated, please use \core_message\api::get_blocked_users() instead.',
         DEBUG_DEVELOPER);
 
     global $USER;
@@ -6279,7 +6279,7 @@ function message_get_blocked_users($user1=null, $user2=null) {
  * @deprecated since Moodle 3.5
  */
 function message_get_contacts($user1=null, $user2=null) {
-    debugging('message_get_contacts() is deprecated and is no longer used.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('message_get_contacts() is deprecated and is no longer used.', DEBUG_DEVELOPER);
 
     global $DB, $CFG, $USER;
 
@@ -6359,7 +6359,7 @@ function message_get_contacts($user1=null, $user2=null) {
  * @deprecated since Moodle 3.5
  */
 function message_mark_message_read($message, $timeread, $messageworkingempty=false) {
-    debugging('message_mark_message_read() is deprecated, please use \core_message\api::mark_message_as_read()
+    \Moodle\Logger::create()->debug('message_mark_message_read() is deprecated, please use \core_message\api::mark_message_as_read()
         or \core_message\api::mark_notification_as_read().', DEBUG_DEVELOPER);
 
     if (!empty($message->notification)) {
@@ -6382,7 +6382,7 @@ function message_mark_message_read($message, $timeread, $messageworkingempty=fal
  * @deprecated since Moodle 3.5
  */
 function message_can_delete_message($message, $userid) {
-    debugging('message_can_delete_message() is deprecated, please use \core_message\api::can_delete_message() instead.',
+    \Moodle\Logger::create()->debug('message_can_delete_message() is deprecated, please use \core_message\api::can_delete_message() instead.',
         DEBUG_DEVELOPER);
 
     return \core_message\api::can_delete_message($userid, $message->id);
@@ -6400,7 +6400,7 @@ function message_can_delete_message($message, $userid) {
  * @deprecated since Moodle 3.5
  */
 function message_delete_message($message, $userid) {
-    debugging('message_delete_message() is deprecated, please use \core_message\api::delete_message() instead.',
+    \Moodle\Logger::create()->debug('message_delete_message() is deprecated, please use \core_message\api::delete_message() instead.',
         DEBUG_DEVELOPER);
 
     return \core_message\api::delete_message($userid, $message->id);

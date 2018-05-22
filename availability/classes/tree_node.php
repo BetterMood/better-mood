@@ -230,7 +230,7 @@ abstract class tree_node {
         // default (all enrolled users). This ensures compatibility with 2.7
         // plugins and behaviour. Plugins should be updated to support this
         // new function (if they return true to is_applied_to_user_lists).
-        debugging('Availability plugins that return true to is_applied_to_user_lists ' .
+        \Moodle\Logger::create()->debug('Availability plugins that return true to is_applied_to_user_lists ' .
                 'should also now implement get_user_list_sql: ' . get_class($this),
                 DEBUG_DEVELOPER);
         return get_enrolled_sql($info->get_context(), '', 0, $onlyactive);

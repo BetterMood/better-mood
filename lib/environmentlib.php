@@ -1512,11 +1512,11 @@ function get_level($element) {
     if (isset($element['@']['level'])) {
         $level = $element['@']['level'];
         if (!in_array($level, array('required', 'optional'))) {
-            debugging('The level of a check in the environment.xml file must be "required" or "optional".', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('The level of a check in the environment.xml file must be "required" or "optional".', DEBUG_DEVELOPER);
             $level = 'required';
         }
     } else {
-        debugging('Checks in the environment.xml file must have a level="required" or level="optional" attribute.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Checks in the environment.xml file must have a level="required" or level="optional" attribute.', DEBUG_DEVELOPER);
     }
     return $level;
 }

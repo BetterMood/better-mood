@@ -418,7 +418,7 @@ function cron_bc_hack_plugin_functions($plugintype, $plugins) {
             if (function_exists($cronfunction)) {
                 $plugins[$component] = $cronfunction;
             } else {
-                debugging("Invalid legacy cron.php detected in $component, " .
+                \Moodle\Logger::create()->debug("Invalid legacy cron.php detected in $component, " .
                         "please use lib.php instead");
             }
         }

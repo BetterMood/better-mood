@@ -612,7 +612,7 @@ class api {
                     $relcomp->create();
                 } else {
                     // Debugging message when there is no match found.
-                    debugging('related competency id not found');
+                    \Moodle\Logger::create()->debug('related competency id not found');
                 }
             }
 
@@ -4018,7 +4018,7 @@ class api {
                     $competency->set('ruleoutcome', $node->competency->get('ruleoutcome'));
                     $competency->update();
                 } catch (\Exception $e) {
-                    debugging('Could not migrate competency rule from: ' . $oldcompid . ' to: ' . $competency->get('id') . '.' .
+                    \Moodle\Logger::create()->debug('Could not migrate competency rule from: ' . $oldcompid . ' to: ' . $competency->get('id') . '.' .
                         ' Exception: ' . $e->getMessage(), DEBUG_DEVELOPER);
                     $competency->reset_rule();
                 }

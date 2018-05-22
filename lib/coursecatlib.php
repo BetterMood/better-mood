@@ -125,7 +125,7 @@ class coursecat implements renderable, cacheable_object, IteratorAggregate {
      * @param mixed $value
      */
     public function __set($name, $value) {
-        debugging('Can not change coursecat instance properties!', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Can not change coursecat instance properties!', DEBUG_DEVELOPER);
     }
 
     /**
@@ -148,7 +148,7 @@ class coursecat implements renderable, cacheable_object, IteratorAggregate {
             }
             return $this->$name;
         }
-        debugging('Invalid coursecat property accessed! '.$name, DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Invalid coursecat property accessed! '.$name, DEBUG_DEVELOPER);
         return null;
     }
 
@@ -171,7 +171,7 @@ class coursecat implements renderable, cacheable_object, IteratorAggregate {
      * @param string $name
      */
     public function __unset($name) {
-        debugging('Can not unset coursecat instance properties!', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Can not unset coursecat instance properties!', DEBUG_DEVELOPER);
     }
 
     /**
@@ -1442,7 +1442,7 @@ class coursecat implements renderable, cacheable_object, IteratorAggregate {
                     }
                 }
             } else {
-                debugging('No criteria is specified while searching courses', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('No criteria is specified while searching courses', DEBUG_DEVELOPER);
                 return array();
             }
             $courselist = self::get_course_records($where, $params, $options, true);
@@ -3067,7 +3067,7 @@ class course_in_list implements IteratorAggregate {
             $this->record->$name = $DB->get_field('course', $name, array('id' => $this->record->id), MUST_EXIST);
             return $this->record->$name;
         }
-        debugging('Invalid course property accessed! '.$name);
+        \Moodle\Logger::create()->debug('Invalid course property accessed! '.$name);
         return null;
     }
 
@@ -3077,7 +3077,7 @@ class course_in_list implements IteratorAggregate {
      * @param string $name
      */
     public function __unset($name) {
-        debugging('Can not unset '.get_class($this).' instance properties!');
+        \Moodle\Logger::create()->debug('Can not unset '.get_class($this).' instance properties!');
     }
 
     /**
@@ -3087,7 +3087,7 @@ class course_in_list implements IteratorAggregate {
      * @param mixed $value
      */
     public function __set($name, $value) {
-        debugging('Can not change '.get_class($this).' instance properties!');
+        \Moodle\Logger::create()->debug('Can not change '.get_class($this).' instance properties!');
     }
 
     /**

@@ -58,22 +58,22 @@ class external_location implements type {
      *                  within the component.
      */
     public function __construct($name, array $privacyfields = [], $summary = '') {
-        if (debugging('', DEBUG_DEVELOPER)) {
+        if (\Moodle\Logger::create()->debug('', DEBUG_DEVELOPER)) {
             if (empty($privacyfields)) {
-                debugging("Location '{$name}' was supplied without any fields.", DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug("Location '{$name}' was supplied without any fields.", DEBUG_DEVELOPER);
             }
 
             foreach ($privacyfields as $key => $field) {
                 $teststring = clean_param($field, PARAM_STRINGID);
                 if ($teststring !== $field) {
-                    debugging("Field '{$key}' passed for location '{$name}' has an invalid langstring identifier: '{$field}'",
+                    \Moodle\Logger::create()->debug("Field '{$key}' passed for location '{$name}' has an invalid langstring identifier: '{$field}'",
                         DEBUG_DEVELOPER);
                 }
             }
 
             $teststring = clean_param($summary, PARAM_STRINGID);
             if ($teststring !== $summary) {
-                debugging("Summary information for the '{$name}' location has an invalid langstring identifier: '{$summary}'",
+                \Moodle\Logger::create()->debug("Summary information for the '{$name}' location has an invalid langstring identifier: '{$summary}'",
                     DEBUG_DEVELOPER);
             }
         }

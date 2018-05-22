@@ -52,7 +52,7 @@ class auth_plugin_cas extends auth_plugin_ldap {
      * @deprecated since Moodle 3.1
      */
     public function auth_plugin_cas() {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
         self::__construct();
     }
 

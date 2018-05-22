@@ -120,7 +120,7 @@ class answer_updated extends \core\event\base {
     protected function validate_data() {
         parent::validate_data();
 
-        debugging('Event \\mod_choice\event\\answer_updated should not be used '
+        \Moodle\Logger::create()->debug('Event \\mod_choice\event\\answer_updated should not be used '
                 . 'any more for triggering new events and can only be initiated during restore. '
                 . 'For new events please use \\mod_choice\\event\\answer_created '
                 . 'and  \\mod_choice\\event\\answer_deleted', DEBUG_DEVELOPER);

@@ -505,7 +505,7 @@ class block_manager {
             if (array_key_exists($region, $this->regions)) {
                 // This here is EXACTLY why we should not be adding block regions into a page. It should
                 // ALWAYS be done in a theme layout.
-                debugging('A custom region conflicts with a block region in the theme.', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('A custom region conflicts with a block region in the theme.', DEBUG_DEVELOPER);
             }
             // We need to register this custom region against the page type being used.
             // This allows us to check, when performing block actions, that unrecognised regions can be worked with.
@@ -2023,8 +2023,7 @@ function block_load_class($blockname) {
     if (file_exists($blockpath)) {
         require_once($CFG->dirroot.'/blocks/moodleblock.class.php');
         include_once($blockpath);
-    }else{
-        //debugging("$blockname code does not exist in $blockpath", DEBUG_DEVELOPER);
+    } else {
         return false;
     }
 

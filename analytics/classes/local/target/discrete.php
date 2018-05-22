@@ -105,7 +105,7 @@ abstract class discrete extends base {
             return self::OUTCOME_OK;
         }
 
-        debugging('Please overwrite \core_analytics\local\target\discrete::get_calculation_outcome, all your target ' .
+        \Moodle\Logger::create()->debug('Please overwrite \core_analytics\local\target\discrete::get_calculation_outcome, all your target ' .
             'classes are styled the same way otherwise', DEBUG_DEVELOPER);
         return self::OUTCOME_OK;
     }

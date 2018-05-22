@@ -52,7 +52,7 @@ class block extends base {
      */
     public function __get($name) {
         if ($name === 'visible') {
-            debugging('This is now an instance of plugininfo_block, please use $block->is_enabled() instead of $block->visible', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('This is now an instance of plugininfo_block, please use $block->is_enabled() instead of $block->visible', DEBUG_DEVELOPER);
             return ($this->is_enabled() !== false);
         }
         return parent::__get($name);

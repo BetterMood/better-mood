@@ -50,7 +50,7 @@ define('NO_MOODLE_COOKIES', true); // Because it interferes with caching
     if (file_exists($pathname)) {
         send_file($pathname, $image);
     } else {
-        if (debugging()) {
+        if (\Moodle\Logger::create()->debug()) {
             echo "The shell command<br />$cmd<br />returned status = $status<br />\n";
             echo "Image not found!<br />";
             echo "Please try the <a href=\"$CFG->wwwroot/filter/algebra/algebradebug.php\">debugging script</a>";

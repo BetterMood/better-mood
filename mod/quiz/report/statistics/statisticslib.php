@@ -88,7 +88,7 @@ function quiz_statistics_qubaids_condition($quizid, \core\dml\sql_join $groupstu
  * @deprecated since Moodle 3.2
  */
 function quiz_statistics_graph_get_new_colour() {
-    debugging('The function quiz_statistics_graph_get_new_colour() is deprecated, please do not use it any more. '
+    \Moodle\Logger::create()->debug('The function quiz_statistics_graph_get_new_colour() is deprecated, please do not use it any more. '
         . 'Colours will be handled by the charting library directly.', DEBUG_DEVELOPER);
 
     static $colourindex = -1;

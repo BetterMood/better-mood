@@ -512,7 +512,7 @@ class core_user {
             self::$noreplyuser = false;
             self::$supportuser = false;
         } else {
-            debugging('reset_internal_users() should not be used outside phpunit.', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('reset_internal_users() should not be used outside phpunit.', DEBUG_DEVELOPER);
         }
     }
 
@@ -803,7 +803,7 @@ class core_user {
             try {
                 $user->$field = core_user::clean_field($value, $field);
             } catch (coding_exception $e) {
-                debugging("The property '$field' could not be cleaned.", DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug("The property '$field' could not be cleaned.", DEBUG_DEVELOPER);
             }
         }
 
@@ -839,7 +839,7 @@ class core_user {
                 $data = clean_param($data, $type);
             }
         } catch (coding_exception $e) {
-            debugging("The property '$field' could not be cleaned.", DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug("The property '$field' could not be cleaned.", DEBUG_DEVELOPER);
         }
 
         return $data;

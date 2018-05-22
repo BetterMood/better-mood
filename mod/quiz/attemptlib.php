@@ -379,7 +379,7 @@ class quiz {
      * @deprecated since 3.1. This sort of functionality is now entirely handled by quiz access rules.
      */
     public function confirm_start_attempt_message($notused) {
-        debugging('confirm_start_attempt_message is deprecated. ' .
+        \Moodle\Logger::create()->debug('confirm_start_attempt_message is deprecated. ' .
                 'This sort of functionality is now entirely handled by quiz access rules.');
         return '';
     }

@@ -310,7 +310,7 @@ class core_tag_area {
                 $record = (object)$tagarea;
                 if ($component !== 'core' || empty($record->component)) {
                     if (isset($record->component) && $record->component !== $component) {
-                        debugging("Item type {$record->itemtype} has illegal component {$record->component}", DEBUG_DEVELOPER);
+                        \Moodle\Logger::create()->debug("Item type {$record->itemtype} has illegal component {$record->component}", DEBUG_DEVELOPER);
                     }
                     $record->component = $component;
                 }

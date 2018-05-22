@@ -410,7 +410,7 @@ require_once($CFG->libdir .'/classes/component.php');
 // special support for highly optimised scripts that do not need libraries and DB connection
 if (defined('ABORT_AFTER_CONFIG')) {
     if (!defined('ABORT_AFTER_CONFIG_CANCEL')) {
-        // hide debugging if not enabled in config.php - we do not want to disclose sensitive info
+        // hide \Moodle\Logger::create()->debug if not enabled in config.php - we do not want to disclose sensitive info
         error_reporting($CFG->debug);
         if (NO_DEBUG_DISPLAY) {
             // Some parts of Moodle cannot display errors and debug at all.
@@ -842,7 +842,7 @@ if (!empty($CFG->allowthemechangeonurl) and !empty($_GET['theme'])) {
         unset($themeconfig);
         unset($urlthemename);
     } catch (Exception $e) {
-        debugging('Failed to set the theme from the URL.', DEBUG_DEVELOPER, $e->getTrace());
+        \Moodle\Logger::create()->debug('Failed to set the theme from the URL.', DEBUG_DEVELOPER, $e->getTrace());
     }
 }
 unset($urlthemename);
@@ -978,10 +978,10 @@ if ($USER && isset($USER->username)) {
 // Ensure the urlrewriteclass is setup correctly (to avoid crippling site).
 if (isset($CFG->urlrewriteclass)) {
     if (!class_exists($CFG->urlrewriteclass)) {
-        debugging("urlrewriteclass {$CFG->urlrewriteclass} was not found, disabling.");
+        \Moodle\Logger::create()->debug("urlrewriteclass {$CFG->urlrewriteclass} was not found, disabling.");
         unset($CFG->urlrewriteclass);
     } else if (!in_array('core\output\url_rewriter', class_implements($CFG->urlrewriteclass))) {
-        debugging("{$CFG->urlrewriteclass} does not implement core\output\url_rewriter, disabling.", DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug("{$CFG->urlrewriteclass} does not implement core\output\url_rewriter, disabling.", DEBUG_DEVELOPER);
         unset($CFG->urlrewriteclass);
     }
 }

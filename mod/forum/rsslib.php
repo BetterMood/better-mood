@@ -40,7 +40,7 @@ function forum_rss_get_feed($context, $args) {
 
     //are RSS feeds enabled?
     if (empty($CFG->forum_enablerssfeeds)) {
-        debugging('DISABLED (module configuration)');
+        \Moodle\Logger::create()->debug('DISABLED (module configuration)');
         return null;
     }
 

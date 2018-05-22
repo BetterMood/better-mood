@@ -478,7 +478,7 @@ class database_manager {
      * @return void
      */
     public function drop_temp_table(xmldb_table $xmldb_table) {
-        debugging('database_manager::drop_temp_table() is deprecated, use database_manager::drop_table() instead');
+        \Moodle\Logger::create()->debug('database_manager::drop_temp_table() is deprecated, use database_manager::drop_table() instead');
         $this->drop_table($xmldb_table);
     }
 
@@ -616,7 +616,7 @@ class database_manager {
      * @return void
      */
     public function change_field_unsigned(xmldb_table $xmldb_table, xmldb_field $xmldb_field) {
-        debugging('All unsigned numbers are converted to signed automatically during Moodle upgrade.');
+        \Moodle\Logger::create()->debug('All unsigned numbers are converted to signed automatically during Moodle upgrade.');
         $this->change_field_type($xmldb_table, $xmldb_field);
     }
 
@@ -785,7 +785,7 @@ class database_manager {
      * @return void
      */
     public function rename_key(xmldb_table $xmldb_table, xmldb_key $xmldb_key, $newname) {
-        debugging('rename_key() is one experimental feature. You must not use it in production!', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('rename_key() is one experimental feature. You must not use it in production!', DEBUG_DEVELOPER);
 
         // Check newname isn't empty
         if (!$newname) {
@@ -877,7 +877,7 @@ class database_manager {
      * @return void
      */
     public function rename_index($xmldb_table, $xmldb_intex, $newname) {
-        debugging('rename_index() is one experimental feature. You must not use it in production!', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('rename_index() is one experimental feature. You must not use it in production!', DEBUG_DEVELOPER);
 
         // Check newname isn't empty
         if (!$newname) {

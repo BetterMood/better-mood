@@ -233,7 +233,7 @@ function lti_get_shortcuts($defaultitem) {
     foreach (core_component::get_plugin_list('ltisource') as $pluginname => $dir) {
         if ($moretypes = component_callback("ltisource_$pluginname", 'get_types')) {
             // Callback 'get_types()' in 'ltisource' plugins is deprecated in 3.1 and will be removed in 3.5, TODO MDL-53697.
-            debugging('Deprecated callback get_types() is found in ltisource_' . $pluginname .
+            \Moodle\Logger::create()->debug('Deprecated callback get_types() is found in ltisource_' . $pluginname .
                 ', use get_shortcuts() instead', DEBUG_DEVELOPER);
             $grouptitle = get_string('modulenameplural', 'mod_lti');
             foreach ($moretypes as $subtype) {

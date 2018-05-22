@@ -70,7 +70,7 @@ class MoodleQuickForm_rubriceditor extends HTML_QuickForm_input {
      * @deprecated since Moodle 3.1
      */
     public function MoodleQuickForm_rubriceditor($elementName=null, $elementLabel=null, $attributes=null) {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
         self::__construct($elementName, $elementLabel, $attributes);
     }
 

@@ -258,7 +258,7 @@ class engine extends \core_search\engine {
             }
 
         } catch (\dml_exception $ex) {
-            debugging('dml error while trying to insert document with id ' . $doc->docid . ': ' . $ex->getMessage(),
+            \Moodle\Logger::create()->debug('dml error while trying to insert document with id ' . $doc->docid . ': ' . $ex->getMessage(),
                 DEBUG_DEVELOPER);
             return false;
         }

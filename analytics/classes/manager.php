@@ -320,17 +320,17 @@ class manager {
             $logstore = reset($readers);
         } else if (!empty($readers)) {
             $logstore = reset($readers);
-            debugging('The selected log store for analytics is not available anymore. Using "' .
+            \Moodle\Logger::create()->debug('The selected log store for analytics is not available anymore. Using "' .
                 $logstore->get_name() . '"', DEBUG_DEVELOPER);
         }
 
         if (empty($logstore)) {
-            debugging('No system log stores available to use for analytics', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('No system log stores available to use for analytics', DEBUG_DEVELOPER);
             return false;
         }
 
         if (!$logstore->is_logging()) {
-            debugging('The selected log store for analytics "' . $logstore->get_name() .
+            \Moodle\Logger::create()->debug('The selected log store for analytics "' . $logstore->get_name() .
                 '" is not logging activity logs', DEBUG_DEVELOPER);
         }
 

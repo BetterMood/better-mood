@@ -48,7 +48,7 @@ class message_output_airnotifier extends message_output {
 
         if (!empty($CFG->noemailever)) {
             // Hidden setting for development sites, set in config.php if needed.
-            debugging('$CFG->noemailever active, no airnotifier message sent.', DEBUG_MINIMAL);
+            \Moodle\Logger::create()->debug('$CFG->noemailever active, no airnotifier message sent.', DEBUG_MINIMAL);
             return true;
         }
 

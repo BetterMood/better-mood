@@ -29,15 +29,15 @@ defined('MOODLE_INTERNAL') || die();
 
 // Debug levels - always keep the values in ascending order!
 /** No warnings and errors at all */
-define('DEBUG_NONE', 0);
+define('DEBUG_NONE', \Moodle\Logger::DEBUG_NONE);
 /** Fatal errors only */
-define('DEBUG_MINIMAL', E_ERROR | E_PARSE);
+define('DEBUG_MINIMAL', \Moodle\Logger::DEBUG_MINIMAL);
 /** Errors, warnings and notices */
-define('DEBUG_NORMAL', E_ERROR | E_PARSE | E_WARNING | E_NOTICE);
+define('DEBUG_NORMAL', \Moodle\Logger::DEBUG_NORMAL);
 /** All problems except strict PHP warnings */
-define('DEBUG_ALL', E_ALL & ~E_STRICT);
+define('DEBUG_ALL', \Moodle\Logger::DEBUG_ALL);
 /** DEBUG_ALL with all debug messages and strict warnings */
-define('DEBUG_DEVELOPER', E_ALL | E_STRICT);
+define('DEBUG_DEVELOPER', \Moodle\Logger::DEBUG_DEVELOPER);
 
 /** Remove any memory limits */
 define('MEMORY_UNLIMITED', -1);
@@ -350,7 +350,7 @@ function default_exception_handler($ex) {
 
     $info = get_exception_info($ex);
 
-    if (debugging('', DEBUG_MINIMAL)) {
+    if (\Moodle\Logger::create()->debug('', DEBUG_MINIMAL)) {
         $backtraceFormatter = new \Moodle\BacktraceFormatter(
             new \Moodle\RootDirectory()
         );
@@ -1036,7 +1036,7 @@ function workaround_max_input_vars() {
     // Make sure this gets executed only once from lib/setup.php!
     static $executed = false;
     if ($executed) {
-        debugging('workaround_max_input_vars() must be called only once!');
+        \Moodle\Logger::create()->debug('workaround_max_input_vars() must be called only once!');
         return;
     }
     $executed = true;
@@ -1236,7 +1236,7 @@ function raise_memory_limit($newlimit) {
     }
 
     if ($newlimit <= 0) {
-        debugging('Invalid memory limit specified.');
+        \Moodle\Logger::create()->debug('Invalid memory limit specified.');
         return false;
     }
 
@@ -1420,7 +1420,7 @@ function upgrade_ensure_not_running($warningonly = false) {
         if (!$warningonly) {
             throw new moodle_exception('cannotexecduringupgrade');
         } else {
-            debugging(get_string('cannotexecduringupgrade', 'error'), DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug(get_string('cannotexecduringupgrade', 'error'), DEBUG_DEVELOPER);
             return false;
         }
     }
@@ -1532,7 +1532,7 @@ function make_writable_directory($dir, $exceptiononerror = true) {
                 if ($exceptiononerror) {
                     throw new invalid_dataroot_permissions($dir.' can not be created, check permissions.');
                 } else {
-                    debugging('Can not create directory: '.$dir, DEBUG_DEVELOPER);
+                    \Moodle\Logger::create()->debug('Can not create directory: '.$dir, DEBUG_DEVELOPER);
                     return false;
                 }
             }
@@ -1581,13 +1581,13 @@ function make_upload_directory($directory, $exceptiononerror = true) {
     global $CFG;
 
     if (strpos($directory, 'temp/') === 0 or $directory === 'temp') {
-        debugging('Use make_temp_directory() for creation of temporary directory and $CFG->tempdir to get the location.');
+        \Moodle\Logger::create()->debug('Use make_temp_directory() for creation of temporary directory and $CFG->tempdir to get the location.');
 
     } else if (strpos($directory, 'cache/') === 0 or $directory === 'cache') {
-        debugging('Use make_cache_directory() for creation of cache directory and $CFG->cachedir to get the location.');
+        \Moodle\Logger::create()->debug('Use make_cache_directory() for creation of cache directory and $CFG->cachedir to get the location.');
 
     } else if (strpos($directory, 'localcache/') === 0 or $directory === 'localcache') {
-        debugging('Use make_localcache_directory() for creation of local cache directory and $CFG->localcachedir to get the location.');
+        \Moodle\Logger::create()->debug('Use make_localcache_directory() for creation of local cache directory and $CFG->localcachedir to get the location.');
     }
 
     protect_directory($CFG->dataroot);

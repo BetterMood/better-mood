@@ -591,7 +591,7 @@ class block_base {
             // Debug warning that the capability does not exist, but no more than once per page.
             static $warned = array();
             if (!isset($warned[$this->name()])) {
-                debugging('The block ' .$this->name() . ' does not define the standard capability ' .
+                \Moodle\Logger::create()->debug('The block ' .$this->name() . ' does not define the standard capability ' .
                         $capability , DEBUG_DEVELOPER);
                 $warned[$this->name()] = 1;
             }

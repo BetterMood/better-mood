@@ -544,7 +544,7 @@ class flexible_table {
         unset($oldprefs);
 
         if (empty($this->baseurl)) {
-            debugging('You should set baseurl when using flexible_table.');
+            \Moodle\Logger::create()->debug('You should set baseurl when using flexible_table.');
             global $PAGE;
             $this->baseurl = $PAGE->url;
         }
@@ -946,7 +946,7 @@ class flexible_table {
      */
     protected function print_one_initials_bar($alpha, $current, $class, $title, $urlvar) {
 
-        debugging('Method print_one_initials_bar() is no longer used and has been deprecated, ' .
+        \Moodle\Logger::create()->debug('Method print_one_initials_bar() is no longer used and has been deprecated, ' .
             'to print initials bar call print_initials_bar()', DEBUG_DEVELOPER);
 
         echo html_writer::start_tag('div', array('class' => 'initialbar ' . $class)) .
@@ -1662,7 +1662,7 @@ class table_default_export_format_parent {
      * @deprecated since Moodle 3.1
      */
     public function table_default_export_format_parent(&$table) {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
         self::__construct($table);
     }
 

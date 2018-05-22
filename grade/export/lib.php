@@ -101,7 +101,7 @@ abstract class grade_export {
                                               $onlyactive = false,
                                               $usercustomfields = false) {
 
-        debugging('Many argument constructor for class "grade_export" is deprecated. Call the 3 argument version instead.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Many argument constructor for class "grade_export" is deprecated. Call the 3 argument version instead.', DEBUG_DEVELOPER);
 
         $this->course = $course;
         $this->groupid = $groupid;
@@ -301,7 +301,7 @@ abstract class grade_export {
     public function display_preview($require_user_idnumber=false) {
         global $OUTPUT;
 
-        debugging('function grade_export::display_preview is deprecated.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('function grade_export::display_preview is deprecated.', DEBUG_DEVELOPER);
 
         $userprofilefields = grade_helper::get_user_profile_fields($this->course->id, $this->usercustomfields);
         $formatoptions = new stdClass();
@@ -439,7 +439,7 @@ abstract class grade_export {
     public function print_continue() {
         global $CFG, $OUTPUT;
 
-        debugging('function grade_export::print_continue is deprecated.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('function grade_export::print_continue is deprecated.', DEBUG_DEVELOPER);
         $params = $this->get_export_params();
 
         echo $OUTPUT->heading(get_string('export', 'grades'));

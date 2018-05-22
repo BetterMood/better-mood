@@ -114,7 +114,7 @@ class portfolio_add_button {
         global $SESSION, $CFG;
 
         if (empty($CFG->enableportfolios)) {
-            debugging('Building portfolio add button while portfolios is disabled. This code can be optimised.', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Building portfolio add button while portfolios is disabled. This code can be optimised.', DEBUG_DEVELOPER);
         }
 
         $this->instances = portfolio_instances();
@@ -279,7 +279,7 @@ class portfolio_add_button {
                 $a = new stdClass();
                 $a->key = $key;
                 $a->value = print_r($value, true);
-                debugging(get_string('nonprimative', 'portfolio', $a));
+                \Moodle\Logger::create()->debug(get_string('nonprimative', 'portfolio', $a));
                 return;
             }
             $url->param('ca_' . $key, $value);
@@ -303,21 +303,21 @@ class portfolio_add_button {
             $formats = portfolio_supported_formats_intersect($this->formats, $instance->supported_formats());
             if (count($formats) == 0) {
                 // bail. no common formats.
-                //debugging(get_string('nocommonformats', 'portfolio', (object)array('location' => $this->callbackclass, 'formats' => implode(',', $this->formats))));
+                //\Moodle\Logger::create()->debug(get_string('nocommonformats', 'portfolio', (object)array('location' => $this->callbackclass, 'formats' => implode(',', $this->formats))));
                 return;
             }
             if ($error = portfolio_instance_sanity_check($instance)) {
                 // bail, plugin is misconfigured
-                //debugging(get_string('instancemisconfigured', 'portfolio', get_string($error[$instance->get('id')], 'portfolio_' . $instance->get('plugin'))));
+                //\Moodle\Logger::create()->debug(get_string('instancemisconfigured', 'portfolio', get_string($error[$instance->get('id')], 'portfolio_' . $instance->get('plugin'))));
                 return;
             }
             if (!$instance->allows_multiple_exports() && $already = portfolio_existing_exports($USER->id, $instance->get('plugin'))) {
-                //debugging(get_string('singleinstancenomultiallowed', 'portfolio'));
+                //\Moodle\Logger::create()->debug(get_string('singleinstancenomultiallowed', 'portfolio'));
                 return;
             }
             if ($mimetype&& !$instance->file_mime_check($mimetype)) {
                 // bail, we have a specific file or mimetype and this plugin doesn't support it
-                //debugging(get_string('mimecheckfail', 'portfolio', (object)array('plugin' => $instance->get('plugin'), 'mimetype' => $mimetype)));
+                //\Moodle\Logger::create()->debug(get_string('mimecheckfail', 'portfolio', (object)array('plugin' => $instance->get('plugin'), 'mimetype' => $mimetype)));
                 return;
             }
             $url->param('instance', $instance->get('id'));
@@ -363,7 +363,7 @@ class portfolio_add_button {
                     'title' => $addstr));
             break;
             default:
-                debugging(get_string('invalidaddformat', 'portfolio', $format));
+                \Moodle\Logger::create()->debug(get_string('invalidaddformat', 'portfolio', $format));
         }
         $output = (in_array($format, array(PORTFOLIO_ADD_FULL_FORM, PORTFOLIO_ADD_ICON_FORM)) ? $formoutput : $linkoutput);
         return $output;
@@ -463,11 +463,11 @@ function portfolio_instance_select($instances, $callerformats, $callbackclass, $
         }
         if (array_key_exists($instance->get('id'), $insane)) {
             // bail, plugin is misconfigured
-            //debugging(get_string('instanceismisconfigured', 'portfolio', get_string($insane[$instance->get('id')], 'portfolio_' . $instance->get('plugin'))));
+            //\Moodle\Logger::create()->debug(get_string('instanceismisconfigured', 'portfolio', get_string($insane[$instance->get('id')], 'portfolio_' . $instance->get('plugin'))));
             continue;
         } else if (array_key_exists($instance->get('plugin'), $pinsane)) {
             // bail, plugin is misconfigured
-            //debugging(get_string('pluginismisconfigured', 'portfolio', get_string($pinsane[$instance->get('plugin')], 'portfolio_' . $instance->get('plugin'))));
+            //\Moodle\Logger::create()->debug(get_string('pluginismisconfigured', 'portfolio', get_string($pinsane[$instance->get('plugin')], 'portfolio_' . $instance->get('plugin'))));
             continue;
         }
         if (!$instance->allows_multiple_exports() && in_array($instance->get('plugin'), $existingexports)) {
@@ -475,7 +475,7 @@ function portfolio_instance_select($instances, $callerformats, $callbackclass, $
             continue;
         }
         if ($mimetype && !$instance->file_mime_check($mimetype)) {
-            //debugging(get_string('mimecheckfail', 'portfolio', (object)array('plugin' => $instance->get('plugin'), 'mimetype' => $mimetype())));
+            //\Moodle\Logger::create()->debug(get_string('mimecheckfail', 'portfolio', (object)array('plugin' => $instance->get('plugin'), 'mimetype' => $mimetype())));
             // bail, we have a specific file and this plugin doesn't support it
             continue;
         }
@@ -485,7 +485,7 @@ function portfolio_instance_select($instances, $callerformats, $callbackclass, $
     }
     if (empty($count)) {
         // bail. no common formats.
-        //debugging(get_string('nocommonformats', 'portfolio', (object)array('location' => $callbackclass, 'formats' => implode(',', $callerformats))));
+        //\Moodle\Logger::create()->debug(get_string('nocommonformats', 'portfolio', (object)array('location' => $callbackclass, 'formats' => implode(',', $callerformats))));
         return;
     }
     $selectoutput .= "\n" . "</select>\n";
@@ -595,8 +595,8 @@ function portfolio_format_from_mimetype($mimetype) {
     foreach ($allformats as $format => $classname) {
         $supportedmimetypes = call_user_func(array($classname, 'mimetypes'));
         if (!is_array($supportedmimetypes)) {
-            debugging("one of the portfolio format classes, $classname, said it supported something funny for mimetypes, should have been array...");
-            debugging(print_r($supportedmimetypes, true));
+            \Moodle\Logger::create()->debug("one of the portfolio format classes, $classname, said it supported something funny for mimetypes, should have been array...");
+            \Moodle\Logger::create()->debug(print_r($supportedmimetypes, true));
             continue;
         }
         if (in_array($mimetype, $supportedmimetypes)) {
@@ -624,7 +624,7 @@ function portfolio_supported_formats_intersect($callerformats, $pluginformats) {
     foreach ($callerformats as $cf) {
         if (!array_key_exists($cf, $allformats)) {
             if (!portfolio_format_is_abstract($cf)) {
-                debugging(get_string('invalidformat', 'portfolio', $cf));
+                \Moodle\Logger::create()->debug(get_string('invalidformat', 'portfolio', $cf));
             }
             continue;
         }
@@ -633,7 +633,7 @@ function portfolio_supported_formats_intersect($callerformats, $pluginformats) {
         foreach ($pluginformats as $p => $pf) {
             if (!array_key_exists($pf, $allformats)) {
                 if (!portfolio_format_is_abstract($pf)) {
-                    debugging(get_string('invalidformat', 'portfolio', $pf));
+                    \Moodle\Logger::create()->debug(get_string('invalidformat', 'portfolio', $pf));
                 }
                 unset($pluginformats[$p]); // to avoid the same warning over and over
                 continue;
@@ -699,43 +699,43 @@ function portfolio_most_specific_formats($specificformats, $generalformats) {
         }
         if (in_array($f, $removedformats)) {
             // already been removed from the general list
-            //debugging("skipping $f because it was already removed");
+            //\Moodle\Logger::create()->debug("skipping $f because it was already removed");
             unset($specificformats[$k]);
         }
         require_once($CFG->libdir . '/portfolio/formats.php');
         $fobj = new $allformats[$f];
         foreach ($generalformats as $key => $cf) {
             if (in_array($cf, $removedformats)) {
-                //debugging("skipping $cf because it was already removed");
+                //\Moodle\Logger::create()->debug("skipping $cf because it was already removed");
                 continue;
             }
             $cfclass = $allformats[$cf];
             $cfobj = new $allformats[$cf];
             if ($fobj instanceof $cfclass && $cfclass != get_class($fobj)) {
-                //debugging("unsetting $key $cf because it's not specific enough ($f is better)");
+                //\Moodle\Logger::create()->debug("unsetting $key $cf because it's not specific enough ($f is better)");
                 unset($generalformats[$key]);
                 $removedformats[] = $cf;
                 continue;
             }
             // check for conflicts
             if ($fobj->conflicts($cf)) {
-                //debugging("unsetting $key $cf because it conflicts with $f");
+                //\Moodle\Logger::create()->debug("unsetting $key $cf because it conflicts with $f");
                 unset($generalformats[$key]);
                 $removedformats[] = $cf;
                 continue;
             }
             if ($cfobj->conflicts($f)) {
-                //debugging("unsetting $key $cf because it reverse-conflicts with $f");
+                //\Moodle\Logger::create()->debug("unsetting $key $cf because it reverse-conflicts with $f");
                 $removedformats[] = $cf;
                 unset($generalformats[$key]);
                 continue;
             }
         }
-        //debugging('inside loop');
+        //\Moodle\Logger::create()->debug('inside loop');
         //print_object($generalformats);
     }
 
-    //debugging('final formats');
+    //\Moodle\Logger::create()->debug('final formats');
     $finalformats =  array_unique(array_merge(array_values($specificformats), array_values($generalformats)));
     //print_object($finalformats);
     return $finalformats;
@@ -866,7 +866,7 @@ function portfolio_instance_sanity_check($instances=null) {
             $instance = portfolio_instance($instance);
         }
         if (!($instance instanceof portfolio_plugin_base)) {
-            debugging('something weird passed to portfolio_instance_sanity_check, not subclass or id');
+            \Moodle\Logger::create()->debug('something weird passed to portfolio_instance_sanity_check, not subclass or id');
             continue;
         }
         if ($result = $instance->instance_sanity_check()) {
@@ -991,8 +991,8 @@ function portfolio_expected_time_file($totest) {
     $size = 0;
     foreach ($totest as $file) {
         if (!($file instanceof stored_file)) {
-            debugging('something weird passed to portfolio_expected_time_file - not stored_file object');
-            debugging(print_r($file, true));
+            \Moodle\Logger::create()->debug('something weird passed to portfolio_expected_time_file - not stored_file object');
+            \Moodle\Logger::create()->debug(print_r($file, true));
             continue;
         }
         $size += $file->get_filesize();
@@ -1005,7 +1005,7 @@ function portfolio_expected_time_file($totest) {
     foreach (array('moderate', 'high') as $setting) {
         $settingname = 'portfolio_' . $setting . '_filesize_threshold';
         if (empty($CFG->{$settingname}) || !array_key_exists($CFG->{$settingname}, $fileinfo['options'])) {
-            debugging("weird or unset admin value for $settingname, using default instead");
+            \Moodle\Logger::create()->debug("weird or unset admin value for $settingname, using default instead");
             $$setting = $fileinfo[$setting];
         } else {
             $$setting = $CFG->{$settingname};
@@ -1256,7 +1256,7 @@ function portfolio_rewrite_pluginfile_url_callback($contextid, $component, $file
         $key = 'src';
     }
     if (!array_key_exists($key, $attributes)) {
-        debugging('Couldn\'t find an attribute to use that contains @@PLUGINFILE@@ in portfolio_rewrite_pluginfile');
+        \Moodle\Logger::create()->debug('Couldn\'t find an attribute to use that contains @@PLUGINFILE@@ in portfolio_rewrite_pluginfile');
         return $matches;
     }
     $filename = substr($attributes[$key], strpos($attributes[$key], '@@PLUGINFILE@@') + strlen('@@PLUGINFILE@@'));
@@ -1267,7 +1267,7 @@ function portfolio_rewrite_pluginfile_url_callback($contextid, $component, $file
         $filepath = implode('/', $bits);
     }
     if (!$file = $fs->get_file($contextid, $component, $filearea, $itemid, $filepath, urldecode($filename))) {
-        debugging("Couldn't find a file from the embedded path info context $contextid component $component filearea $filearea itemid $itemid filepath $filepath name $filename");
+        \Moodle\Logger::create()->debug("Couldn't find a file from the embedded path info context $contextid component $component filearea $filearea itemid $itemid filepath $filepath name $filename");
         return $matches;
     }
     if (empty($options)) {
@@ -1322,7 +1322,7 @@ function portfolio_include_callback_file($component, $class = null) {
         // Ok, replace '/' with '_'.
         $component = str_replace('/', '_', $component);
         // Place a debug message saying the third parameter should be changed.
-        debugging('The third parameter sent to the function set_callback_options should be the component name, not a file path, please update this.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('The third parameter sent to the function set_callback_options should be the component name, not a file path, please update this.', DEBUG_DEVELOPER);
     }
 
     // Check that it is a valid component.
@@ -1344,12 +1344,12 @@ function portfolio_include_callback_file($component, $class = null) {
     }
     if (file_exists($componentloc . '/portfoliolib.php')) {
         $filefound = true;
-        debugging('Please standardise your plugin by renaming your portfolio callback file to locallib.php, or if that file already exists moving the portfolio functionality there.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Please standardise your plugin by renaming your portfolio callback file to locallib.php, or if that file already exists moving the portfolio functionality there.', DEBUG_DEVELOPER);
         require_once($componentloc . '/portfoliolib.php');
     }
     if (file_exists($componentloc . '/portfolio_callback.php')) {
         $filefound = true;
-        debugging('Please standardise your plugin by renaming your portfolio callback file to locallib.php, or if that file already exists moving the portfolio functionality there.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Please standardise your plugin by renaming your portfolio callback file to locallib.php, or if that file already exists moving the portfolio functionality there.', DEBUG_DEVELOPER);
         require_once($componentloc . '/portfolio_callback.php');
     }
 

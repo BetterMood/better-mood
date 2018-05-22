@@ -134,7 +134,7 @@ class processor implements  \core_analytics\classifier, \core_analytics\regresso
             escapeshellarg($datasetpath);
 
         if (!PHPUNIT_TEST && CLI_SCRIPT) {
-            debugging($cmd, DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug($cmd, DEBUG_DEVELOPER);
         }
 
         $output = null;
@@ -187,7 +187,7 @@ class processor implements  \core_analytics\classifier, \core_analytics\regresso
             escapeshellarg($datasetpath);
 
         if (!PHPUNIT_TEST && CLI_SCRIPT) {
-            debugging($cmd, DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug($cmd, DEBUG_DEVELOPER);
         }
 
         $output = null;
@@ -245,7 +245,7 @@ class processor implements  \core_analytics\classifier, \core_analytics\regresso
             escapeshellarg($niterations);
 
         if (!PHPUNIT_TEST && CLI_SCRIPT) {
-            debugging($cmd, DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug($cmd, DEBUG_DEVELOPER);
         }
 
         $output = null;

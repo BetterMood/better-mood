@@ -223,7 +223,7 @@ class grade_grade extends grade_object {
      */
     public function load_grade_item() {
         if (empty($this->itemid)) {
-            debugging('Missing itemid');
+            \Moodle\Logger::create()->debug('Missing itemid');
             $this->grade_item = null;
             return null;
         }
@@ -232,7 +232,7 @@ class grade_grade extends grade_object {
             $this->grade_item = grade_item::fetch(array('id'=>$this->itemid));
 
         } else if ($this->grade_item->id != $this->itemid) {
-            debugging('Itemid mismatch');
+            \Moodle\Logger::create()->debug('Itemid mismatch');
             $this->grade_item = grade_item::fetch(array('id'=>$this->itemid));
         }
 
@@ -1098,7 +1098,7 @@ class grade_grade extends grade_object {
             // ...unless the grade is being deleted in which case it's likely
             // that the course-module was just deleted too, so that's okay.
             if (!$deleted) {
-                debugging("Couldn't find course-module for module '" .
+                \Moodle\Logger::create()->debug("Couldn't find course-module for module '" .
                         $this->grade_item->itemmodule . "', instance '" .
                         $this->grade_item->iteminstance . "', course '" .
                         $this->grade_item->courseid . "'");

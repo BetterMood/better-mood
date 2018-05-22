@@ -164,7 +164,7 @@ class cache_config {
             }
             $name = $conf['name'];
             if (array_key_exists($name, $this->configlocks)) {
-                debugging('Duplicate cache lock detected. This should never happen.', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Duplicate cache lock detected. This should never happen.', DEBUG_DEVELOPER);
                 continue;
             }
             $conf['default'] = (!empty($conf['default']));
@@ -179,7 +179,7 @@ class cache_config {
         foreach ($configuration['stores'] as $store) {
             if (!is_array($store) || !array_key_exists('name', $store) || !array_key_exists('plugin', $store)) {
                 // Not a valid instance configuration.
-                debugging('Invalid cache store in config. Missing name or plugin.', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Invalid cache store in config. Missing name or plugin.', DEBUG_DEVELOPER);
                 continue;
             }
             $plugin = $store['plugin'];
@@ -187,7 +187,7 @@ class cache_config {
             $exists = array_key_exists($plugin, $availableplugins);
             if (!$exists) {
                 // Not a valid plugin, or has been uninstalled, just skip it an carry on.
-                debugging('Invalid cache store in config. Not an available plugin.', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Invalid cache store in config. Not an available plugin.', DEBUG_DEVELOPER);
                 continue;
             }
             $file = $CFG->dirroot.'/cache/stores/'.$plugin.'/lib.php';
@@ -223,7 +223,7 @@ class cache_config {
                 continue;
             }
             if (array_key_exists($id, $this->configdefinitions)) {
-                debugging('Duplicate cache definition detected. This should never happen.', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Duplicate cache definition detected. This should never happen.', DEBUG_DEVELOPER);
                 continue;
             }
             $conf['mode'] = (int)$conf['mode'];
@@ -261,12 +261,12 @@ class cache_config {
         foreach ($configuration['modemappings'] as $mapping) {
             if (!is_array($mapping) || !array_key_exists('mode', $mapping) || !array_key_exists('store', $mapping)) {
                 // Not a valid mapping configuration.
-                debugging('A cache mode mapping entry is invalid.', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('A cache mode mapping entry is invalid.', DEBUG_DEVELOPER);
                 continue;
             }
             if (!array_key_exists($mapping['store'], $this->configstores)) {
                 // Mapped array instance doesn't exist.
-                debugging('A cache mode mapping exists for a mode or store that does not exist.', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('A cache mode mapping exists for a mode or store that does not exist.', DEBUG_DEVELOPER);
                 continue;
             }
             $mapping['mode'] = (int)$mapping['mode'];

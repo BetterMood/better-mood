@@ -108,6 +108,6 @@ abstract class plagiarism_plugin {
      * @deprecated since Moodle 3.1 MDL-52702 - please use scheduled tasks instead.
      */
     public function plagiarism_cron() {
-        debugging('plagiarism_plugin::plagiarism_cron() is deprecated. Please use scheduled tasks instead', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('plagiarism_plugin::plagiarism_cron() is deprecated. Please use scheduled tasks instead', DEBUG_DEVELOPER);
     }
 }

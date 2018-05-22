@@ -109,7 +109,7 @@ class user_created extends base {
         parent::validate_data();
 
         if (!isset($this->relateduserid)) {
-            debugging('The \'relateduserid\' value must be specified in the event.', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('The \'relateduserid\' value must be specified in the event.', DEBUG_DEVELOPER);
             $this->relateduserid = $this->objectid;
         }
     }

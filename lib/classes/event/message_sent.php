@@ -63,7 +63,7 @@ class message_sent extends base {
             // Arrived here with not defined $courseid to associate the event with.
             // Let's default to SITEID and perform debugging so devs are aware. MDL-47162.
             $courseid = SITEID;
-            debugging('message_sent::create_from_ids() needs a $courseid to be passed, nothing was detected. Please, change ' .
+            \Moodle\Logger::create()->debug('message_sent::create_from_ids() needs a $courseid to be passed, nothing was detected. Please, change ' .
                     'the call to include it, using SITEID if the message is unrelated to any real course.', DEBUG_DEVELOPER);
         }
 

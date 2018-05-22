@@ -812,7 +812,7 @@ abstract class question_edit_form extends question_wizard_form {
      * @return array
      */
     protected function get_non_collabsible_editor_options() {
-        debugging('get_non_collabsible_editor_options() is deprecated, use $this->editoroptions instead.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('get_non_collabsible_editor_options() is deprecated, use $this->editoroptions instead.', DEBUG_DEVELOPER);
         return $this->editoroptions;
     }
 

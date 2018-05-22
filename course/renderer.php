@@ -77,7 +77,7 @@ class core_course_renderer extends plugin_renderer_base {
      * @deprecated since 3.2
      */
     protected function add_modchoosertoggle() {
-        debugging('core_course_renderer::add_modchoosertoggle() is deprecated.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('core_course_renderer::add_modchoosertoggle() is deprecated.', DEBUG_DEVELOPER);
 
         global $CFG;
 
@@ -154,7 +154,7 @@ class core_course_renderer extends plugin_renderer_base {
      * @return string
      */
     public final function course_category_tree(array $ignored) {
-        debugging('Function core_course_renderer::course_category_tree() is deprecated, please use frontpage_combo_list()', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Function core_course_renderer::course_category_tree() is deprecated, please use frontpage_combo_list()', DEBUG_DEVELOPER);
         return $this->frontpage_combo_list();
     }
 
@@ -170,7 +170,7 @@ class core_course_renderer extends plugin_renderer_base {
      * @return string
      */
     protected final function course_category_tree_category(stdClass $category, $depth=1) {
-        debugging('Function core_course_renderer::course_category_tree_category() is deprecated', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Function core_course_renderer::course_category_tree_category() is deprecated', DEBUG_DEVELOPER);
         return '';
     }
 
@@ -208,7 +208,7 @@ class core_course_renderer extends plugin_renderer_base {
      * @return string The composed HTML for the module
      */
     protected function course_modchooser_module_types($modules) {
-        debugging('Method core_course_renderer::course_modchooser_module_types() is deprecated, ' .
+        \Moodle\Logger::create()->debug('Method core_course_renderer::course_modchooser_module_types() is deprecated, ' .
             'see core_course_renderer::render_modchooser().', DEBUG_DEVELOPER);
         return '';
     }
@@ -225,13 +225,13 @@ class core_course_renderer extends plugin_renderer_base {
      * @return string The composed HTML for the module
      */
     protected function course_modchooser_module($module, $classes = array('option')) {
-        debugging('Method core_course_renderer::course_modchooser_module() is deprecated, ' .
+        \Moodle\Logger::create()->debug('Method core_course_renderer::course_modchooser_module() is deprecated, ' .
             'see core_course_renderer::render_modchooser().', DEBUG_DEVELOPER);
         return '';
     }
 
     protected function course_modchooser_title($title, $identifier = null) {
-        debugging('Method core_course_renderer::course_modchooser_title() is deprecated, ' .
+        \Moodle\Logger::create()->debug('Method core_course_renderer::course_modchooser_title() is deprecated, ' .
             'see core_course_renderer::render_modchooser().', DEBUG_DEVELOPER);
         return '';
     }
@@ -264,7 +264,7 @@ class core_course_renderer extends plugin_renderer_base {
         } else if ($mod) {
             $ownerselector = '#module-'.$mod->id;
         } else {
-            debugging('You should upgrade your call to '.__FUNCTION__.' and provide $mod', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('You should upgrade your call to '.__FUNCTION__.' and provide $mod', DEBUG_DEVELOPER);
             $ownerselector = 'li.activity';
         }
 

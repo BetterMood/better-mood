@@ -93,7 +93,7 @@ class Crypt_CHAP extends PEAR
 
     function Crypt_CHAP()
     {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
         self::__construct();
     }
 
@@ -181,7 +181,7 @@ class Crypt_CHAP_MSv1 extends Crypt_CHAP
 
     function Crypt_CHAP_MSv1()
     {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
         self::__construct();
     }
 

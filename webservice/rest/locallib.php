@@ -152,7 +152,7 @@ class webservice_rest_server extends webservice_base_server {
             $errorobject->exception = get_class($ex);
             $errorobject->errorcode = $ex->errorcode;
             $errorobject->message = $ex->getMessage();
-            if (debugging() and isset($ex->debuginfo)) {
+            if (\Moodle\Logger::create()->debug() and isset($ex->debuginfo)) {
                 $errorobject->debuginfo = $ex->debuginfo;
             }
             $error = json_encode($errorobject);
@@ -162,7 +162,7 @@ class webservice_rest_server extends webservice_base_server {
             $error .= '<ERRORCODE>' . htmlspecialchars($ex->errorcode, ENT_COMPAT, 'UTF-8')
                     . '</ERRORCODE>' . "\n";
             $error .= '<MESSAGE>'.htmlspecialchars($ex->getMessage(), ENT_COMPAT, 'UTF-8').'</MESSAGE>'."\n";
-            if (debugging() and isset($ex->debuginfo)) {
+            if (\Moodle\Logger::create()->debug() and isset($ex->debuginfo)) {
                 $error .= '<DEBUGINFO>'.htmlspecialchars($ex->debuginfo, ENT_COMPAT, 'UTF-8').'</DEBUGINFO>'."\n";
             }
             $error .= '</EXCEPTION>'."\n";

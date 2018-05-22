@@ -297,7 +297,7 @@ function forum_make_mail_text($course, $cm, $forum, $discussion, $post, $userfro
         $renderer = $PAGE->get_renderer('mod_forum', 'email', 'textemail');
     }
 
-    debugging("forum_make_mail_text() has been deprecated, please use the \mod_forum\output\forum_post_email renderable instead.",
+    \Moodle\Logger::create()->debug("forum_make_mail_text() has been deprecated, please use the \mod_forum\output\forum_post_email renderable instead.",
             DEBUG_DEVELOPER);
 
     return $renderer->render($renderable);
@@ -367,7 +367,7 @@ function forum_make_mail_post($course, $cm, $forum, $discussion, $post, $userfro
     // Assume that this is being used as a standard forum email.
     $renderer = $PAGE->get_renderer('mod_forum', 'email', 'htmlemail');
 
-    debugging("forum_make_mail_post() has been deprecated, please use the \mod_forum\output\forum_post_email renderable instead.",
+    \Moodle\Logger::create()->debug("forum_make_mail_post() has been deprecated, please use the \mod_forum\output\forum_post_email renderable instead.",
             DEBUG_DEVELOPER);
 
     return $renderer->render($renderable);

@@ -201,7 +201,7 @@ class qformat_blackboard_six extends qformat_blackboard_six_base {
                 $importer = new qformat_blackboard_six_pool();
             } else {
                 // In all other cases we are not able to import the file.
-                debugging('fileobj type not recognised', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('fileobj type not recognised', DEBUG_DEVELOPER);
                 continue;
             }
             $importer->set_filebase($fileobj->filebase);

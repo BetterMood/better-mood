@@ -80,13 +80,13 @@ class toolproxy extends \mod_lti\local\ltiservice\resource_base {
             $toolproxyjson = json_decode($response->get_request_data());
             $ok = !empty($toolproxyjson);
             if (!$ok) {
-                debugging('Tool proxy is not properly formed JSON');
+                \Moodle\Logger::create()->debug('Tool proxy is not properly formed JSON');
             } else {
                 $ok = isset($toolproxyjson->tool_profile->product_instance->product_info->product_family->vendor->code);
                 $ok = $ok && isset($toolproxyjson->security_contract->shared_secret);
                 $ok = $ok && isset($toolproxyjson->tool_profile->resource_handler);
                 if (!$ok) {
-                    debugging('One or more missing elements from tool proxy: vendor code, shared secret or resource handlers');
+                    \Moodle\Logger::create()->debug('One or more missing elements from tool proxy: vendor code, shared secret or resource handlers');
                 }
             }
         }
@@ -113,7 +113,7 @@ class toolproxy extends \mod_lti\local\ltiservice\resource_base {
             }
             if (count($errors) > 0) {
                 $ok = false;
-                debugging('Tool proxy contains capabilities which were not offered: ' . implode(', ', $errors));
+                \Moodle\Logger::create()->debug('Tool proxy contains capabilities which were not offered: ' . implode(', ', $errors));
             }
         }
 
@@ -142,7 +142,7 @@ class toolproxy extends \mod_lti\local\ltiservice\resource_base {
             }
             if (count($errors) > 0) {
                 $ok = false;
-                debugging('Tool proxy contains services which were not offered: ' . implode(', ', $errors));
+                \Moodle\Logger::create()->debug('Tool proxy contains services which were not offered: ' . implode(', ', $errors));
             }
         }
 
@@ -183,7 +183,7 @@ class toolproxy extends \mod_lti\local\ltiservice\resource_base {
             }
             $ok = count($tools) > 0;
             if (!$ok) {
-                debugging('No launchable messages found in tool proxy');
+                \Moodle\Logger::create()->debug('No launchable messages found in tool proxy');
             }
         }
 

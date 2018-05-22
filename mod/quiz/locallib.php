@@ -411,7 +411,7 @@ function quiz_delete_attempt($attempt, $quiz) {
     }
 
     if ($attempt->quiz != $quiz->id) {
-        debugging("Trying to delete attempt $attempt->id which belongs to quiz $attempt->quiz " .
+        \Moodle\Logger::create()->debug("Trying to delete attempt $attempt->id which belongs to quiz $attempt->quiz " .
                 "but was passed quiz $quiz->id.");
         return;
     }
@@ -1804,7 +1804,7 @@ function quiz_attempt_submitted_handler($event) {
  * @deprecated since 2.6, see {@link \mod_quiz\group_observers::group_member_added()}.
  */
 function quiz_groups_member_added_handler($event) {
-    debugging('quiz_groups_member_added_handler() is deprecated, please use ' .
+    \Moodle\Logger::create()->debug('quiz_groups_member_added_handler() is deprecated, please use ' .
         '\mod_quiz\group_observers::group_member_added() instead.', DEBUG_DEVELOPER);
     quiz_update_open_attempts(array('userid'=>$event->userid, 'groupid'=>$event->groupid));
 }
@@ -1816,7 +1816,7 @@ function quiz_groups_member_added_handler($event) {
  * @deprecated since 2.6, see {@link \mod_quiz\group_observers::group_member_removed()}.
  */
 function quiz_groups_member_removed_handler($event) {
-    debugging('quiz_groups_member_removed_handler() is deprecated, please use ' .
+    \Moodle\Logger::create()->debug('quiz_groups_member_removed_handler() is deprecated, please use ' .
         '\mod_quiz\group_observers::group_member_removed() instead.', DEBUG_DEVELOPER);
     quiz_update_open_attempts(array('userid'=>$event->userid, 'groupid'=>$event->groupid));
 }
@@ -1829,7 +1829,7 @@ function quiz_groups_member_removed_handler($event) {
  */
 function quiz_groups_group_deleted_handler($event) {
     global $DB;
-    debugging('quiz_groups_group_deleted_handler() is deprecated, please use ' .
+    \Moodle\Logger::create()->debug('quiz_groups_group_deleted_handler() is deprecated, please use ' .
         '\mod_quiz\group_observers::group_deleted() instead.', DEBUG_DEVELOPER);
     quiz_process_group_deleted_in_course($event->courseid);
 }
@@ -1868,7 +1868,7 @@ function quiz_process_group_deleted_in_course($courseid) {
  * @deprecated since 2.6, see {@link \mod_quiz\group_observers::group_member_removed()}.
  */
 function quiz_groups_members_removed_handler($event) {
-    debugging('quiz_groups_members_removed_handler() is deprecated, please use ' .
+    \Moodle\Logger::create()->debug('quiz_groups_members_removed_handler() is deprecated, please use ' .
         '\mod_quiz\group_observers::group_member_removed() instead.', DEBUG_DEVELOPER);
     if ($event->userid == 0) {
         quiz_update_open_attempts(array('courseid'=>$event->courseid));

@@ -97,7 +97,7 @@ class store implements \tool_log\log\store, \core\log\sql_reader {
             // A custom report + on the fly SQL rewriting = a possible exception.
             $records = $DB->get_recordset_select('log', $selectwhere, $params, $sort, '*', $limitfrom, $limitnum);
         } catch (\moodle_exception $ex) {
-            debugging("error converting legacy event data " . $ex->getMessage() . $ex->debuginfo, DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug("error converting legacy event data " . $ex->getMessage() . $ex->debuginfo, DEBUG_DEVELOPER);
             return array();
         }
 
@@ -137,7 +137,7 @@ class store implements \tool_log\log\store, \core\log\sql_reader {
         try {
             $recordset = $DB->get_recordset_select('log', $selectwhere, $params, $sort, '*', $limitfrom, $limitnum);
         } catch (\moodle_exception $ex) {
-            debugging("error converting legacy event data " . $ex->getMessage() . $ex->debuginfo, DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug("error converting legacy event data " . $ex->getMessage() . $ex->debuginfo, DEBUG_DEVELOPER);
             return new \EmptyIterator;
         }
 
@@ -163,7 +163,7 @@ class store implements \tool_log\log\store, \core\log\sql_reader {
         try {
             return $DB->count_records_select('log', $selectwhere, $params);
         } catch (\moodle_exception $ex) {
-            debugging("error converting legacy event data " . $ex->getMessage() . $ex->debuginfo, DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug("error converting legacy event data " . $ex->getMessage() . $ex->debuginfo, DEBUG_DEVELOPER);
             return 0;
         }
     }
@@ -238,18 +238,18 @@ class store implements \tool_log\log\store, \core\log\sql_reader {
         // routine basis.
         if (\core_text::strlen($action) > 40) {
             $action = \core_text::substr($action, 0, 37) . '...';
-            debugging('Warning: logged very long action', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Warning: logged very long action', DEBUG_DEVELOPER);
         }
 
         if (!empty($info) && \core_text::strlen($info) > 255) {
             $info = \core_text::substr($info, 0, 252) . '...';
-            debugging('Warning: logged very long info', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Warning: logged very long info', DEBUG_DEVELOPER);
         }
 
         // If the 100 field size is changed, also need to alter print_log in course/lib.php.
         if (!empty($url) && \core_text::strlen($url) > 100) {
             $url = \core_text::substr($url, 0, 97) . '...';
-            debugging('Warning: logged very long URL', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Warning: logged very long URL', DEBUG_DEVELOPER);
         }
 
         if (defined('MDL_PERFDB')) {
@@ -263,7 +263,7 @@ class store implements \tool_log\log\store, \core\log\sql_reader {
         try {
             $DB->insert_record_raw('log', $log, false);
         } catch (\dml_exception $e) {
-            debugging('Error: Could not insert a new entry to the Moodle log. ' . $e->errorcode, DEBUG_ALL);
+            \Moodle\Logger::create()->debug('Error: Could not insert a new entry to the Moodle log. ' . $e->errorcode, DEBUG_ALL);
 
             // MDL-11893, alert $CFG->supportemail if insert into log failed.
             if ($CFG->supportemail and empty($CFG->noemailever)) {

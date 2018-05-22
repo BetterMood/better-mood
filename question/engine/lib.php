@@ -287,7 +287,7 @@ abstract class question_engine {
         if (class_exists($class)) {
             self::$behaviourtypes[$behaviour] = new $class();
         } else {
-            debugging('Question behaviour ' . $behaviour .
+            \Moodle\Logger::create()->debug('Question behaviour ' . $behaviour .
                     ' does not define the required class ' . $class . '.', DEBUG_DEVELOPER);
             self::$behaviourtypes[$behaviour] = new question_behaviour_type_fallback($behaviour);
         }
@@ -307,7 +307,7 @@ abstract class question_engine {
         }
         $file = $CFG->dirroot . '/question/behaviour/' . $behaviour . '/behaviourtype.php';
         if (!is_readable($file)) {
-            debugging('Question behaviour ' . $behaviour .
+            \Moodle\Logger::create()->debug('Question behaviour ' . $behaviour .
                     ' is missing the behaviourtype.php file.', DEBUG_DEVELOPER);
         }
         include_once($file);

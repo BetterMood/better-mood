@@ -344,14 +344,14 @@ abstract class core_filetypes {
 
         // Check value is an array.
         if (!is_array($custom)) {
-            debugging('Invalid $CFG->customfiletypes (not array)', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Invalid $CFG->customfiletypes (not array)', DEBUG_DEVELOPER);
             return $mimetypes;
         }
 
         foreach ($custom as $customentry) {
             // Each entry is a stdClass object similar to the array values above.
             if (empty($customentry->extension)) {
-                debugging('Invalid $CFG->customfiletypes entry (extension field required)',
+                \Moodle\Logger::create()->debug('Invalid $CFG->customfiletypes entry (extension field required)',
                         DEBUG_DEVELOPER);
                 continue;
             }
@@ -364,7 +364,7 @@ abstract class core_filetypes {
 
             // Check required fields.
             if (empty($customentry->type) || empty($customentry->icon)) {
-                debugging('Invalid $CFG->customfiletypes entry ' . $customentry->extension .
+                \Moodle\Logger::create()->debug('Invalid $CFG->customfiletypes entry ' . $customentry->extension .
                         ' (type and icon fields required)', DEBUG_DEVELOPER);
                 continue;
             }
@@ -373,7 +373,7 @@ abstract class core_filetypes {
             $result = array('type' => $customentry->type, 'icon' => $customentry->icon);
             if (!empty($customentry->groups)) {
                 if (!is_array($customentry->groups)) {
-                    debugging('Invalid $CFG->customfiletypes entry ' . $customentry->extension .
+                    \Moodle\Logger::create()->debug('Invalid $CFG->customfiletypes entry ' . $customentry->extension .
                             ' (groups field not array)', DEBUG_DEVELOPER);
                     continue;
                 }
@@ -381,7 +381,7 @@ abstract class core_filetypes {
             }
             if (!empty($customentry->string)) {
                 if (!is_string($customentry->string)) {
-                    debugging('Invalid $CFG->customfiletypes entry ' . $customentry->extension .
+                    \Moodle\Logger::create()->debug('Invalid $CFG->customfiletypes entry ' . $customentry->extension .
                             ' (string field not string)', DEBUG_DEVELOPER);
                     continue;
                 }
@@ -389,7 +389,7 @@ abstract class core_filetypes {
             }
             if (!empty($customentry->defaulticon)) {
                 if (!is_bool($customentry->defaulticon)) {
-                    debugging('Invalid $CFG->customfiletypes entry ' . $customentry->extension .
+                    \Moodle\Logger::create()->debug('Invalid $CFG->customfiletypes entry ' . $customentry->extension .
                             ' (defaulticon field not bool)', DEBUG_DEVELOPER);
                     continue;
                 }
@@ -397,7 +397,7 @@ abstract class core_filetypes {
             }
             if (!empty($customentry->customdescription)) {
                 if (!is_string($customentry->customdescription)) {
-                    debugging('Invalid $CFG->customfiletypes entry ' . $customentry->extension .
+                    \Moodle\Logger::create()->debug('Invalid $CFG->customfiletypes entry ' . $customentry->extension .
                             ' (customdescription field not string)', DEBUG_DEVELOPER);
                     continue;
                 }

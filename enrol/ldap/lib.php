@@ -162,7 +162,7 @@ class enrol_ldap_plugin extends enrol_plugin {
         }
 
         if (!property_exists($user, 'idnumber')) {
-            debugging('Invalid $user parameter in sync_user_enrolments(), missing idnumber');
+            \Moodle\Logger::create()->debug('Invalid $user parameter in sync_user_enrolments(), missing idnumber');
             $user = $DB->get_record('user', array('id'=>$user->id));
         }
 

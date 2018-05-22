@@ -55,10 +55,10 @@ class plugintype_link implements type {
      * @param   string  $summary A description of what is stored within this plugintype.
      */
     public function __construct($name, $privacyfields = [], $summary = '') {
-        if (debugging('', DEBUG_DEVELOPER)) {
+        if (\Moodle\Logger::create()->debug('', DEBUG_DEVELOPER)) {
             $teststring = clean_param($summary, PARAM_STRINGID);
             if ($teststring !== $summary) {
-                debugging("Summary information for use of the '{$name}' plugintype " .
+                \Moodle\Logger::create()->debug("Summary information for use of the '{$name}' plugintype " .
                     "has an invalid langstring identifier: '{$summary}'",
                     DEBUG_DEVELOPER);
             }

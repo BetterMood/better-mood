@@ -333,7 +333,7 @@ class workshop_random_allocator implements workshop_allocator {
             $submission = $submissions[$authorid];
             $status = $this->workshop->add_allocation($submission, $reviewerid, 1, true);   // todo configurable weight?
             if (workshop::ALLOCATION_EXISTS == $status) {
-                debugging('newallocations array contains existing allocation, this should not happen');
+                \Moodle\Logger::create()->debug('newallocations array contains existing allocation, this should not happen');
             }
         }
     }

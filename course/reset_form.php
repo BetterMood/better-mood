@@ -106,7 +106,7 @@ class course_reset_form extends moodleform {
                         $unsupported_mods[] = $mod;
                     }
                 } else {
-                    debugging('Missing lib.php in '.$modname.' module');
+                    \Moodle\Logger::create()->debug('Missing lib.php in '.$modname.' module');
                 }
             }
         }

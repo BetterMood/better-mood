@@ -122,7 +122,7 @@ class renderer extends plugin_renderer_base {
         }
 
         // Info logged during evaluation.
-        if (!empty($logs) && debugging()) {
+        if (!empty($logs) && \Moodle\Logger::create()->debug()) {
             $output .= $OUTPUT->heading(get_string('extrainfo', 'tool_analytics'), 3);
             foreach ($logs as $log) {
                 $output .= $OUTPUT->notification($log, \core\output\notification::NOTIFY_WARNING);
@@ -151,7 +151,7 @@ class renderer extends plugin_renderer_base {
 
         $output = '';
 
-        if ($trainresults || (!empty($trainlogs) && debugging())) {
+        if ($trainresults || (!empty($trainlogs) && \Moodle\Logger::create()->debug())) {
             $output .= $OUTPUT->heading(get_string('trainingresults', 'tool_analytics'), 3);
         }
 
@@ -169,14 +169,14 @@ class renderer extends plugin_renderer_base {
             }
         }
 
-        if (!empty($trainlogs) && debugging()) {
+        if (!empty($trainlogs) && \Moodle\Logger::create()->debug()) {
             $output .= $OUTPUT->heading(get_string('extrainfo', 'tool_analytics'), 4);
             foreach ($trainlogs as $log) {
                 $output .= $OUTPUT->notification($log, \core\output\notification::NOTIFY_WARNING);
             }
         }
 
-        if ($predictresults || (!empty($predictlogs) && debugging())) {
+        if ($predictresults || (!empty($predictlogs) && \Moodle\Logger::create()->debug())) {
             $output .= $OUTPUT->heading(get_string('predictionresults', 'tool_analytics'), 3, 'main m-t-3');
         }
 
@@ -194,7 +194,7 @@ class renderer extends plugin_renderer_base {
             }
         }
 
-        if (!empty($predictlogs) && debugging()) {
+        if (!empty($predictlogs) && \Moodle\Logger::create()->debug()) {
             $output .= $OUTPUT->heading(get_string('extrainfo', 'tool_analytics'), 4);
             foreach ($predictlogs as $log) {
                 $output .= $OUTPUT->notification($log, \core\output\notification::NOTIFY_WARNING);

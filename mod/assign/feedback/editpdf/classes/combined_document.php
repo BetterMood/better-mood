@@ -253,7 +253,7 @@ class combined_document {
             $pdf->Close();
         } catch (\Exception $e) {
             // Unable to combine the PDF.
-            debugging('TCPDF could not process the pdf files:' . $e->getMessage(), DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('TCPDF could not process the pdf files:' . $e->getMessage(), DEBUG_DEVELOPER);
 
             $pdf->Close();
             return $this->mark_combination_failed();

@@ -314,7 +314,7 @@ abstract class portfolio_caller_base {
         if (empty($this->supportedformats)) {
             $specific = array();
         } else if (!is_array($this->supportedformats)) {
-            debugging(get_class($this) . ' has set a non array value of member variable supported formats - working around but should be fixed in code');
+            \Moodle\Logger::create()->debug(get_class($this) . ' has set a non array value of member variable supported formats - working around but should be fixed in code');
             $specific = array($this->supportedformats);
         } else {
             $specific = $this->supportedformats;

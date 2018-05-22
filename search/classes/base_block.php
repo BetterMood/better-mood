@@ -153,7 +153,7 @@ abstract class base_block extends base {
         if ($instance->cmid) {
             // No module-level page types are supported at present so the search system won't return
             // them. But let's put some example code here to indicate how it could work.
-            debugging('Unexpected module-level page type for block ' . $blockinstanceid . ': ' .
+            \Moodle\Logger::create()->debug('Unexpected module-level page type for block ' . $blockinstanceid . ': ' .
                     $instance->pagetypepattern, DEBUG_DEVELOPER);
             $modinfo = get_fast_modinfo($courseid);
             $cm = $modinfo->get_cm($instance->cmid);
@@ -167,7 +167,7 @@ abstract class base_block extends base {
             } else if ($instance->pagetypepattern === 'site-index') {
                 return new \moodle_url('/', ['redirect' => 0], $anchor);
             } else {
-                debugging('Unexpected page type for block ' . $blockinstanceid . ': ' .
+                \Moodle\Logger::create()->debug('Unexpected page type for block ' . $blockinstanceid . ': ' .
                         $instance->pagetypepattern, DEBUG_DEVELOPER);
                 return new \moodle_url('/course/view.php', ['id' => $courseid], $anchor);
             }

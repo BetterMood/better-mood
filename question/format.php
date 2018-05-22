@@ -101,7 +101,7 @@ class qformat_default {
      */
     public function setCategory($category) {
         if (count($this->questions)) {
-            debugging('You shouldn\'t call setCategory after setQuestions');
+            \Moodle\Logger::create()->debug('You shouldn\'t call setCategory after setQuestions');
         }
         $this->category = $category;
         $this->importcontext = context::instance_by_id($this->category->contextid);
@@ -115,7 +115,7 @@ class qformat_default {
      */
     public function setQuestions($questions) {
         if ($this->category !== null) {
-            debugging('You shouldn\'t call setQuestions after setCategory');
+            \Moodle\Logger::create()->debug('You shouldn\'t call setQuestions after setCategory');
         }
         $this->questions = $questions;
     }

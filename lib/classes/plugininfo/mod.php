@@ -51,7 +51,7 @@ class mod extends base {
      */
     public function __get($name) {
         if ($name === 'visible') {
-            debugging('This is now an instance of plugininfo_mod, please use $module->is_enabled() instead of $module->visible', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('This is now an instance of plugininfo_mod, please use $module->is_enabled() instead of $module->visible', DEBUG_DEVELOPER);
             return ($this->is_enabled() !== false);
         }
         return parent::__get($name);

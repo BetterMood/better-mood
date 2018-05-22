@@ -3720,7 +3720,7 @@ class restore_activity_grades_structure_step extends restore_structure_step {
             $grade->insert('restore');
             $this->set_mapping('grade_grades', $oldid, $grade->id);
         } else {
-            debugging("Mapped user id not found for user id '{$olduserid}', grade item id '{$data->itemid}'");
+            \Moodle\Logger::create()->debug("Mapped user id not found for user id '{$olduserid}', grade item id '{$data->itemid}'");
         }
     }
 
@@ -4743,7 +4743,7 @@ class restore_create_question_files extends restore_execution_step {
                 if (!$qcatmapping = restore_dbops::get_backup_ids_record($this->get_restoreid(),
                         'question_category', $categoryid)) {
                     // Something went really wrong, cannot find the question_category for the question_created records.
-                    debugging('Error fetching target context for question', DEBUG_DEVELOPER);
+                    \Moodle\Logger::create()->debug('Error fetching target context for question', DEBUG_DEVELOPER);
                     continue;
                 }
 

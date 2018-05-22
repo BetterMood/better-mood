@@ -527,7 +527,7 @@ class manager {
         try {
             return static::component_class_callback($component, $interface, $methodname, $params);
         } catch (\Throwable $e) {
-            debugging($e->getMessage(), DEBUG_DEVELOPER, $e->getTrace());
+            \Moodle\Logger::create()->debug($e->getMessage(), DEBUG_DEVELOPER, $e->getTrace());
             $this->component_class_callback_failed($e, $component, $interface, $methodname, $params);
 
             return null;

@@ -207,7 +207,7 @@ class core_tag_index_builder {
             return $DB->get_records_sql($this->sql, $this->params, $this->from, $this->limit);
         }
         if ($CFG->debugdeveloper && $this->has_item_that_needs_access_check()) {
-            debugging('Caller must ensure that has_item_that_needs_access_check() does not return anything '
+            \Moodle\Logger::create()->debug('Caller must ensure that has_item_that_needs_access_check() does not return anything '
                     . 'before calling get_items(). The item list may be incomplete', DEBUG_DEVELOPER);
         }
         $this->retrieve_items();

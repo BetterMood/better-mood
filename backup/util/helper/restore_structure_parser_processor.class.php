@@ -104,7 +104,7 @@ class restore_structure_parser_processor extends grouped_parser_processor {
         // Arrived here, all the tags correspond to sublplugins and are empty,
         // skip the chunk, and debug_developer notice
         $this->chunks--; // not counted
-        debugging('Missing support on restore for ' . clean_param($data['path'], PARAM_PATH) .
+        \Moodle\Logger::create()->debug('Missing support on restore for ' . clean_param($data['path'], PARAM_PATH) .
                   ' subplugin (' . implode(', ', array_keys($data['tags'])) .')', DEBUG_DEVELOPER);
     }
 

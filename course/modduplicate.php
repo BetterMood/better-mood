@@ -36,7 +36,7 @@ $sectionreturn  = optional_param('sr', null, PARAM_INT);
 
 require_sesskey();
 
-debugging('Please use moodle_url(\'/course/mod.php\', array(\'duplicate\' => $cmid
+\Moodle\Logger::create()->debug('Please use moodle_url(\'/course/mod.php\', array(\'duplicate\' => $cmid
     , \'id\' => $courseid, \'sesskey\' => sesskey(), \'sr\' => $sectionreturn)))
     instead of new moodle_url(\'/course/modduplicate.php\', array(\'cmid\' => $cmid
     , \'course\' => $courseid, \'sr\' => $sectionreturn))', DEBUG_DEVELOPER);

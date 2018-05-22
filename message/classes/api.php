@@ -786,7 +786,7 @@ class api {
      * @return void
      */
     public static function mark_all_read_for_user($touserid, $fromuserid = 0, $type = '') {
-        debugging('\core_message\api::mark_all_read_for_user is deprecated. Please either use ' .
+        \Moodle\Logger::create()->debug('\core_message\api::mark_all_read_for_user is deprecated. Please either use ' .
             '\core_message\api::mark_all_notifications_read_for_user or \core_message\api::mark_all_messages_read_for_user',
             DEBUG_DEVELOPER);
 

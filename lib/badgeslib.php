@@ -164,7 +164,7 @@ class badge {
         } else if ($this->type == BADGE_TYPE_COURSE) {
             return context_course::instance($this->courseid);
         } else {
-            debugging('Something is wrong...');
+            \Moodle\Logger::create()->debug('Something is wrong...');
         }
     }
 
@@ -1078,7 +1078,7 @@ function badges_bake($hash, $badgeid, $userid = 0, $pathhash = false) {
                 }
             }
         } else {
-            debugging('Error baking badge image!', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Error baking badge image!', DEBUG_DEVELOPER);
             return;
         }
     }
@@ -1176,7 +1176,7 @@ function badges_download($userid) {
     if ($zipper->archive_to_pathname($filelist, $tempzip)) {
         send_temp_file($tempzip, 'badges.zip');
     } else {
-        debugging("Problems with archiving the files.", DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug("Problems with archiving the files.", DEBUG_DEVELOPER);
         die;
     }
 }

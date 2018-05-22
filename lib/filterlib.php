@@ -499,7 +499,7 @@ class filterobject {
  */
 function filter_get_name($filter) {
     if (strpos($filter, 'filter/') === 0) {
-        debugging("Old '$filter'' parameter used in filter_get_name()");
+        \Moodle\Logger::create()->debug("Old '$filter'' parameter used in filter_get_name()");
         $filter = substr($filter, 7);
     } else if (strpos($filter, '/') !== false) {
         throw new coding_exception('Unknown filter type ' . $filter);
@@ -555,7 +555,6 @@ function filter_set_global_state($filtername, $state, $move = 0) {
     }
 
     if (strpos($filtername, 'filter/') === 0) {
-        //debugging("Old filtername '$filtername' parameter used in filter_set_global_state()", DEBUG_DEVELOPER);
         $filtername = substr($filtername, 7);
     } else if (strpos($filtername, '/') !== false) {
         throw new coding_exception("Invalid filter name '$filtername' used in filter_set_global_state()");
@@ -677,7 +676,6 @@ function filter_set_global_state($filtername, $state, $move = 0) {
  */
 function filter_is_enabled($filtername) {
     if (strpos($filtername, 'filter/') === 0) {
-        //debugging("Old filtername '$filtername' parameter used in filter_is_enabled()", DEBUG_DEVELOPER);
         $filtername = substr($filtername, 7);
     } else if (strpos($filtername, '/') !== false) {
         throw new coding_exception("Invalid filter name '$filtername' used in filter_is_enabled()");

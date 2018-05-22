@@ -34,7 +34,7 @@ require('../../config.php');
 require_once("$CFG->dirroot/webservice/xmlrpc/locallib.php");
 
 if (!webservice_protocol_is_enabled('xmlrpc')) {
-    debugging('The server died because the web services or the XMLRPC protocol are not enable',
+    \Moodle\Logger::create()->debug('The server died because the web services or the XMLRPC protocol are not enable',
         DEBUG_DEVELOPER);
     die;
 }

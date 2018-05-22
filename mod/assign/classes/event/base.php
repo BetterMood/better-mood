@@ -76,7 +76,7 @@ abstract class base extends \core\event\base {
             throw new \coding_exception('get_assign() is intended for event observers only');
         }
         if (!isset($this->assign)) {
-            debugging('assign property should be initialised in each event', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('assign property should be initialised in each event', DEBUG_DEVELOPER);
             global $CFG;
             require_once($CFG->dirroot . '/mod/assign/locallib.php');
             $cm = get_coursemodule_from_id('assign', $this->contextinstanceid, 0, false, MUST_EXIST);

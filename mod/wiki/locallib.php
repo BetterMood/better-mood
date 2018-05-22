@@ -337,7 +337,7 @@ function wiki_refresh_page_links($page, $links) {
         try {
             $DB->insert_record('wiki_links', $newlink);
         } catch (dml_exception $e) {
-            debugging($e->getMessage());
+            \Moodle\Logger::create()->debug($e->getMessage());
         }
 
     }

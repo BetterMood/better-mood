@@ -63,7 +63,7 @@ class MoodleQuickForm_radio extends HTML_QuickForm_radio implements templatable 
      * @deprecated since Moodle 3.1
      */
     public function MoodleQuickForm_radio($elementName=null, $elementLabel=null, $text=null, $value=null, $attributes=null) {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
         self::__construct($elementName, $elementLabel, $text, $value, $attributes);
     }
 

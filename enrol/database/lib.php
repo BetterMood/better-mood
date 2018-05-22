@@ -123,7 +123,7 @@ class enrol_database_plugin extends enrol_plugin {
         }
 
         if (!property_exists($user, $localuserfield)) {
-            debugging('Invalid $user parameter in sync_user_enrolments(), missing '.$localuserfield);
+            \Moodle\Logger::create()->debug('Invalid $user parameter in sync_user_enrolments(), missing '.$localuserfield);
             $user = $DB->get_record('user', array('id'=>$user->id));
         }
 

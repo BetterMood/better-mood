@@ -499,7 +499,7 @@ class provider implements
                 );
 
             } else {
-                debugging('Missing class '.$providername.' implementing workshopform_provider interface', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Missing class '.$providername.' implementing workshopform_provider interface', DEBUG_DEVELOPER);
             }
         }
     }

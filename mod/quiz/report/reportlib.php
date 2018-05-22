@@ -199,7 +199,7 @@ function quiz_report_grade_method_sql($grademethod, $quizattemptsalias = 'quiza'
 function quiz_report_grade_bands($bandwidth, $bands, $quizid, \core\dml\sql_join $usersjoins = null) {
     global $DB;
     if (!is_int($bands)) {
-        debugging('$bands passed to quiz_report_grade_bands must be an integer. (' .
+        \Moodle\Logger::create()->debug('$bands passed to quiz_report_grade_bands must be an integer. (' .
                 gettype($bands) . ' passed.)', DEBUG_DEVELOPER);
         $bands = (int) $bands;
     }

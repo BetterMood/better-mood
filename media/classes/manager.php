@@ -133,7 +133,7 @@ final class core_media_manager {
                 $player->setup($page);
             }
         } else {
-            debugging('Could not determine the $PAGE. Media plugins will not be set up', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Could not determine the $PAGE. Media plugins will not be set up', DEBUG_DEVELOPER);
         }
     }
 
@@ -148,7 +148,7 @@ final class core_media_manager {
      * @todo MDL-57632 final deprecation
      */
     public function setup($page) {
-        debugging('core_media_manager::setup() is deprecated.' .
+        \Moodle\Logger::create()->debug('core_media_manager::setup() is deprecated.' .
                   'You only need to call core_media_manager::instance() now', DEBUG_DEVELOPER);
         // No need to call ::instance from here, because the instance has already be set up.
     }

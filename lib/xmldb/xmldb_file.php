@@ -144,7 +144,7 @@ class xmldb_file extends xmldb_object {
             if (strpos($contents, '<STATEMENTS>')) {
                 //delete the removed STATEMENTS section, it would not validate
                 $contents = preg_replace('|<STATEMENTS>.*</STATEMENTS>|s', '', $contents);
-                debugging('STATEMENTS section is not supported any more, please use db/install.php or db/log.php');
+                \Moodle\Logger::create()->debug('STATEMENTS section is not supported any more, please use db/install.php or db/log.php');
             }
             // File exists, so let's process it
             // Load everything to a big array

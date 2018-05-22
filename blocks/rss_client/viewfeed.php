@@ -61,7 +61,7 @@ $rssrecord = $DB->get_record('block_rss_client', array('id' => $rssid), '*', MUS
 $rss = new moodle_simplepie($rssrecord->url);
 
 if ($rss->error()) {
-    debugging($rss->error());
+    \Moodle\Logger::create()->debug($rss->error());
     print_error('errorfetchingrssfeed');
 }
 

@@ -44,7 +44,7 @@ class core_shutdown_manager {
      */
     public static function initialize() {
         if (self::$registered) {
-            debugging('Shutdown manager is already initialised!');
+            \Moodle\Logger::create()->debug('Shutdown manager is already initialised!');
         }
         self::$registered = true;
         register_shutdown_function(array('core_shutdown_manager', 'shutdown_handler'));

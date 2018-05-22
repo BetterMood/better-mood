@@ -281,7 +281,7 @@ function question_edit_setup($edittab, $baseurl, $requirecmid = false, $unused =
     global $PAGE;
 
     if ($unused !== null) {
-        debugging('Deprecated argument passed to question_edit_setup()', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Deprecated argument passed to question_edit_setup()', DEBUG_DEVELOPER);
     }
 
     $params = [];

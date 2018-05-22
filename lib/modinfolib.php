@@ -138,7 +138,7 @@ class course_modinfo {
             $method = self::$standardproperties[$name];
             return $this->$method();
         } else {
-            debugging('Invalid course_modinfo property accessed: '.$name);
+            \Moodle\Logger::create()->debug('Invalid course_modinfo property accessed: '.$name);
             return null;
         }
     }
@@ -180,7 +180,7 @@ class course_modinfo {
      * @param mixed $value
      */
     public function __set($name, $value) {
-        debugging("It is not allowed to set the property course_modinfo::\${$name}", DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug("It is not allowed to set the property course_modinfo::\${$name}", DEBUG_DEVELOPER);
     }
 
     /**
@@ -486,7 +486,7 @@ class course_modinfo {
             // (Uncached modules will result in a very slow verification).
             foreach ($coursemodinfo->modinfo as $mod) {
                 if (!context_module::instance($mod->cm, IGNORE_MISSING)) {
-                    debugging('Course cache integrity check failed: course module with id '. $mod->cm.
+                    \Moodle\Logger::create()->debug('Course cache integrity check failed: course module with id '. $mod->cm.
                             ' does not have context. Rebuilding cache for course '. $course->id);
                     // Re-request the course record from DB as well, don't use get_course() here.
                     $course = $DB->get_record('course', array('id' => $course->id), '*', MUST_EXIST);
@@ -1237,7 +1237,7 @@ class cm_info implements IteratorAggregate {
                 return $this->$name;
             }
         } else {
-            debugging('Invalid cm_info property accessed: '.$name);
+            \Moodle\Logger::create()->debug('Invalid cm_info property accessed: '.$name);
             return null;
         }
     }
@@ -1300,7 +1300,7 @@ class cm_info implements IteratorAggregate {
      * @param mixed $value
      */
     public function __set($name, $value) {
-        debugging("It is not allowed to set the property cm_info::\${$name}", DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug("It is not allowed to set the property cm_info::\${$name}", DEBUG_DEVELOPER);
     }
 
     /**
@@ -2149,7 +2149,7 @@ class cm_info implements IteratorAggregate {
 function get_fast_modinfo($courseorid, $userid = 0, $resetonly = false) {
     // compartibility with syntax prior to 2.4:
     if ($courseorid === 'reset') {
-        debugging("Using the string 'reset' as the first argument of get_fast_modinfo() is deprecated. Use get_fast_modinfo(0,0,true) instead.", DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug("Using the string 'reset' as the first argument of get_fast_modinfo() is deprecated. Use get_fast_modinfo(0,0,true) instead.", DEBUG_DEVELOPER);
         $courseorid = 0;
         $resetonly = true;
     }
@@ -2748,7 +2748,7 @@ class section_info implements IteratorAggregate {
             $formatoptions = course_get_format($this->modinfo->get_course())->get_format_options($this);
             return $formatoptions[$name];
         }
-        debugging('Invalid section_info property accessed! '.$name);
+        \Moodle\Logger::create()->debug('Invalid section_info property accessed! '.$name);
         return null;
     }
 
@@ -2779,7 +2779,7 @@ class section_info implements IteratorAggregate {
         course_get_format($this->modinfo->get_course())->
             section_get_available_hook($this, $this->_available, $this->_availableinfo);
         if (!$currentavailable && $this->_available) {
-            debugging('section_get_available_hook() can not make unavailable section available', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('section_get_available_hook() can not make unavailable section available', DEBUG_DEVELOPER);
             $this->_available = $currentavailable;
         }
         return $this->_available;

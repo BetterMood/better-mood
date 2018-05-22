@@ -321,7 +321,7 @@ abstract class service_base {
             // TODO: Switch to core oauthlib once implemented - MDL-30149.
             lti\handle_oauth_body_post($consumerkey, $secret, $body);
         } catch (\Exception $e) {
-            debugging($e->getMessage() . "\n");
+            \Moodle\Logger::create()->debug($e->getMessage() . "\n");
             $ok = false;
         }
 

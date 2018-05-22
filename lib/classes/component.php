@@ -108,7 +108,7 @@ class core_component {
         if (isset(self::$classmaprenames[$classname]) && isset(self::$classmap[self::$classmaprenames[$classname]])) {
             $newclassname = self::$classmaprenames[$classname];
             $debugging = "Class '%s' has been renamed for the autoloader and is now deprecated. Please use '%s' instead.";
-            debugging(sprintf($debugging, $classname, $newclassname), DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug(sprintf($debugging, $classname, $newclassname), DEBUG_DEVELOPER);
             if (PHP_VERSION_ID >= 70000 && preg_match('#\\\null(\\\|$)#', $classname)) {
                 throw new \coding_exception("Cannot alias $classname to $newclassname");
             }

@@ -360,7 +360,7 @@ function get_guest_role() {
             set_config('guestroleid', $guestrole->id);
             return $guestrole;
         } else {
-            debugging('Can not find any guest role!');
+            \Moodle\Logger::create()->debug('Can not find any guest role!');
             return false;
         }
     } else {
@@ -421,14 +421,14 @@ function has_capability($capability, context $context, $user = null, $doanything
 
     // capability must exist
     if (!$capinfo = get_capability_info($capability)) {
-        debugging('Capability "'.$capability.'" was not found! This has to be fixed in code.');
+        \Moodle\Logger::create()->debug('Capability "'.$capability.'" was not found! This has to be fixed in code.');
         return false;
     }
 
     if (!isset($USER->id)) {
         // should never happen
         $USER->id = 0;
-        debugging('Capability check being performed on a user with no ID.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Capability check being performed on a user with no ID.', DEBUG_DEVELOPER);
     }
 
     // make sure there is a real user specified
@@ -469,7 +469,7 @@ function has_capability($capability, context $context, $user = null, $doanything
     // context path/depth must be valid
     if (empty($context->path) or $context->depth == 0) {
         // this should not happen often, each upgrade tries to rebuild the context paths
-        debugging('Context id '.$context->id.' does not have valid path, please use context_helper::build_all_paths()');
+        \Moodle\Logger::create()->debug('Context id '.$context->id.' does not have valid path, please use context_helper::build_all_paths()');
         if (is_siteadmin($userid)) {
             return true;
         } else {
@@ -1008,12 +1008,12 @@ function load_temp_course_role(context_course $coursecontext, $roleid) {
     global $USER, $SITE;
 
     if (empty($roleid)) {
-        debugging('invalid role specified in load_temp_course_role()');
+        \Moodle\Logger::create()->debug('invalid role specified in load_temp_course_role()');
         return;
     }
 
     if ($coursecontext->instanceid == $SITE->id) {
-        debugging('Can not use temp roles on the frontpage');
+        \Moodle\Logger::create()->debug('Can not use temp roles on the frontpage');
         return;
     }
 
@@ -1042,7 +1042,7 @@ function remove_temp_course_roles(context_course $coursecontext) {
     global $DB, $USER, $SITE;
 
     if ($coursecontext->instanceid == $SITE->id) {
-        debugging('Can not use temp roles on the frontpage');
+        \Moodle\Logger::create()->debug('Can not use temp roles on the frontpage');
         return;
     }
 
@@ -1102,7 +1102,7 @@ function assign_legacy_capabilities($capability, $legacyperms) {
 
         $systemcontext = context_system::instance();
         if ($type === 'admin') {
-            debugging('Legacy type admin in access.php was renamed to manager, please update the code.');
+            \Moodle\Logger::create()->debug('Legacy type admin in access.php was renamed to manager, please update the code.');
             $type = 'manager';
         }
 
@@ -1803,11 +1803,11 @@ function can_access_course(stdClass $course, $user = null, $withcapability = '',
     // this function originally accepted $coursecontext parameter
     if ($course instanceof context) {
         if ($course instanceof context_course) {
-            debugging('deprecated context parameter, please use $course record');
+            \Moodle\Logger::create()->debug('deprecated context parameter, please use $course record');
             $coursecontext = $course;
             $course = $DB->get_record('course', array('id'=>$coursecontext->instanceid));
         } else {
-            debugging('Invalid context parameter, please use $course record');
+            \Moodle\Logger::create()->debug('Invalid context parameter, please use $course record');
             return false;
         }
     } else {
@@ -1817,7 +1817,7 @@ function can_access_course(stdClass $course, $user = null, $withcapability = '',
     if (!isset($USER->id)) {
         // should never happen
         $USER->id = 0;
-        debugging('Course access check being performed on a user with no ID.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Course access check being performed on a user with no ID.', DEBUG_DEVELOPER);
     }
 
     // make sure there is a user specified
@@ -1912,7 +1912,7 @@ function load_capability_def($component) {
         if (!empty(${$component.'_capabilities'})) {
             // BC capability array name
             // since 2.0 we prefer $capabilities instead - it is easier to use and matches db/* files
-            debugging('componentname_capabilities array is deprecated, please use $capabilities array only in access.php files');
+            \Moodle\Logger::create()->debug('componentname_capabilities array is deprecated, please use $capabilities array only in access.php files');
             $capabilities = ${$component.'_capabilities'};
         }
     }
@@ -2047,7 +2047,7 @@ function get_default_role_archetype_allows($type, $archetype) {
     );
 
     if (!isset($defaults[$type][$archetype])) {
-        debugging("Unknown type '$type'' or archetype '$archetype''");
+        \Moodle\Logger::create()->debug("Unknown type '$type'' or archetype '$archetype''");
         return array();
     }
 
@@ -2116,7 +2116,7 @@ function update_capabilities($component = 'moodle') {
     $filecaps = load_capability_def($component);
     foreach($filecaps as $capname=>$unused) {
         if (!preg_match('|^[a-z]+/[a-z_0-9]+:[a-z_0-9]+$|', $capname)) {
-            debugging("Coding problem: Invalid capability name '$capname', use 'clonepermissionsfrom' field for migration.");
+            \Moodle\Logger::create()->debug("Coding problem: Invalid capability name '$capname', use 'clonepermissionsfrom' field for migration.");
         }
     }
 
@@ -3440,7 +3440,7 @@ function get_users_by_capability(context $context, $capability, $fields = '', $s
         }
     } else {
         if ($CFG->debugdeveloper && strpos($fields, 'u.*') === false && strpos($fields, 'u.id') === false) {
-            debugging('u.id must be included in the list of fields passed to get_users_by_capability().', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('u.id must be included in the list of fields passed to get_users_by_capability().', DEBUG_DEVELOPER);
         }
     }
 
@@ -3705,7 +3705,7 @@ function get_role_users($roleid, context $context, $parent = false, $fields = ''
 
     // Prevent wrong function uses.
     if ((empty($roleid) || is_array($roleid)) && strpos($fields, 'ra.id') !== 0) {
-        debugging('get_role_users() without specifying one single roleid needs to be called prefixing ' .
+        \Moodle\Logger::create()->debug('get_role_users() without specifying one single roleid needs to be called prefixing ' .
             'role assignments id (ra.id) as unique field, you can use $fields param for it.');
 
         if (!empty($roleid)) {
@@ -3799,7 +3799,7 @@ function get_role_users($roleid, context $context, $parent = false, $fields = ''
     $fields = implode(', ', $fieldsarray);
     if (!empty($addedfields)) {
         $addedfields = implode(', ', $addedfields);
-        debugging('get_role_users() adding '.$addedfields.' to the query result because they were required by $sort but missing in $fields');
+        \Moodle\Logger::create()->debug('get_role_users() adding '.$addedfields.' to the query result because they were required by $sort but missing in $fields');
     }
 
     if ($all === null) {
@@ -4875,7 +4875,7 @@ abstract class context extends stdClass implements IteratorAggregate {
      * @param mixed $value
      */
     public function __set($name, $value) {
-        debugging('Can not change context instance properties!');
+        \Moodle\Logger::create()->debug('Can not change context instance properties!');
     }
 
     /**
@@ -4892,7 +4892,7 @@ abstract class context extends stdClass implements IteratorAggregate {
             case 'depth':        return $this->_depth;
 
             default:
-                debugging('Invalid context property accessed! '.$name);
+                \Moodle\Logger::create()->debug('Invalid context property accessed! '.$name);
                 return null;
         }
     }
@@ -4920,7 +4920,7 @@ abstract class context extends stdClass implements IteratorAggregate {
      * @param string $name
      */
     public function __unset($name) {
-        debugging('Can not unset context instance properties!');
+        \Moodle\Logger::create()->debug('Can not unset context instance properties!');
     }
 
     // ====== implementing method from interface IteratorAggregate ======
@@ -5285,7 +5285,7 @@ abstract class context extends stdClass implements IteratorAggregate {
         global $DB;
 
         if (empty($this->_path) or empty($this->_depth)) {
-            debugging('Can not find child contexts of context '.$this->_id.' try rebuilding of context paths');
+            \Moodle\Logger::create()->debug('Can not find child contexts of context '.$this->_id.' try rebuilding of context paths');
             return array();
         }
 
@@ -5536,7 +5536,7 @@ class context_helper extends context {
             $levels = @unserialize($levels);
         }
         if (!is_array($levels)) {
-            debugging('Invalid $CFG->custom_context_classes detected, value ignored.', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Invalid $CFG->custom_context_classes detected, value ignored.', DEBUG_DEVELOPER);
             return;
         }
 
@@ -5847,7 +5847,7 @@ class context_system extends context {
         global $DB;
 
         if ($instanceid != 0) {
-            debugging('context_system::instance(): invalid $id parameter detected, should be 0');
+            \Moodle\Logger::create()->debug('context_system::instance(): invalid $id parameter detected, should be 0');
         }
 
         if (defined('SYSCONTEXTID') and $cache) { // dangerous: define this in config.php to eliminate 1 query/page
@@ -5904,7 +5904,7 @@ class context_system extends context {
 
         if ($record->instanceid != 0) {
             // this is very weird, somebody must be messing with context table
-            debugging('Invalid system context detected');
+            \Moodle\Logger::create()->debug('Invalid system context detected');
         }
 
         if ($record->depth != 1 or $record->path != '/'.$record->id) {
@@ -5932,7 +5932,7 @@ class context_system extends context {
     public function get_child_contexts() {
         global $DB;
 
-        debugging('Fetching of system context child courses is strongly discouraged on production servers (it may eat all available memory)!');
+        \Moodle\Logger::create()->debug('Fetching of system context child courses is strongly discouraged on production servers (it may eat all available memory)!');
 
         // Just get all the contexts except for CONTEXT_SYSTEM level
         // and hope we don't OOM in the process - don't cache
@@ -5980,11 +5980,11 @@ class context_system extends context {
         $record = $DB->get_record('context', array('contextlevel'=>CONTEXT_SYSTEM), '*', MUST_EXIST);
 
         if ($record->instanceid != 0) {
-            debugging('Invalid system context detected');
+            \Moodle\Logger::create()->debug('Invalid system context detected');
         }
 
         if (defined('SYSCONTEXTID') and $record->id != SYSCONTEXTID) {
-            debugging('Invalid SYSCONTEXTID detected');
+            \Moodle\Logger::create()->debug('Invalid SYSCONTEXTID detected');
         }
 
         if ($record->depth != 1 or $record->path != '/'.$record->id) {
@@ -6309,7 +6309,7 @@ class context_coursecat extends context {
         global $DB;
 
         if (empty($this->_path) or empty($this->_depth)) {
-            debugging('Can not find child contexts of context '.$this->_id.' try rebuilding of context paths');
+            \Moodle\Logger::create()->debug('Can not find child contexts of context '.$this->_id.' try rebuilding of context paths');
             return array();
         }
 

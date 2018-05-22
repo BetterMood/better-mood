@@ -114,7 +114,7 @@ class zip_packer extends file_packer {
             if (is_null($file)) {
                 // Directories have null as content.
                 if (!$ziparch->add_directory($archivepath.'/')) {
-                    debugging("Can not zip '$archivepath' directory", DEBUG_DEVELOPER);
+                    \Moodle\Logger::create()->debug("Can not zip '$archivepath' directory", DEBUG_DEVELOPER);
                     if (!$ignoreinvalidfiles) {
                         $abort = true;
                         break;
@@ -123,7 +123,7 @@ class zip_packer extends file_packer {
 
             } else if (is_string($file)) {
                 if (!$this->archive_pathname($ziparch, $archivepath, $file, $progress)) {
-                    debugging("Can not zip '$archivepath' file", DEBUG_DEVELOPER);
+                    \Moodle\Logger::create()->debug("Can not zip '$archivepath' file", DEBUG_DEVELOPER);
                     if (!$ignoreinvalidfiles) {
                         $abort = true;
                         break;
@@ -133,7 +133,7 @@ class zip_packer extends file_packer {
             } else if (is_array($file)) {
                 $content = reset($file);
                 if (!$ziparch->add_file_from_string($archivepath, $content)) {
-                    debugging("Can not zip '$archivepath' file", DEBUG_DEVELOPER);
+                    \Moodle\Logger::create()->debug("Can not zip '$archivepath' file", DEBUG_DEVELOPER);
                     if (!$ignoreinvalidfiles) {
                         $abort = true;
                         break;
@@ -142,7 +142,7 @@ class zip_packer extends file_packer {
 
             } else {
                 if (!$this->archive_stored($ziparch, $archivepath, $file, $progress)) {
-                    debugging("Can not zip '$archivepath' file", DEBUG_DEVELOPER);
+                    \Moodle\Logger::create()->debug("Can not zip '$archivepath' file", DEBUG_DEVELOPER);
                     if (!$ignoreinvalidfiles) {
                         $abort = true;
                         break;

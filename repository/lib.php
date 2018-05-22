@@ -619,7 +619,7 @@ abstract class repository implements cacheable_object {
             $repository = new $classname($repositoryid, $context, $options, $record->readonly);
             if (empty($repository->super_called)) {
                 // to make sure the super construct is called
-                debugging('parent::__construct must be called by '.$type.' plugin.');
+                \Moodle\Logger::create()->debug('parent::__construct must be called by '.$type.' plugin.');
             }
             $cache->set($cachekey, $repository);
             return $repository;
@@ -955,7 +955,7 @@ abstract class repository implements cacheable_object {
      * @deprecated since 2.5
      */
     public static function append_suffix($filename) {
-        debugging('The function repository::append_suffix() has been deprecated. Use repository::get_unused_filename() instead.',
+        \Moodle\Logger::create()->debug('The function repository::append_suffix() has been deprecated. Use repository::get_unused_filename() instead.',
             DEBUG_DEVELOPER);
         $pathinfo = pathinfo($filename);
         if (empty($pathinfo['extension'])) {
@@ -1195,7 +1195,7 @@ abstract class repository implements cacheable_object {
      * @param bool $deleteinfected
      */
     public static function antivir_scan_file($thefile, $filename, $deleteinfected) {
-        debugging('Please upgrade your code to use \core\antivirus\manager::scan_file instead', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Please upgrade your code to use \core\antivirus\manager::scan_file instead', DEBUG_DEVELOPER);
         \core\antivirus\manager::scan_file($thefile, $filename, $deleteinfected);
     }
 
@@ -1722,7 +1722,7 @@ abstract class repository implements cacheable_object {
             return;
         } else if ($file->get_repository_id() != $this->id) {
             // error
-            debugging('Repository instance id does not match');
+            \Moodle\Logger::create()->debug('Repository instance id does not match');
             return;
         } else if ($this->has_moodle_files()) {
             // files that are references to local files are already in moodle filepool
@@ -2839,7 +2839,7 @@ abstract class repository implements cacheable_object {
      * @return bool
      */
     public function uses_post_requests() {
-        debugging('The method repository::uses_post_requests() is deprecated and must not be used anymore.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('The method repository::uses_post_requests() is deprecated and must not be used anymore.', DEBUG_DEVELOPER);
         return false;
     }
 

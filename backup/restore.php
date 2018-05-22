@@ -108,7 +108,7 @@ $restore->set_progress_reporter($slowprogress);
 $outcome = $restore->process();
 
 if (!$restore->is_independent() && $restore->enforce_changed_dependencies()) {
-    debugging('Your settings have been altered due to unmet dependencies', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('Your settings have been altered due to unmet dependencies', DEBUG_DEVELOPER);
 }
 
 $loghtml = '';

@@ -1111,7 +1111,7 @@ function scorm_debug_log_remove($type, $scoid) {
 function scorm_print_overview($courses, &$htmlarray) {
     global $USER, $CFG;
 
-    debugging('The function scorm_print_overview() is now deprecated.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('The function scorm_print_overview() is now deprecated.', DEBUG_DEVELOPER);
 
     if (empty($courses) || !is_array($courses) || count($courses) == 0) {
         return array();

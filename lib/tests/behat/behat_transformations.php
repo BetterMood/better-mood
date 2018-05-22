@@ -55,7 +55,7 @@ class behat_transformations extends behat_base {
      * @return TableNode The transformed table
      */
     public function prefixed_tablenode_transformations(TableNode $tablenode) {
-        debugging('prefixed_tablenode_transformations() is deprecated. Please use tablenode_transformations() instead.',
+        \Moodle\Logger::create()->debug('prefixed_tablenode_transformations() is deprecated. Please use tablenode_transformations() instead.',
             DEBUG_DEVELOPER);
 
         return $this->tablenode_transformations($tablenode);

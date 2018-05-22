@@ -78,7 +78,7 @@ class core_question_bank_renderer extends plugin_renderer_base {
      * @return string The composed HTML for the questionbank chooser
      */
     public function qbank_chooser($real, $fake, $course, $hiddenparams) {
-        debugging('Method core_question_bank_renderer::qbank_chooser() is deprecated, ' .
+        \Moodle\Logger::create()->debug('Method core_question_bank_renderer::qbank_chooser() is deprecated, ' .
             'see core_question_bank_renderer::render_qbank_chooser().', DEBUG_DEVELOPER);
         return '';
     }
@@ -90,7 +90,7 @@ class core_question_bank_renderer extends plugin_renderer_base {
      * @return string The composed HTML for the module
      */
     protected function qbank_chooser_types($types) {
-        debugging('Method core_question_bank_renderer::qbank_chooser_types() is deprecated, ' .
+        \Moodle\Logger::create()->debug('Method core_question_bank_renderer::qbank_chooser_types() is deprecated, ' .
             'see core_question_bank_renderer::render_qbank_chooser().', DEBUG_DEVELOPER);
         return '';
     }
@@ -104,7 +104,7 @@ class core_question_bank_renderer extends plugin_renderer_base {
      * @return string The composed HTML for the question type
      */
     protected function qbank_chooser_qtype($qtype, $classes = array()) {
-        debugging('Method core_question_bank_renderer::qbank_chooser_qtype() is deprecated, ' .
+        \Moodle\Logger::create()->debug('Method core_question_bank_renderer::qbank_chooser_qtype() is deprecated, ' .
             'see core_question_bank_renderer::render_qbank_chooser().', DEBUG_DEVELOPER);
         return '';
     }
@@ -117,7 +117,7 @@ class core_question_bank_renderer extends plugin_renderer_base {
      * @return string The composed HTML for the title
      */
     protected function qbank_chooser_title($title, $identifier = null) {
-        debugging('Method core_question_bank_renderer::qbank_chooser_title() is deprecated, ' .
+        \Moodle\Logger::create()->debug('Method core_question_bank_renderer::qbank_chooser_title() is deprecated, ' .
             'see core_question_bank_renderer::render_qbank_chooser().', DEBUG_DEVELOPER);
         return '';
     }

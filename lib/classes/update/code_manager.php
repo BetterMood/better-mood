@@ -396,7 +396,7 @@ class code_manager {
      * @param string $msg
      */
     protected function debug($msg) {
-        debugging($msg, DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug($msg, DEBUG_DEVELOPER);
     }
 
     /**

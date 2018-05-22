@@ -58,7 +58,7 @@ class block_mnet_hosts extends block_list {
         // remote users can't on-jump
         // so don't show this block to them
         if (is_mnet_remote_user($USER)) {
-            if (debugging() and !empty($CFG->debugdisplay)) {
+            if (\Moodle\Logger::create()->debug() and !empty($CFG->debugdisplay)) {
                 $this->content = new stdClass();
                 $this->content->footer = html_writer::tag('span',
                     get_string('error_localusersonly', 'block_mnet_hosts'),

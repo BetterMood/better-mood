@@ -245,7 +245,7 @@ function blog_sync_external_entries($externalblog) {
             // The URL for this item is too long for the field. Rather than add
             // the entry without the link we will skip straight over it.
             // RSS spec says recommended length 500, we use 255.
-            debugging('External blog entry skipped because of oversized URL', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('External blog entry skipped because of oversized URL', DEBUG_DEVELOPER);
             continue;
         }
 

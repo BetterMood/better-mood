@@ -111,7 +111,7 @@ class model_logs extends \table_sql {
             if ($indicator) {
                 $indicators[] = $indicator->get_name();
             } else {
-                debugging('Can\'t load ' . $indicatorclass . ' indicator', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Can\'t load ' . $indicatorclass . ' indicator', DEBUG_DEVELOPER);
             }
         }
         return '<ul><li>' . implode('</li><li>', $indicators) . '</li></ul>';

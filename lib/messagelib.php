@@ -64,7 +64,7 @@ function message_send($eventdata) {
             $eventdata->courseid = null;
         }
 
-        debugging('eventdata as \stdClass is deprecated. Please use core\message\message instead.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('eventdata as \stdClass is deprecated. Please use core\message\message instead.', DEBUG_DEVELOPER);
     }
 
     //new message ID to return
@@ -90,11 +90,11 @@ function message_send($eventdata) {
         $eventdata->userfrom = core_user::get_user($eventdata->userfrom);
     }
     if (!$eventdata->userto) {
-        debugging('Attempt to send msg to unknown user', DEBUG_NORMAL);
+        \Moodle\Logger::create()->debug('Attempt to send msg to unknown user', DEBUG_NORMAL);
         return false;
     }
     if (!$eventdata->userfrom) {
-        debugging('Attempt to send msg from unknown user', DEBUG_NORMAL);
+        \Moodle\Logger::create()->debug('Attempt to send msg from unknown user', DEBUG_NORMAL);
         return false;
     }
 
@@ -102,14 +102,14 @@ function message_send($eventdata) {
     if (!isset($eventdata->userto->auth) or !isset($eventdata->userto->suspended)
             or !isset($eventdata->userto->deleted) or !isset($eventdata->userto->emailstop)) {
 
-        debugging('Necessary properties missing in userto object, fetching full record', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Necessary properties missing in userto object, fetching full record', DEBUG_DEVELOPER);
         $eventdata->userto = core_user::get_user($eventdata->userto->id);
     }
 
     $usertoisrealuser = (core_user::is_real_user($eventdata->userto->id) != false);
     // If recipient is internal user (noreply user), and emailstop is set then don't send any msg.
     if (!$usertoisrealuser && !empty($eventdata->userto->emailstop)) {
-        debugging('Attempt to send msg to internal (noreply) user', DEBUG_NORMAL);
+        \Moodle\Logger::create()->debug('Attempt to send msg to internal (noreply) user', DEBUG_NORMAL);
         return false;
     }
 
@@ -254,7 +254,7 @@ function message_send($eventdata) {
 
         // DEBUG: notify if we are forcing unconfigured output
         if ($permitted == 'forced' && !$userisconfigured) {
-            debugging('Attempt to force message delivery to user who has "'.$processor->name.'" output unconfigured', DEBUG_NORMAL);
+            \Moodle\Logger::create()->debug('Attempt to force message delivery to user who has "'.$processor->name.'" output unconfigured', DEBUG_NORMAL);
         }
 
         // Populate the list of processors we will be using

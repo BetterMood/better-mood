@@ -90,7 +90,7 @@ class MoodleQuickForm_tags extends MoodleQuickForm_autocomplete {
             if (isset($options['showstandard'])) {
                 $showstandard = $options['showstandard'];
             } else if (isset($options['display'])) {
-                debugging('Option "display" is deprecated, each tag area can be configured to show standard tags or not ' .
+                \Moodle\Logger::create()->debug('Option "display" is deprecated, each tag area can be configured to show standard tags or not ' .
                     'by admin or manager. If it is necessary for the developer to override it, please use "showstandard" option',
                     DEBUG_DEVELOPER);
                 if ($options['display'] === self::NOOFFICIAL) {
@@ -162,7 +162,7 @@ class MoodleQuickForm_tags extends MoodleQuickForm_autocomplete {
     protected function get_tag_collection() {
         if (empty($this->tagsoptions['tagcollid']) && (empty($this->tagsoptions['itemtype']) ||
                 empty($this->tagsoptions['component']))) {
-            debugging('You need to specify \'itemtype\' and \'component\' of the tagged '
+            \Moodle\Logger::create()->debug('You need to specify \'itemtype\' and \'component\' of the tagged '
                     . 'area in the tags form element options',
                     DEBUG_DEVELOPER);
         }

@@ -835,7 +835,7 @@ class mod_quiz_renderer extends plugin_renderer_base {
 
         if (is_string($preflightcheckform)) {
             // Calling code was not updated since the API change.
-            debugging('The third argument to start_attempt_button should now be the ' .
+            \Moodle\Logger::create()->debug('The third argument to start_attempt_button should now be the ' .
                     'mod_quiz_preflight_check_form from ' .
                     'quiz_access_manager::get_preflight_check_form, not a warning message string.');
         }
@@ -1357,11 +1357,11 @@ class mod_quiz_view_object {
     public function __get($field) {
         switch ($field) {
             case 'startattemptwarning':
-                debugging('startattemptwarning has been deprecated. It is now always blank.');
+                \Moodle\Logger::create()->debug('startattemptwarning has been deprecated. It is now always blank.');
                 return '';
 
             default:
-                debugging('Unknown property ' . $field);
+                \Moodle\Logger::create()->debug('Unknown property ' . $field);
                 return null;
         }
     }

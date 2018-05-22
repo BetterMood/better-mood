@@ -105,13 +105,13 @@ function mnet_get_public_key($uri, $application=null) {
     // check for curl errors
     $curlerrno = curl_errno($ch);
     if ($curlerrno!=0) {
-        debugging("Request for $uri failed with curl error $curlerrno");
+        \Moodle\Logger::create()->debug("Request for $uri failed with curl error $curlerrno");
     }
 
     // check HTTP error code
     $info =  curl_getinfo($ch);
     if (!empty($info['http_code']) and ($info['http_code'] != 200)) {
-        debugging("Request for $uri failed with HTTP code ".$info['http_code']);
+        \Moodle\Logger::create()->debug("Request for $uri failed with HTTP code ".$info['http_code']);
     }
 
     curl_close($ch);
@@ -130,15 +130,15 @@ function mnet_get_public_key($uri, $application=null) {
                 return $public_certificate;
             }
             else {
-                debugging("Request for $uri returned public key for different URI - $host");
+                \Moodle\Logger::create()->debug("Request for $uri returned public key for different URI - $host");
             }
         }
         else {
-            debugging("Request for $uri returned empty response");
+            \Moodle\Logger::create()->debug("Request for $uri returned empty response");
         }
     }
     else {
-        debugging( "Request for $uri returned unexpected result");
+        \Moodle\Logger::create()->debug( "Request for $uri returned unexpected result");
     }
     return false;
 }

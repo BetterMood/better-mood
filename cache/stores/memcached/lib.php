@@ -645,7 +645,7 @@ class cachestore_memcached extends cache_store implements cache_is_configurable 
                 $setserver = explode(':', $line, 3);
                 // We don't use weights, so display a debug message.
                 if (count($setserver) > 2) {
-                    debugging('Memcached Set Server '.$setserver[0].' has too many parameters.');
+                    \Moodle\Logger::create()->debug('Memcached Set Server '.$setserver[0].' has too many parameters.');
                 }
                 $setservers[] = $setserver;
             }

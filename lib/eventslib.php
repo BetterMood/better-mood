@@ -82,7 +82,6 @@ function events_cleanup($component, $cachedhandlers) {
     $deletecount = 0;
     foreach ($cachedhandlers as $eventname => $cachedhandler) {
         if ($qhandlers = $DB->get_records('events_queue_handlers', array('handlerid'=>$cachedhandler['id']))) {
-            //debugging("Removing pending events from queue before deleting of event handler: $component - $eventname");
             foreach ($qhandlers as $qhandler) {
                 events_dequeue($qhandler);
             }

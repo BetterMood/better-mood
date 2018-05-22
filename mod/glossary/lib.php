@@ -1399,10 +1399,10 @@ function glossary_print_entry_attachment($entry, $cm, $format = null, $unused1 =
         echo '</div>';
     }
     if ($unused1) {
-        debugging('The align parameter is deprecated, please use appropriate CSS instead', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('The align parameter is deprecated, please use appropriate CSS instead', DEBUG_DEVELOPER);
     }
     if ($unused2 !== null) {
-        debugging('The insidetable parameter is deprecated, please use appropriate CSS instead', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('The insidetable parameter is deprecated, please use appropriate CSS instead', DEBUG_DEVELOPER);
     }
 }
 

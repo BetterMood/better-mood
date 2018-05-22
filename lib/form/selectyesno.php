@@ -60,7 +60,7 @@ class MoodleQuickForm_selectyesno extends MoodleQuickForm_select{
      * @deprecated since Moodle 3.1
      */
     public function MoodleQuickForm_selectyesno($elementName=null, $elementLabel=null, $attributes=null, $options=null) {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
         self::__construct($elementName, $elementLabel, $attributes, $options);
     }
 

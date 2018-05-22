@@ -1850,7 +1850,7 @@ class grade_report_grader extends grade_report {
         }
 
         if (!$courseid) {
-            debugging('Function grade_report_grader::do_process_action() now requires additional argument courseid',
+            \Moodle\Logger::create()->debug('Function grade_report_grader::do_process_action() now requires additional argument courseid',
                 DEBUG_DEVELOPER);
             if (!$courseid = $DB->get_field('grade_categories', 'courseid', array('id' => $targetid), IGNORE_MISSING)) {
                 return true;

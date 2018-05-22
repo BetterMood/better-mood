@@ -350,7 +350,7 @@ class mod_workshop_renderer extends plugin_renderer_base {
         $status = $result->get_status();
 
         if (is_null($status) or $status == workshop_allocation_result::STATUS_VOID) {
-            debugging('Attempt to render workshop_allocation_result with empty status', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Attempt to render workshop_allocation_result with empty status', DEBUG_DEVELOPER);
             return '';
         }
 

@@ -129,7 +129,7 @@ class analysis_for_question {
             $this->initialise_stats_for_variant($variantno);
         }
         if (!isset($this->subparts[$variantno][$subpartid])) {
-            debugging('Unexpected sub-part id ' . $subpartid .
+            \Moodle\Logger::create()->debug('Unexpected sub-part id ' . $subpartid .
                     ' encountered.');
             $this->subparts[$variantno][$subpartid] = new analysis_for_subpart();
         }

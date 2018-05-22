@@ -90,7 +90,7 @@ class cache_config_writer extends cache_config {
         // it doesn't exist and thus we can't use the normal API for this (it'll just try to use config).
         $lockconf = reset($this->configlocks);
         if ($lockconf === false) {
-            debugging('Your cache configuration file is out of date and needs to be refreshed.', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Your cache configuration file is out of date and needs to be refreshed.', DEBUG_DEVELOPER);
             // Use the default
             $lockconf = array(
                 'name' => 'cachelock_file_default',
@@ -540,7 +540,7 @@ class cache_config_writer extends cache_config {
                 $definition['component'] = $component;
                 $definition['area'] = $area;
                 if (array_key_exists($id, $definitions)) {
-                    debugging('Error: duplicate cache definition found with id: '.$id, DEBUG_DEVELOPER);
+                    \Moodle\Logger::create()->debug('Error: duplicate cache definition found with id: '.$id, DEBUG_DEVELOPER);
                     continue;
                 }
                 $definitions[$id] = $definition;
@@ -1122,7 +1122,7 @@ abstract class cache_administration_helper extends cache_helper {
         foreach ($instance->get_mode_mappings() as $mapping) {
             $mode = $mapping['mode'];
             if (!array_key_exists($mode, $modemappings)) {
-                debugging('Unknown mode in cache store mode mappings', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Unknown mode in cache store mode mappings', DEBUG_DEVELOPER);
                 continue;
             }
             if (array_key_exists($mapping['store'], $storenames)) {

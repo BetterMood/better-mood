@@ -275,7 +275,7 @@ class renderer_base {
      * @return moodle_url
      */
     public function pix_url($imagename, $component = 'moodle') {
-        debugging('pix_url is deprecated. Use image_url for images and pix_icon for icons.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('pix_url is deprecated. Use image_url for images and pix_icon for icons.', DEBUG_DEVELOPER);
         return $this->page->theme->image_url($imagename, $component);
     }
 
@@ -422,7 +422,7 @@ class plugin_renderer_base extends renderer_base {
             // Please do it ASAP.
             static $debugged = array();
             if (!isset($debugged[$deprecatedmethod])) {
-                debugging(sprintf('Deprecated call. Please rename your renderables render method from %s to %s.',
+                \Moodle\Logger::create()->debug(sprintf('Deprecated call. Please rename your renderables render method from %s to %s.',
                     $deprecatedmethod, $rendermethod), DEBUG_DEVELOPER);
                 $debugged[$deprecatedmethod] = true;
             }
@@ -629,7 +629,7 @@ class core_renderer extends renderer_base {
                 $this->page->requires->js_function_call('old_onload_focus', array($matches[1], $matches[2]));
             } else if (strpos($focus, '.')!==false) {
                 // Old style of focus, bad way to do it
-                debugging('This code is using the old style focus event, Please update this code to focus on an element id or the moodleform focus method.', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('This code is using the old style focus event, Please update this code to focus on an element id or the moodleform focus method.', DEBUG_DEVELOPER);
                 $this->page->requires->js_function_call('old_onload_focus', explode('.', $focus, 2));
             } else {
                 // Focus element with given id
@@ -783,7 +783,7 @@ class core_renderer extends renderer_base {
         if (!empty($CFG->debugpageinfo)) {
             $output .= '<div class="performanceinfo pageinfo">This page is: ' . $this->page->debug_summary() . '</div>';
         }
-        if (debugging(null, DEBUG_DEVELOPER) and has_capability('moodle/site:config', context_system::instance())) {  // Only in developer mode
+        if (\Moodle\Logger::create()->debug(null, DEBUG_DEVELOPER) and has_capability('moodle/site:config', context_system::instance())) {  // Only in developer mode
             // Add link to profiling report if necessary
             if (function_exists('profiling_is_running') && profiling_is_running()) {
                 $txt = get_string('profiledscript', 'admin');
@@ -1126,7 +1126,7 @@ class core_renderer extends renderer_base {
                 break;
             case moodle_page::STATE_IN_BODY :
                 // We really shouldn't be here but we can deal with this
-                debugging("You should really redirect before you start page output");
+                \Moodle\Logger::create()->debug("You should really redirect before you start page output");
                 if (!$debugdisableredirect) {
                     $this->page->requires->js_function_call('document.location.replace', array($url), false, $delay);
                 }
@@ -1217,7 +1217,7 @@ class core_renderer extends renderer_base {
         $footer = substr($rendered, $cutpos + strlen($token));
 
         if (empty($this->contenttype)) {
-            debugging('The page layout file did not call $OUTPUT->doctype()');
+            \Moodle\Logger::create()->debug('The page layout file did not call $OUTPUT->doctype()');
             $header = $this->doctype() . $header;
         }
 
@@ -1232,7 +1232,7 @@ class core_renderer extends renderer_base {
                 // Please note that course header and footer (to be displayed above and below the whole page)
                 // are not displayed in this case at all.
                 // Besides the content header and footer are not displayed on any other course page
-                debugging('The current theme is not optimised for 2.4, the course-specific header and footer defined in course format will not be output', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('The current theme is not optimised for 2.4, the course-specific header and footer defined in course format will not be output', DEBUG_DEVELOPER);
                 $header .= $coursecontentheader;
                 $footer = $coursecontentfooter. $footer;
             }
@@ -1295,7 +1295,7 @@ class core_renderer extends renderer_base {
 
         $footer = $this->opencontainers->pop('header/footer');
 
-        if (debugging() and $DB and $DB->is_transaction_started()) {
+        if (\Moodle\Logger::create()->debug() and $DB and $DB->is_transaction_started()) {
             // TODO: MDL-20625 print warning - transaction will be rolled back
         }
 
@@ -1303,7 +1303,7 @@ class core_renderer extends renderer_base {
         $performanceinfo = '';
         if (defined('MDL_PERF') || (!empty($CFG->perfdebug) and $CFG->perfdebug > 7)) {
             $perf = get_performance_info();
-            if (defined('MDL_PERFTOFOOT') || debugging() || $CFG->perfdebug > 7) {
+            if (defined('MDL_PERFTOFOOT') || \Moodle\Logger::create()->debug() || $CFG->perfdebug > 7) {
                 $performanceinfo = $perf['html'];
             }
         }
@@ -2676,7 +2676,7 @@ EOD;
     public function update_module_button($cmid, $modulename) {
         global $CFG;
 
-        debugging('core_renderer::update_module_button() has been deprecated and should not be used anymore. Activity modules ' .
+        \Moodle\Logger::create()->debug('core_renderer::update_module_button() has been deprecated and should not be used anymore. Activity modules ' .
             'should not add the edit module button, the link is already available in the Administration block. Themes can choose ' .
             'to display the link in the buttons row consistently for all module types.', DEBUG_DEVELOPER);
 
@@ -4131,7 +4131,7 @@ EOD;
         $html .= html_writer::start_tag('ul');
         foreach ($renderable->nodes as $node) {
             if ($node->has_children()) {
-                debugging('Preferences nodes do not support children', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Preferences nodes do not support children', DEBUG_DEVELOPER);
             }
             $html .= html_writer::tag('li', $this->render($node));
         }
@@ -4756,7 +4756,7 @@ class core_media_renderer extends plugin_renderer_base {
      * before you call renderer functions.
      */
     public function __construct() {
-        debugging('Class core_media_renderer is deprecated, please use core_media_manager::instance()', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Class core_media_renderer is deprecated, please use core_media_manager::instance()', DEBUG_DEVELOPER);
     }
 
     /**
@@ -4897,7 +4897,7 @@ class core_renderer_maintenance extends core_renderer {
      */
     public function block(block_contents $bc, $region) {
         // Computer says no blocks.
-        // debugging('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
+        // \Moodle\Logger::create()->debug('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
         return '';
     }
 
@@ -4911,7 +4911,7 @@ class core_renderer_maintenance extends core_renderer {
      */
     public function blocks($region, $classes = array(), $tag = 'aside') {
         // Computer says no blocks.
-        // debugging('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
+        // \Moodle\Logger::create()->debug('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
         return '';
     }
 
@@ -4923,7 +4923,7 @@ class core_renderer_maintenance extends core_renderer {
      */
     public function blocks_for_region($region) {
         // Computer says no blocks for region.
-        // debugging('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
+        // \Moodle\Logger::create()->debug('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
         return '';
     }
 
@@ -4935,7 +4935,7 @@ class core_renderer_maintenance extends core_renderer {
      */
     public function course_content_header($onlyifnotcalledbefore = false) {
         // Computer says no course content header.
-        // debugging('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
+        // \Moodle\Logger::create()->debug('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
         return '';
     }
 
@@ -4947,7 +4947,7 @@ class core_renderer_maintenance extends core_renderer {
      */
     public function course_content_footer($onlyifnotcalledbefore = false) {
         // Computer says no course content footer.
-        // debugging('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
+        // \Moodle\Logger::create()->debug('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
         return '';
     }
 
@@ -4958,7 +4958,7 @@ class core_renderer_maintenance extends core_renderer {
      */
     public function course_header() {
         // Computer says no course header.
-        // debugging('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
+        // \Moodle\Logger::create()->debug('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
         return '';
     }
 
@@ -4969,7 +4969,7 @@ class core_renderer_maintenance extends core_renderer {
      */
     public function course_footer() {
         // Computer says no course footer.
-        // debugging('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
+        // \Moodle\Logger::create()->debug('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
         return '';
     }
 
@@ -4981,7 +4981,7 @@ class core_renderer_maintenance extends core_renderer {
      */
     public function custom_menu($custommenuitems = '') {
         // Computer says no custom menu.
-        // debugging('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
+        // \Moodle\Logger::create()->debug('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
         return '';
     }
 
@@ -4993,7 +4993,7 @@ class core_renderer_maintenance extends core_renderer {
      */
     public function file_picker($options) {
         // Computer says no file picker.
-        // debugging('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
+        // \Moodle\Logger::create()->debug('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
         return '';
     }
 
@@ -5006,7 +5006,7 @@ class core_renderer_maintenance extends core_renderer {
     public function htmllize_file_tree($dir) {
         // Hell no we don't want no htmllized file tree.
         // Also why on earth is this function on the core renderer???
-        // debugging('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
+        // \Moodle\Logger::create()->debug('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
         return '';
 
     }
@@ -5069,7 +5069,7 @@ class core_renderer_maintenance extends core_renderer {
      */
     public function lang_menu() {
         // Computer says no lang menu.
-        // debugging('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
+        // \Moodle\Logger::create()->debug('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
         return '';
     }
 
@@ -5081,7 +5081,7 @@ class core_renderer_maintenance extends core_renderer {
      */
     public function login_info($withlinks = null) {
         // Computer says no login info.
-        // debugging('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
+        // \Moodle\Logger::create()->debug('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
         return '';
     }
 
@@ -5094,7 +5094,7 @@ class core_renderer_maintenance extends core_renderer {
      */
     public function user_picture(stdClass $user, array $options = null) {
         // Computer says no user pictures.
-        // debugging('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
+        // \Moodle\Logger::create()->debug('Please do not use $OUTPUT->'.__FUNCTION__.'() when performing maintenance tasks.', DEBUG_DEVELOPER);
         return '';
     }
 }

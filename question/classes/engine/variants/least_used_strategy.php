@@ -92,7 +92,7 @@ class least_used_strategy implements \question_variant_selection_strategy {
 
         // Catch a possible programming error, and make the problem clear.
         if (!isset($this->variantsusecounts[$seed])) {
-            debugging('Variant requested for unknown seed ' . $seed . '. ' .
+            \Moodle\Logger::create()->debug('Variant requested for unknown seed ' . $seed . '. ' .
                     'You must add all questions to the usage before creating the least_used_strategy. ' .
                     'Continuing, but the variant choses may not actually be least used.',
                     DEBUG_DEVELOPER);

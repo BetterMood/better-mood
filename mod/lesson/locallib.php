@@ -3954,7 +3954,6 @@ abstract class lesson_page extends lesson_base {
             if (!$answers) {
                 // It is possible that a lesson upgraded from Moodle 1.9 still
                 // contains questions without any answers [MDL-25632].
-                // debugging(get_string('cannotfindanswer', 'lesson'));
                 return array();
             }
             foreach ($answers as $answer) {
@@ -5026,24 +5025,24 @@ class lesson_page_type_manager {
         global $DB;
         if (empty($page1)) {
             if ($page2->prevpageid != 0) {
-                debugging("***prevpageid of page " . $page2->id . " set to 0***");
+                \Moodle\Logger::create()->debug("***prevpageid of page " . $page2->id . " set to 0***");
                 $page2->prevpageid = 0;
                 $DB->set_field("lesson_pages", "prevpageid", 0, array("id" => $page2->id));
             }
         } else if (empty($page2)) {
             if ($page1->nextpageid != 0) {
-                debugging("***nextpageid of page " . $page1->id . " set to 0***");
+                \Moodle\Logger::create()->debug("***nextpageid of page " . $page1->id . " set to 0***");
                 $page1->nextpageid = 0;
                 $DB->set_field("lesson_pages", "nextpageid", 0, array("id" => $page1->id));
             }
         } else {
             if ($page1->nextpageid != $page2->id) {
-                debugging("***nextpageid of page " . $page1->id . " set to " . $page2->id . "***");
+                \Moodle\Logger::create()->debug("***nextpageid of page " . $page1->id . " set to " . $page2->id . "***");
                 $page1->nextpageid = $page2->id;
                 $DB->set_field("lesson_pages", "nextpageid", $page2->id, array("id" => $page1->id));
             }
             if ($page2->prevpageid != $page1->id) {
-                debugging("***prevpageid of page " . $page2->id . " set to " . $page1->id . "***");
+                \Moodle\Logger::create()->debug("***prevpageid of page " . $page2->id . " set to " . $page1->id . "***");
                 $page2->prevpageid = $page1->id;
                 $DB->set_field("lesson_pages", "prevpageid", $page1->id, array("id" => $page2->id));
             }
@@ -5122,7 +5121,7 @@ class lesson_page_type_manager {
     public function get_page_form($type, $arguments) {
         $class = 'lesson_add_page_form_'.$this->get_page_type_idstring($type);
         if (!class_exists($class) || get_parent_class($class)!=='lesson_add_page_form_base') {
-            debugging('Lesson page type unknown class requested '.$class, DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Lesson page type unknown class requested '.$class, DEBUG_DEVELOPER);
             $class = 'lesson_add_page_form_selection';
         } else if ($class === 'lesson_add_page_form_unknown') {
             $class = 'lesson_add_page_form_selection';

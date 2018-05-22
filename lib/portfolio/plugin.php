@@ -850,7 +850,7 @@ abstract class portfolio_plugin_pull_base extends portfolio_plugin_base {
     protected function set_file(\stored_file $file) {
         $fileid = $file->get_id();
         if (empty($fileid)) {
-            debugging('stored_file->id should not be empty');
+            \Moodle\Logger::create()->debug('stored_file->id should not be empty');
             $this->file = null;
         } else {
             $this->file = $fileid;

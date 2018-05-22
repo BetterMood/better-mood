@@ -301,7 +301,7 @@ class backup_nested_element extends base_nested_element implements processable {
             // Found more than once, notice
                 // TODO: Route this through backup loggers
             if ($found > 1) {
-                debugging('Key found more than once ' . $key, DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Key found more than once ' . $key, DEBUG_DEVELOPER);
             }
         }
 

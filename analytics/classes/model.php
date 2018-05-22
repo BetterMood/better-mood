@@ -214,7 +214,7 @@ class model {
             if ($instance) {
                 $this->indicators[$fullclassname] = $instance;
             } else {
-                debugging('Can\'t load ' . $fullclassname . ' indicator', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Can\'t load ' . $fullclassname . ' indicator', DEBUG_DEVELOPER);
             }
         }
 
@@ -755,7 +755,7 @@ class model {
                     case 1:
                         // For whatever reason the predictions processor could not process this sample, we
                         // skip it and do nothing with it.
-                        debugging($this->model->id . ' model predictions processor could not process the sample with id ' .
+                        \Moodle\Logger::create()->debug($this->model->id . ' model predictions processor could not process the sample with id ' .
                             $sampleinfo[0], DEBUG_DEVELOPER);
                         continue;
                     case 2:

@@ -648,7 +648,7 @@ function translate_message_default_setting($plugindefault, $processorname) {
 
     // Validate the value. It should not exceed the maximum size
     if (!is_int($plugindefault) || ($plugindefault > 0x0f)) {
-        debugging(get_string('errortranslatingdefault', 'message'));
+        \Moodle\Logger::create()->debug(get_string('errortranslatingdefault', 'message'));
         $plugindefault = $default;
     }
     // Use plugin default setting of 'permitted' is 0

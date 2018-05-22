@@ -450,7 +450,7 @@ class cache_factory {
                         if (!$definition) {
                             throw new coding_exception('The requested cache definition does not exist.'. $id, $id);
                         } else if (!$this->is_disabled()) {
-                            debugging('Cache definitions reparsed causing cache reset in order to locate definition.
+                            \Moodle\Logger::create()->debug('Cache definitions reparsed causing cache reset in order to locate definition.
                                 You should bump the version number to ensure definitions are reprocessed.', DEBUG_DEVELOPER);
                         }
                         $definition = cache_definition::load($id, $definition);

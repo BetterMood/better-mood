@@ -32,7 +32,7 @@ require_once($CFG->libdir.'/completionlib.php');
 if ($week = optional_param('week', 0, PARAM_INT)) {
     $url = $PAGE->url;
     $url->param('section', $week);
-    debugging('Outdated week param passed to course/view.php', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('Outdated week param passed to course/view.php', DEBUG_DEVELOPER);
     redirect($url);
 }
 // End backwards-compatible aliasing..

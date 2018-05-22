@@ -50,7 +50,7 @@ class message_output_jabber extends message_output {
 
         if (!empty($CFG->noemailever)) {
             // hidden setting for development sites, set in config.php if needed
-            debugging('$CFG->noemailever is active, no jabber message sent.', DEBUG_MINIMAL);
+            \Moodle\Logger::create()->debug('$CFG->noemailever is active, no jabber message sent.', DEBUG_MINIMAL);
             return true;
         }
 
@@ -89,7 +89,7 @@ class message_output_jabber extends message_output {
             $conn->message($jabberaddress, $jabbermessage);
             $conn->disconnect();
         } catch(XMPPHP_Exception $e) {
-            debugging($e->getMessage());
+            \Moodle\Logger::create()->debug($e->getMessage());
             return false;
         }
         return true;

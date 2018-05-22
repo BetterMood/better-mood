@@ -139,7 +139,7 @@ class postgres_sql_generator extends sql_generator {
                 $count = 0;
                 $newindex = preg_replace("/^CREATE( UNIQUE)? INDEX ([a-z0-9_]+) ON ([a-z0-9_]+) \($field\)$/", "CREATE INDEX \\2_pattern ON \\3 USING btree ($field varchar_pattern_ops)", $sql, -1, $count);
                 if ($count != 1) {
-                    debugging('Unexpected getCreateIndexSQL() structure.');
+                    \Moodle\Logger::create()->debug('Unexpected getCreateIndexSQL() structure.');
                     continue;
                 }
                 $sqls[] = $newindex;

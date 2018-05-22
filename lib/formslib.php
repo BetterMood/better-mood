@@ -224,7 +224,7 @@ abstract class moodleform {
      * @deprecated since Moodle 3.1
      */
     public function moodleform($action=null, $customdata=null, $method='post', $target='', $attributes=null, $editable=true) {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
         self::__construct($action, $customdata, $method, $target, $attributes, $editable);
     }
 
@@ -681,7 +681,7 @@ abstract class moodleform {
      * @return bool Always false
      */
     function save_files($destination) {
-        debugging('Not used anymore, please fix code! Use save_stored_file() or save_file() instead');
+        \Moodle\Logger::create()->debug('Not used anymore, please fix code! Use save_stored_file() or save_file() instead');
         return false;
     }
 
@@ -1281,7 +1281,7 @@ abstract class moodleform {
      * @deprecated since Moodle 3.3 MDL-57471
      */
     function init_javascript_enhancement($element, $enhancement, array $options=array(), array $strings=null) {
-        debugging('$mform->init_javascript_enhancement() is deprecated and no longer does anything. '.
+        \Moodle\Logger::create()->debug('$mform->init_javascript_enhancement() is deprecated and no longer does anything. '.
             'smartselect uses should be converted to the searchableselector form element.', DEBUG_DEVELOPER);
     }
 
@@ -1350,7 +1350,7 @@ abstract class moodleform {
                             $found = array_key_exists($key, $mform->_types);
                         }
                         if (!$found) {
-                            debugging("Did you remember to call setType() for '$name'? ".
+                            \Moodle\Logger::create()->debug("Did you remember to call setType() for '$name'? ".
                                 'Defaulting to PARAM_RAW cleaning.', DEBUG_DEVELOPER);
                         }
                         break;
@@ -1557,7 +1557,7 @@ class MoodleQuickForm extends HTML_QuickForm_DHTMLRulesTableless {
      * @deprecated since Moodle 3.1
      */
     public function MoodleQuickForm($formName, $method, $action, $target='', $attributes=null) {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
         self::__construct($formName, $method, $action, $target, $attributes);
     }
 
@@ -1595,7 +1595,7 @@ class MoodleQuickForm extends HTML_QuickForm_DHTMLRulesTableless {
         }
         $element = $this->getElement($headername);
         if ($element->getType() != 'header') {
-            debugging('Cannot use setExpanded on non-header elements', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Cannot use setExpanded on non-header elements', DEBUG_DEVELOPER);
             return;
         }
         if (!$headerid = $element->getAttribute('id')) {
@@ -1648,7 +1648,7 @@ class MoodleQuickForm extends HTML_QuickForm_DHTMLRulesTableless {
      * @param bool $showadvancedNow if true will show advanced elements.
       */
     function setShowAdvanced($showadvancedNow = null){
-        debugging('Call to deprecated function setShowAdvanced. See "Show more.../Show less..." in shortforms yui module.');
+        \Moodle\Logger::create()->debug('Call to deprecated function setShowAdvanced. See "Show more.../Show less..." in shortforms yui module.');
     }
 
     /**
@@ -1659,7 +1659,7 @@ class MoodleQuickForm extends HTML_QuickForm_DHTMLRulesTableless {
      * @return bool (Always false)
       */
     function getShowAdvanced(){
-        debugging('Call to deprecated function setShowAdvanced. See "Show more.../Show less..." in shortforms yui module.');
+        \Moodle\Logger::create()->debug('Call to deprecated function setShowAdvanced. See "Show more.../Show less..." in shortforms yui module.');
         return false;
     }
 
@@ -2027,7 +2027,7 @@ class MoodleQuickForm extends HTML_QuickForm_DHTMLRulesTableless {
             $element = $this->_elements[$this->_elementIndex[$elementname]];
             $element->_helpbutton = $OUTPUT->help_icon($identifier, $component, $linktext);
         } else if (!$suppresscheck) {
-            debugging(get_string('nonexistentformelements', 'form', $elementname));
+            \Moodle\Logger::create()->debug(get_string('nonexistentformelements', 'form', $elementname));
         }
     }
 
@@ -2858,7 +2858,7 @@ class MoodleQuickForm_Renderer extends HTML_QuickForm_Renderer_Tableless{
      * @deprecated since Moodle 3.1
      */
     public function MoodleQuickForm_Renderer() {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
         self::__construct();
     }
 

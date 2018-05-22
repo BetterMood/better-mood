@@ -52,7 +52,7 @@ if (!defined('CORE_MEDIA_AUDIO_WIDTH')) {
     define('CORE_MEDIA_AUDIO_WIDTH', 300);
 }
 
-debugging('Do not include lib/medialib.php, use $CFG->media_default_width instead of CORE_MEDIA_VIDEO_WIDTH, ' .
+\Moodle\Logger::create()->debug('Do not include lib/medialib.php, use $CFG->media_default_width instead of CORE_MEDIA_VIDEO_WIDTH, ' .
     '$CFG->media_default_height instead of CORE_MEDIA_VIDEO_HEIGHT, ' .
     'core_media_manager::instance() instead of static methods in core_media, ' .
     'core_media_manager::OPTION_zzz instead of core_media::OPTION_zzz',

@@ -234,7 +234,7 @@ abstract class base_task implements checksumable, executable, loggable {
         if (!is_null($this->plan)) {
             $this->plan->add_result($result);
         } else {
-            debugging('Attempting to add a result of a task not binded with a plan', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Attempting to add a result of a task not binded with a plan', DEBUG_DEVELOPER);
         }
     }
 
@@ -247,7 +247,7 @@ abstract class base_task implements checksumable, executable, loggable {
         if (!is_null($this->plan)) {
             return $this->plan->get_results();
         } else {
-            debugging('Attempting to get results of a task not binded with a plan', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Attempting to get results of a task not binded with a plan', DEBUG_DEVELOPER);
             return null;
         }
     }

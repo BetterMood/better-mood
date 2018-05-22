@@ -189,7 +189,7 @@ abstract class base implements \IteratorAggregate {
 
         if (isset($event->data['level'])) {
             if (!isset($event->data['edulevel'])) {
-                debugging('level property is deprecated, use edulevel property instead', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('level property is deprecated, use edulevel property instead', DEBUG_DEVELOPER);
                 $event->data['edulevel'] = $event->data['level'];
             }
             unset($event->data['level']);
@@ -211,7 +211,7 @@ abstract class base implements \IteratorAggregate {
 
         if (isset($event->context)) {
             if (isset($data['context'])) {
-                debugging('Context was already set in init() method, ignoring context parameter', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Context was already set in init() method, ignoring context parameter', DEBUG_DEVELOPER);
             }
 
         } else if (!empty($data['context'])) {
@@ -250,13 +250,13 @@ abstract class base implements \IteratorAggregate {
                     continue;
 
                 } else if (in_array($key, $automatickeys)) {
-                    debugging("Data key '$key' is not allowed in \\core\\event\\base::create() method, it is set automatically", DEBUG_DEVELOPER);
+                    \Moodle\Logger::create()->debug("Data key '$key' is not allowed in \\core\\event\\base::create() method, it is set automatically", DEBUG_DEVELOPER);
 
                 } else if (in_array($key, $initkeys)) {
-                    debugging("Data key '$key' is not allowed in \\core\\event\\base::create() method, you need to set it in init() method", DEBUG_DEVELOPER);
+                    \Moodle\Logger::create()->debug("Data key '$key' is not allowed in \\core\\event\\base::create() method, you need to set it in init() method", DEBUG_DEVELOPER);
 
                 } else if (!in_array($key, self::$fields)) {
-                    debugging("Data key '$key' does not exist in \\core\\event\\base");
+                    \Moodle\Logger::create()->debug("Data key '$key' does not exist in \\core\\event\\base");
                 }
             }
             $expectedcourseid = 0;
@@ -264,7 +264,7 @@ abstract class base implements \IteratorAggregate {
                 $expectedcourseid = $coursecontext->instanceid;
             }
             if ($expectedcourseid != $event->data['courseid']) {
-                debugging("Inconsistent courseid - context combination detected.", DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug("Inconsistent courseid - context combination detected.", DEBUG_DEVELOPER);
             }
         }
 
@@ -356,7 +356,7 @@ abstract class base implements \IteratorAggregate {
      * @return bool True if the user can view the event, false otherwise.
      */
     public function can_view($user_or_id = null) {
-        debugging('can_view() method is deprecated, use anonymous flag instead if necessary.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('can_view() method is deprecated, use anonymous flag instead if necessary.', DEBUG_DEVELOPER);
         return is_siteadmin($user_or_id);
     }
 
@@ -394,14 +394,14 @@ abstract class base implements \IteratorAggregate {
 
         foreach (self::$fields as $key) {
             if (!array_key_exists($key, $data)) {
-                debugging("Event restore data must contain key $key");
+                \Moodle\Logger::create()->debug("Event restore data must contain key $key");
                 $data[$key] = null;
             }
         }
         if (count($data) != count(self::$fields)) {
             foreach ($data as $key => $value) {
                 if (!in_array($key, self::$fields)) {
-                    debugging("Event restore data cannot contain key $key");
+                    \Moodle\Logger::create()->debug("Event restore data cannot contain key $key");
                     unset($data[$key]);
                 }
             }
@@ -546,7 +546,7 @@ abstract class base implements \IteratorAggregate {
      * @return string the name of the restore mapping the objectid links to
      */
     public static function get_objectid_mapping() {
-        debugging('In order to restore course logs accurately the event "' . get_called_class() . '" must define the
+        \Moodle\Logger::create()->debug('In order to restore course logs accurately the event "' . get_called_class() . '" must define the
             function get_objectid_mapping().', DEBUG_DEVELOPER);
 
         return false;
@@ -587,7 +587,7 @@ abstract class base implements \IteratorAggregate {
      * @return array an array of other values and their corresponding mapping
      */
     public static function get_other_mapping() {
-        debugging('In order to restore course logs accurately the event "' . get_called_class() . '" must define the
+        \Moodle\Logger::create()->debug('In order to restore course logs accurately the event "' . get_called_class() . '" must define the
             function get_other_mapping().', DEBUG_DEVELOPER);
     }
 
@@ -754,39 +754,39 @@ abstract class base implements \IteratorAggregate {
             // on production servers.
 
             if (!in_array($this->data['crud'], array('c', 'r', 'u', 'd'), true)) {
-                debugging("Invalid event crud value specified.", DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug("Invalid event crud value specified.", DEBUG_DEVELOPER);
             }
             if (!in_array($this->data['edulevel'], array(self::LEVEL_OTHER, self::LEVEL_TEACHING, self::LEVEL_PARTICIPATING))) {
                 // Bitwise combination of levels is not allowed at this stage.
-                debugging('Event property edulevel must a constant value, see event_base::LEVEL_*', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Event property edulevel must a constant value, see event_base::LEVEL_*', DEBUG_DEVELOPER);
             }
             if (self::$fields !== array_keys($this->data)) {
-                debugging('Number of event data fields must not be changed in event classes', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Number of event data fields must not be changed in event classes', DEBUG_DEVELOPER);
             }
             $encoded = json_encode($this->data['other']);
             // The comparison here is not set to strict as whole float numbers will be converted to integers through JSON encoding /
             // decoding and send an unwanted debugging message.
             if ($encoded === false or $this->data['other'] != json_decode($encoded, true)) {
-                debugging('other event data must be compatible with json encoding', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('other event data must be compatible with json encoding', DEBUG_DEVELOPER);
             }
             if ($this->data['userid'] and !is_number($this->data['userid'])) {
-                debugging('Event property userid must be a number', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Event property userid must be a number', DEBUG_DEVELOPER);
             }
             if ($this->data['courseid'] and !is_number($this->data['courseid'])) {
-                debugging('Event property courseid must be a number', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Event property courseid must be a number', DEBUG_DEVELOPER);
             }
             if ($this->data['objectid'] and !is_number($this->data['objectid'])) {
-                debugging('Event property objectid must be a number', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Event property objectid must be a number', DEBUG_DEVELOPER);
             }
             if ($this->data['relateduserid'] and !is_number($this->data['relateduserid'])) {
-                debugging('Event property relateduserid must be a number', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Event property relateduserid must be a number', DEBUG_DEVELOPER);
             }
             if ($this->data['objecttable']) {
                 if (!$DB->get_manager()->table_exists($this->data['objecttable'])) {
-                    debugging('Unknown table specified in objecttable field', DEBUG_DEVELOPER);
+                    \Moodle\Logger::create()->debug('Unknown table specified in objecttable field', DEBUG_DEVELOPER);
                 }
                 if (!isset($this->data['objectid'])) {
-                    debugging('Event property objectid must be set when objecttable is defined', DEBUG_DEVELOPER);
+                    \Moodle\Logger::create()->debug('Event property objectid must be set when objecttable is defined', DEBUG_DEVELOPER);
                 }
             }
         }
@@ -894,15 +894,15 @@ abstract class base implements \IteratorAggregate {
         //       hopefully we will not run out of memory here...
         if ($CFG->debugdeveloper) {
             if (!($record instanceof \stdClass)) {
-                debugging('Argument $record must be an instance of stdClass.', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Argument $record must be an instance of stdClass.', DEBUG_DEVELOPER);
             }
             if (!$DB->get_manager()->table_exists($tablename)) {
-                debugging("Invalid table name '$tablename' specified, database table does not exist.", DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug("Invalid table name '$tablename' specified, database table does not exist.", DEBUG_DEVELOPER);
             } else {
                 $columns = $DB->get_columns($tablename);
                 $missingfields = array_diff(array_keys($columns), array_keys((array)$record));
                 if (!empty($missingfields)) {
-                    debugging("Fields list in snapshot record does not match fields list in '$tablename'. Record is missing fields: ".
+                    \Moodle\Logger::create()->debug("Fields list in snapshot record does not match fields list in '$tablename'. Record is missing fields: ".
                             join(', ', $missingfields), DEBUG_DEVELOPER);
                 }
             }
@@ -944,14 +944,14 @@ abstract class base implements \IteratorAggregate {
      */
     public function __get($name) {
         if ($name === 'level') {
-            debugging('level property is deprecated, use edulevel property instead', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('level property is deprecated, use edulevel property instead', DEBUG_DEVELOPER);
             return $this->data['edulevel'];
         }
         if (array_key_exists($name, $this->data)) {
             return $this->data[$name];
         }
 
-        debugging("Accessing non-existent event property '$name'");
+        \Moodle\Logger::create()->debug("Accessing non-existent event property '$name'");
     }
 
     /**
@@ -977,7 +977,7 @@ abstract class base implements \IteratorAggregate {
      */
     public function __isset($name) {
         if ($name === 'level') {
-            debugging('level property is deprecated, use edulevel property instead', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('level property is deprecated, use edulevel property instead', DEBUG_DEVELOPER);
             return isset($this->data['edulevel']);
         }
         return isset($this->data[$name]);

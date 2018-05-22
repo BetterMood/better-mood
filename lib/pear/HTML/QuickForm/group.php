@@ -112,7 +112,7 @@ class HTML_QuickForm_group extends HTML_QuickForm_element
      * @deprecated since Moodle 3.1
      */
     public function HTML_QuickForm_group($elementName=null, $elementLabel=null, $elements=null, $separator=null, $appendName = true) {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
         self::__construct($elementName, $elementLabel, $elements, $separator, $appendName);
     }
 

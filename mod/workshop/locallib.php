@@ -434,7 +434,7 @@ class workshop {
      */
     public static function normalize_file_extensions($extensions) {
 
-        debugging('The method workshop::normalize_file_extensions() is deprecated.
+        \Moodle\Logger::create()->debug('The method workshop::normalize_file_extensions() is deprecated.
             Please use the methods provided by the \core_form\filetypes_util class.', DEBUG_DEVELOPER);
 
         if ($extensions === '') {
@@ -478,7 +478,7 @@ class workshop {
      */
     public static function clean_file_extensions($extensions) {
 
-        debugging('The method workshop::clean_file_extensions() is deprecated.
+        \Moodle\Logger::create()->debug('The method workshop::clean_file_extensions() is deprecated.
             Please use the methods provided by the \core_form\filetypes_util class.', DEBUG_DEVELOPER);
 
         $extensions = self::normalize_file_extensions($extensions);
@@ -502,7 +502,7 @@ class workshop {
      */
     public static function invalid_file_extensions($extensions, $whitelist) {
 
-        debugging('The method workshop::invalid_file_extensions() is deprecated.
+        \Moodle\Logger::create()->debug('The method workshop::invalid_file_extensions() is deprecated.
             Please use the methods provided by the \core_form\filetypes_util class.', DEBUG_DEVELOPER);
 
         $extensions = self::normalize_file_extensions($extensions);
@@ -529,7 +529,7 @@ class workshop {
      */
     public static function is_allowed_file_type($filename, $whitelist) {
 
-        debugging('The method workshop::is_allowed_file_type() is deprecated.
+        \Moodle\Logger::create()->debug('The method workshop::is_allowed_file_type() is deprecated.
             Please use the methods provided by the \core_form\filetypes_util class.', DEBUG_DEVELOPER);
 
         $whitelist = self::normalize_file_extensions($whitelist);
@@ -1161,7 +1161,7 @@ class workshop {
         $assessment->maxgrade   = $this->real_grade(100);
 
         if (!empty($options['showform']) and !($form instanceof workshop_assessment_form)) {
-            debugging('Not a valid instance of workshop_assessment_form supplied', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Not a valid instance of workshop_assessment_form supplied', DEBUG_DEVELOPER);
         }
 
         if (!empty($options['showform']) and ($form instanceof workshop_assessment_form)) {
@@ -1199,7 +1199,7 @@ class workshop {
         $assessment->maxgrade   = $this->real_grade(100);
 
         if (!empty($options['showform']) and !($form instanceof workshop_assessment_form)) {
-            debugging('Not a valid instance of workshop_assessment_form supplied', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Not a valid instance of workshop_assessment_form supplied', DEBUG_DEVELOPER);
         }
 
         if (!empty($options['showform']) and ($form instanceof workshop_assessment_form)) {
@@ -1234,7 +1234,7 @@ class workshop {
         $assessment->maxgrade   = $this->real_grade(100);
 
         if (!empty($options['showform']) and !($form instanceof workshop_assessment_form)) {
-            debugging('Not a valid instance of workshop_assessment_form supplied', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Not a valid instance of workshop_assessment_form supplied', DEBUG_DEVELOPER);
         }
 
         if (!empty($options['showform']) and ($form instanceof workshop_assessment_form)) {
@@ -1764,7 +1764,7 @@ class workshop {
      * @return void|array array of arguments for add_to_log if $return is true
      */
     public function log($action, moodle_url $url = null, $info = null, $return = false) {
-        debugging('The log method is now deprecated, please use event classes instead', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('The log method is now deprecated, please use event classes instead', DEBUG_DEVELOPER);
 
         if (is_null($url)) {
             $url = $this->view_url();

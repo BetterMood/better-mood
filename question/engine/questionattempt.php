@@ -1187,7 +1187,7 @@ class question_attempt {
         if ($CFG->debugdeveloper) {
             foreach ($expected as $key => $value) {
                 if (strpos($key, 'bf_') !== false) {
-                    debugging('The bf_ prefix is reserved and cannot be used by question types', DEBUG_DEVELOPER);
+                    \Moodle\Logger::create()->debug('The bf_ prefix is reserved and cannot be used by question types', DEBUG_DEVELOPER);
                 }
             }
         }
@@ -1368,7 +1368,7 @@ class question_attempt {
     public function manual_grade($comment, $mark, $commentformat = null, $timestamp = null, $userid = null) {
         $submitteddata = array('-comment' => $comment);
         if (is_null($commentformat)) {
-            debugging('You should pass $commentformat to manual_grade.', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('You should pass $commentformat to manual_grade.', DEBUG_DEVELOPER);
             $commentformat = FORMAT_HTML;
         }
         $submitteddata['-commentformat'] = $commentformat;

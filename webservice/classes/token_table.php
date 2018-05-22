@@ -214,7 +214,7 @@ class token_table extends \table_sql {
         global $DB, $USER;
 
         if ($useinitialsbar) {
-            debugging('Initial bar not implemented yet. Call out($pagesize, false)');
+            \Moodle\Logger::create()->debug('Initial bar not implemented yet. Call out($pagesize, false)');
         }
 
         $usernamefields = get_all_user_name_fields(true, 'u');

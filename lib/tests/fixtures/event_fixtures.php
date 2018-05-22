@@ -207,7 +207,7 @@ class problematic_event3 extends \core\event\base {
     protected function validate_data() {
         parent::validate_data();
         if (empty($this->data['other'])) {
-            debugging('other is missing');
+            \Moodle\Logger::create()->debug('other is missing');
         }
     }
 }

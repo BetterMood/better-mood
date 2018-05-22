@@ -87,12 +87,12 @@ class entry extends \core_search\base_mod {
             $context = \context_module::instance($cm->id);
         } catch (\dml_missing_record_exception $ex) {
             // Notify it as we run here as admin, we should see everything.
-            debugging('Error retrieving mod_glossary ' . $entry->id . ' document, not all required data is available: ' .
+            \Moodle\Logger::create()->debug('Error retrieving mod_glossary ' . $entry->id . ' document, not all required data is available: ' .
                 $ex->getMessage(), DEBUG_DEVELOPER);
             return false;
         } catch (\dml_exception $ex) {
             // Notify it as we run here as admin, we should see everything.
-            debugging('Error retrieving mod_glossary' . $entry->id . ' document: ' . $ex->getMessage(), DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Error retrieving mod_glossary' . $entry->id . ' document: ' . $ex->getMessage(), DEBUG_DEVELOPER);
             return false;
         }
 

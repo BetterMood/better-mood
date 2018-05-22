@@ -212,7 +212,7 @@ class component_installer {
      * @deprecated since Moodle 3.1
      */
     public function component_installer($sourcebase, $zippath, $zipfilename, $md5filename='', $destpath='') {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
         self::__construct($sourcebase, $zippath, $zipfilename, $md5filename, $destpath);
     }
 
@@ -619,7 +619,7 @@ class lang_installer {
         $this->version = moodle_major_version(true);
 
         if (!empty($CFG->langotherroot) and $CFG->langotherroot !== $CFG->dataroot . '/lang') {
-            debugging('The in-built language pack installer does not support alternative location ' .
+            \Moodle\Logger::create()->debug('The in-built language pack installer does not support alternative location ' .
                 'of languages root directory. You are supposed to install and update your language '.
                 'packs on your own.');
         }

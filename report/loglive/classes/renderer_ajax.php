@@ -40,7 +40,7 @@ class report_loglive_renderer_ajax extends plugin_renderer_base {
      * @return string
      */
     public function render_report_loglive_renderable(report_loglive_renderable $reportloglive) {
-        debugging('Do not call this method. Please call $renderer->render($reportloglive) instead.', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Do not call this method. Please call $renderer->render($reportloglive) instead.', DEBUG_DEVELOPER);
         return $this->render($reportloglive);
     }
 

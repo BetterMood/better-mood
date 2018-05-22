@@ -90,7 +90,7 @@ function stats_progress($ident) {
     $elapsed = round(microtime(true) - $start);
     $start   = microtime(true);
 
-    if (debugging('', DEBUG_ALL)) {
+    if (\Moodle\Logger::create()->debug('', DEBUG_ALL)) {
         mtrace("$ident:$elapsed ", '');
     } else {
         mtrace(STATS_PLACEHOLDER_OUTPUT, '');

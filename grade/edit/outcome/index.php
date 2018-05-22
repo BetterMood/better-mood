@@ -132,7 +132,7 @@ if ($courseid and $outcomes = grade_outcome::fetch_all_local($courseid)) {
         $scale = $outcome->load_scale();
         if (empty($scale->id)) {   // hopefully never happens
             $line[] = $scale->get_name();
-            debugging("Found a scale with no ID ({$scale->get_name()}) while outputting course outcomes", DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug("Found a scale with no ID ({$scale->get_name()}) while outputting course outcomes", DEBUG_DEVELOPER);
         } else {
             if (empty($scale->courseid)) {
                 $caneditthisscale = $caneditsystemscales;
@@ -182,7 +182,7 @@ if ($outcomes = grade_outcome::fetch_all_global()) {
         $scale = $outcome->load_scale();
         if (empty($scale->id)) {   // hopefully never happens
             $line[] = $scale->get_name();
-            debugging("Found a scale with no ID ({$scale->get_name()}) while outputting global outcomes", DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug("Found a scale with no ID ({$scale->get_name()}) while outputting global outcomes", DEBUG_DEVELOPER);
         } else {
             if (empty($scale->courseid)) {
                 $caneditthisscale = $caneditsystemscales;

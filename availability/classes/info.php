@@ -158,7 +158,7 @@ abstract class info {
      * $information. If there is nothing in $information and this function
      * returns false, then the activity should not be displayed at all.
      *
-     * This function displays debugging() messages if the availability
+     * This function displays \Moodle\Logger::create()->debug() messages if the availability
      * information is invalid.
      *
      * @param string $information String describing restrictions in HTML format
@@ -252,7 +252,7 @@ abstract class info {
      * The modinfo parameter must be specified when it is called from inside
      * get_fast_modinfo, to avoid infinite recursion.
      *
-     * This function displays debugging() messages if the availability
+     * This function displays \Moodle\Logger::create()->debug() messages if the availability
      * information is invalid.
      *
      * @param \course_modinfo $modinfo Usually leave as null for default
@@ -299,7 +299,7 @@ abstract class info {
         }
         $info = 'Error processing availability data for &lsquo;' . $htmlname
                  . '&rsquo;: ' . s($e->a);
-        debugging($info, DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug($info, DEBUG_DEVELOPER);
     }
 
     /**

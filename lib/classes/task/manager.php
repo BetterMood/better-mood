@@ -251,7 +251,7 @@ class manager {
     public static function adhoc_task_from_record($record) {
         $classname = self::get_canonical_class_name($record->classname);
         if (!class_exists($classname)) {
-            debugging("Failed to load task: " . $classname, DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug("Failed to load task: " . $classname, DEBUG_DEVELOPER);
             return false;
         }
         $task = new $classname;
@@ -288,7 +288,7 @@ class manager {
     public static function scheduled_task_from_record($record) {
         $classname = self::get_canonical_class_name($record->classname);
         if (!class_exists($classname)) {
-            debugging("Failed to load task: " . $classname, DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug("Failed to load task: " . $classname, DEBUG_DEVELOPER);
             return false;
         }
         /** @var \core\task\scheduled_task $task */

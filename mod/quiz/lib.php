@@ -1612,7 +1612,7 @@ function quiz_reset_userdata($data) {
 function quiz_print_overview($courses, &$htmlarray) {
     global $USER, $CFG;
 
-    debugging('The function quiz_print_overview() is now deprecated.', DEBUG_DEVELOPER);
+    \Moodle\Logger::create()->debug('The function quiz_print_overview() is now deprecated.', DEBUG_DEVELOPER);
 
     // These next 6 Lines are constant in all modules (just change module name).
     if (empty($courses) || !is_array($courses) || count($courses) == 0) {

@@ -548,7 +548,7 @@ class core_role_define_role_table_advanced extends core_role_capability_table_wi
         global $DB;
 
         if ($type !== 'assign' and $type !== 'switch' and $type !== 'override' and $type !== 'view') {
-            debugging('Invalid role allowed type specified', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Invalid role allowed type specified', DEBUG_DEVELOPER);
             return array();
         }
 
@@ -576,7 +576,7 @@ class core_role_define_role_table_advanced extends core_role_capability_table_wi
      */
     protected function get_allow_role_control($type) {
         if ($type !== 'assign' and $type !== 'switch' and $type !== 'override' and $type !== 'view') {
-            debugging('Invalid role allowed type specified', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Invalid role allowed type specified', DEBUG_DEVELOPER);
             return '';
         }
 

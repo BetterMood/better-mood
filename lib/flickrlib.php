@@ -243,7 +243,7 @@ class phpFlickr {
     function auth ($perms = "write", $remember_uri = true)
     {
 
-        debugging('The flickrlib.php cannot be used for authenticated Flickr API calls.
+        \Moodle\Logger::create()->debug('The flickrlib.php cannot be used for authenticated Flickr API calls.
             Flickr does not support their legacy auth API any more. Use the new flickrclient.php instead.');
 
         // Redirects to Flickr's authentication piece if there is no valid token.

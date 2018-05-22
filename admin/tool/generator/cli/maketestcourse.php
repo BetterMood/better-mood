@@ -74,7 +74,7 @@ Example from Moodle root directory:
 }
 
 // Check debugging is set to developer level.
-if (empty($options['bypasscheck']) && !debugging('', DEBUG_DEVELOPER)) {
+if (empty($options['bypasscheck']) && !\Moodle\Logger::create()->debug('', DEBUG_DEVELOPER)) {
     cli_error(get_string('error_notdebugging', 'tool_generator'));
 }
 

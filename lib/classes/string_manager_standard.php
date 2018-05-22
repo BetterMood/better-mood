@@ -345,7 +345,7 @@ class core_string_manager_standard implements core_string_manager {
                         $path = core_component::get_plugin_directory($plugintype, $pluginname);
                         $file = "{$path}/lang/en/{$plugintype}_{$pluginname}.php";
                     }
-                    debugging("Invalid get_string() identifier: '{$identifier}' or component '{$component}'. " .
+                    \Moodle\Logger::create()->debug("Invalid get_string() identifier: '{$identifier}' or component '{$component}'. " .
                     "Perhaps you are missing \$string['{$identifier}'] = ''; in {$file}?", DEBUG_DEVELOPER);
                 }
                 return "[[$identifier]]";
@@ -385,7 +385,7 @@ class core_string_manager_standard implements core_string_manager {
             if ($this->string_deprecated($identifier, $component)) {
                 list($plugintype, $pluginname) = core_component::normalize_component($component);
                 $normcomponent = $pluginname ? ($plugintype . '_' . $pluginname) : $plugintype;
-                debugging("String [{$identifier},{$normcomponent}] is deprecated. ".
+                \Moodle\Logger::create()->debug("String [{$identifier},{$normcomponent}] is deprecated. ".
                     'Either you should no longer be using that string, or the string has been incorrectly deprecated, in which case you should report this as a bug. '.
                     'Please refer to https://docs.moodle.org/dev/String_deprecation', DEBUG_DEVELOPER);
             }
@@ -483,7 +483,7 @@ class core_string_manager_standard implements core_string_manager {
             return $langs1;
 
         } else {
-            debugging('Unsupported $standard parameter in get_list_of_languages() method: '.$standard);
+            \Moodle\Logger::create()->debug('Unsupported $standard parameter in get_list_of_languages() method: '.$standard);
         }
 
         return array();

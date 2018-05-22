@@ -229,11 +229,11 @@ function note_print($note, $detail = NOTES_SHOW_FULL) {
     global $CFG, $USER, $DB, $OUTPUT;
 
     if (!$user = $DB->get_record('user', array('id' => $note->userid))) {
-        debugging("User $note->userid not found");
+        \Moodle\Logger::create()->debug("User $note->userid not found");
         return;
     }
     if (!$author = $DB->get_record('user', array('id' => $note->usermodified))) {
-        debugging("User $note->usermodified not found");
+        \Moodle\Logger::create()->debug("User $note->usermodified not found");
         return;
     }
     $context = context_course::instance($note->courseid);

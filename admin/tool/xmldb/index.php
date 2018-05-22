@@ -119,7 +119,7 @@ if (file_exists($actionpath) && is_readable($actionpath)) {
 }
 
 if ($xmldb_action->getDoesGenerate() != ACTION_GENERATE_XML) {
-    if (debugging()) {
+    if (\Moodle\Logger::create()->debug()) {
         // print_object($XMLDB);
     }
 }

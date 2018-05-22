@@ -234,7 +234,7 @@ abstract class resource_base {
                     }
                 }
                 if (!$ok) {
-                    debugging('Requested service not included in tool proxy: ' . $this->get_id(), DEBUG_DEVELOPER);
+                    \Moodle\Logger::create()->debug('Requested service not included in tool proxy: ' . $this->get_id(), DEBUG_DEVELOPER);
                 }
             }
         }
@@ -264,7 +264,7 @@ abstract class resource_base {
                 }
             }
             if (!$ok) {
-                debugging('Requested service ' . $permissionrequested . ' not included in tool type: ' . $typeid,
+                \Moodle\Logger::create()->debug('Requested service ' . $permissionrequested . ' not included in tool type: ' . $typeid,
                     DEBUG_DEVELOPER);
             }
         }

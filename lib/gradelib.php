@@ -70,7 +70,7 @@ function grade_update($source, $courseid, $itemtype, $itemmodule, $iteminstance,
     $params = compact('courseid', 'itemtype', 'itemmodule', 'iteminstance', 'itemnumber');
 
     if (is_null($courseid) or is_null($itemtype)) {
-        debugging('Missing courseid or itemtype');
+        \Moodle\Logger::create()->debug('Missing courseid or itemtype');
         return GRADE_UPDATE_FAILED;
     }
 
@@ -83,7 +83,7 @@ function grade_update($source, $courseid, $itemtype, $itemmodule, $iteminstance,
         unset($grade_items); //release memory
 
     } else {
-        debugging('Found more than one grade item');
+        \Moodle\Logger::create()->debug('Found more than one grade item');
         return GRADE_UPDATE_MULTIPLE;
     }
 
@@ -194,7 +194,7 @@ function grade_update($source, $courseid, $itemtype, $itemmodule, $iteminstance,
         }
 
         if (empty($g['userid']) or $k != $g['userid']) {
-            debugging('Incorrect grade array index, must be user id! Grade ignored.');
+            \Moodle\Logger::create()->debug('Incorrect grade array index, must be user id! Grade ignored.');
             unset($grades[$k]);
         }
     }
@@ -547,7 +547,7 @@ function grade_get_grades($courseid, $itemtype, $itemmodule, $iteminstance, $use
 
             } else {
                 if (!$grade_outcome = grade_outcome::fetch(array('id'=>$grade_item->outcomeid))) {
-                    debugging('Incorect outcomeid found');
+                    \Moodle\Logger::create()->debug('Incorect outcomeid found');
                     continue;
                 }
 
@@ -900,7 +900,7 @@ function grade_get_categories_menu($courseid, $includenew=false) {
     if (!$categories = grade_category::fetch_all(array('courseid'=>$courseid))) {
         //make sure course category exists
         if (!grade_category::fetch_course_category($courseid)) {
-            debugging('Can not create course grade category!');
+            \Moodle\Logger::create()->debug('Can not create course grade category!');
             return $result;
         }
         $categories = grade_category::fetch_all(array('courseid'=>$courseid));
@@ -1039,7 +1039,7 @@ function grade_recover_history_grades($userid, $courseid) {
     global $CFG, $DB;
 
     if ($CFG->disablegradehistory) {
-        debugging('Attempting to recover grades when grade history is disabled.');
+        \Moodle\Logger::create()->debug('Attempting to recover grades when grade history is disabled.');
         return false;
     }
 
@@ -1051,7 +1051,7 @@ function grade_recover_history_grades($userid, $courseid) {
     //whatever grades they have now just in case.
     $course_context = context_course::instance($courseid);
     if (!is_enrolled($course_context, $userid)) {
-        debugging('Attempting to recover the grades of a user who is deleted or not enrolled. Skipping recover.');
+        \Moodle\Logger::create()->debug('Attempting to recover the grades of a user who is deleted or not enrolled. Skipping recover.');
         return false;
     }
 
@@ -1064,7 +1064,7 @@ function grade_recover_history_grades($userid, $courseid) {
              WHERE gi.courseid = :courseid AND gg.userid = :userid";
     $params = array('userid' => $userid, 'courseid' => $courseid);
     if ($DB->record_exists_sql($sql, $params)) {
-        debugging('Attempting to recover the grades of a user who already has grades. Skipping recover.');
+        \Moodle\Logger::create()->debug('Attempting to recover the grades of a user who already has grades. Skipping recover.');
         return false;
     } else {
         //Retrieve the user's old grades
@@ -1367,7 +1367,7 @@ function grade_update_mod_grades($modinstance, $userid=0) {
 
     $fullmod = $CFG->dirroot.'/mod/'.$modinstance->modname;
     if (!file_exists($fullmod.'/lib.php')) {
-        debugging('missing lib.php file in module ' . $modinstance->modname);
+        \Moodle\Logger::create()->debug('missing lib.php file in module ' . $modinstance->modname);
         return false;
     }
     include_once($fullmod.'/lib.php');
@@ -1381,7 +1381,7 @@ function grade_update_mod_grades($modinstance, $userid=0) {
         $updategradesfunc($modinstance, $userid);
     } else if (function_exists($updategradesfunc) xor function_exists($updateitemfunc)) {
         // Module does not support grading?
-        debugging("You have declared one of $updateitemfunc and $updategradesfunc but not both. " .
+        \Moodle\Logger::create()->debug("You have declared one of $updateitemfunc and $updategradesfunc but not both. " .
                   "This will cause broken behaviour.", DEBUG_DEVELOPER);
     }
 

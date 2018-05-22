@@ -826,7 +826,7 @@ function lti_tool_configuration_from_content_item($typeid, $messagetype, $ltiver
     // Check lti_message_type. Show debugging if it's not set to ContentItemSelection.
     // No need to throw exceptions for now since lti_message_type does not seem to be used in this processing at the moment.
     if ($messagetype !== 'ContentItemSelection') {
-        debugging("lti_message_type is invalid: {$messagetype}. It should be set to 'ContentItemSelection'.",
+        \Moodle\Logger::create()->debug("lti_message_type is invalid: {$messagetype}. It should be set to 'ContentItemSelection'.",
             DEBUG_DEVELOPER);
     }
 
@@ -859,7 +859,7 @@ function lti_tool_configuration_from_content_item($typeid, $messagetype, $ltiver
         $expectedversion = LTI_VERSION_2;
     }
     if ($ltiversion !== $expectedversion) {
-        debugging("lti_version from response does not match the tool's configuration. Tool: {$expectedversion}," .
+        \Moodle\Logger::create()->debug("lti_version from response does not match the tool's configuration. Tool: {$expectedversion}," .
             " Response: {$ltiversion}", DEBUG_DEVELOPER);
     }
 

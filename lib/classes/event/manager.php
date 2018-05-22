@@ -157,11 +157,11 @@ class manager {
                             // Observers are notified before installation and upgrade, this may throw errors.
                             if (empty($CFG->upgraderunning)) {
                                 // Ignore errors during upgrade, otherwise warn developers.
-                                debugging("Exception encountered in event observer '$observer->callable': ".$e->getMessage(), DEBUG_DEVELOPER, $e->getTrace());
+                                \Moodle\Logger::create()->debug("Exception encountered in event observer '$observer->callable': ".$e->getMessage(), DEBUG_DEVELOPER, $e->getTrace());
                             }
                         }
                     } else {
-                        debugging("Can not execute event observer '$observer->callable'");
+                        \Moodle\Logger::create()->debug("Can not execute event observer '$observer->callable'");
                     }
                 }
             }
@@ -251,7 +251,7 @@ class manager {
 
         foreach ($observers as $observer) {
             if (empty($observer['eventname']) or !is_string($observer['eventname'])) {
-                debugging("Invalid 'eventname' detected in $file observer definition", DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug("Invalid 'eventname' detected in $file observer definition", DEBUG_DEVELOPER);
                 continue;
             }
             if ($observer['eventname'] === '*') {
@@ -261,7 +261,7 @@ class manager {
                 $observer['eventname'] = '\\'.$observer['eventname'];
             }
             if (empty($observer['callback'])) {
-                debugging("Invalid 'callback' detected in $file observer definition", DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug("Invalid 'callback' detected in $file observer definition", DEBUG_DEVELOPER);
                 continue;
             }
             $o = new \stdClass();
@@ -284,7 +284,7 @@ class manager {
                 }
                 $observer['includefile'] = $CFG->dirroot . '/' . ltrim($observer['includefile'], '/');
                 if (!file_exists($observer['includefile'])) {
-                    debugging("Invalid 'includefile' detected in $file observer definition", DEBUG_DEVELOPER);
+                    \Moodle\Logger::create()->debug("Invalid 'includefile' detected in $file observer definition", DEBUG_DEVELOPER);
                     continue;
                 }
                 $o->includefile = $observer['includefile'];

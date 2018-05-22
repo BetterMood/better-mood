@@ -153,7 +153,7 @@ if (!empty($dataid)) {
     // we must be passed this from the caller, we cannot start a new export
     // without knowing information about what part of moodle we come from.
     if (empty($callbackcomponent) || empty($callbackclass)) {
-        debugging('no callback file or class');
+        \Moodle\Logger::create()->debug('no callback file or class');
         portfolio_exporter::print_expired_export();
     }
 

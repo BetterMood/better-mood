@@ -574,7 +574,7 @@ function required_param($parname, $type) {
     }
 
     if (is_array($param)) {
-        debugging('Invalid array parameter detected in required_param(): '.$parname);
+        \Moodle\Logger::create()->debug('Invalid array parameter detected in required_param(): '.$parname);
         // TODO: switch to fatal error in Moodle 2.3.
         return required_param_array($parname, $type);
     }
@@ -618,7 +618,7 @@ function required_param_array($parname, $type) {
     $result = array();
     foreach ($param as $key => $value) {
         if (!preg_match('/^[a-z0-9_-]+$/i', $key)) {
-            debugging('Invalid key name in required_param_array() detected: '.$key.', parameter: '.$parname);
+            \Moodle\Logger::create()->debug('Invalid key name in required_param_array() detected: '.$key.', parameter: '.$parname);
             continue;
         }
         $result[$key] = clean_param($value, $type);
@@ -659,7 +659,7 @@ function optional_param($parname, $default, $type) {
     }
 
     if (is_array($param)) {
-        debugging('Invalid array parameter detected in required_param(): '.$parname);
+        \Moodle\Logger::create()->debug('Invalid array parameter detected in required_param(): '.$parname);
         // TODO: switch to $default in Moodle 2.3.
         return optional_param_array($parname, $default, $type);
     }
@@ -698,14 +698,14 @@ function optional_param_array($parname, $default, $type) {
         return $default;
     }
     if (!is_array($param)) {
-        debugging('optional_param_array() expects array parameters only: '.$parname);
+        \Moodle\Logger::create()->debug('optional_param_array() expects array parameters only: '.$parname);
         return $default;
     }
 
     $result = array();
     foreach ($param as $key => $value) {
         if (!preg_match('/^[a-z0-9_-]+$/i', $key)) {
-            debugging('Invalid key name in optional_param_array() detected: '.$key.', parameter: '.$parname);
+            \Moodle\Logger::create()->debug('Invalid key name in optional_param_array() detected: '.$key.', parameter: '.$parname);
             continue;
         }
         $result[$key] = clean_param($value, $type);
@@ -3377,7 +3377,7 @@ function fullname($user, $override=false) {
         foreach ($allnames as $allname) {
             if (!property_exists($user, $allname)) {
                 // If all the user name fields are not set in the user object, then notify the programmer that it needs to be fixed.
-                debugging('You need to update your sql to include additional name fields in the user object.', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('You need to update your sql to include additional name fields in the user object.', DEBUG_DEVELOPER);
                 // Message has been sent, no point in sending the message multiple times.
                 break;
             }
@@ -4024,21 +4024,21 @@ function delete_user(stdClass $user) {
 
     // Better not trust the parameter and fetch the latest info this will be very expensive anyway.
     if (!$user = $DB->get_record('user', array('id' => $user->id))) {
-        debugging('Attempt to delete unknown user account.');
+        \Moodle\Logger::create()->debug('Attempt to delete unknown user account.');
         return false;
     }
 
     // There must be always exactly one guest record, originally the guest account was identified by username only,
     // now we use $CFG->siteguest for performance reasons.
     if ($user->username === 'guest' or isguestuser($user)) {
-        debugging('Guest user account can not be deleted.');
+        \Moodle\Logger::create()->debug('Guest user account can not be deleted.');
         return false;
     }
 
     // Admin can be theoretically from different auth plugin, but we want to prevent deletion of internal accoutns only,
     // if anything goes wrong ppl may force somebody to be admin via config.php setting $CFG->siteadmins.
     if ($user->auth === 'manual' and is_siteadmin($user)) {
-        debugging('Local administrator accounts can not be deleted.');
+        \Moodle\Logger::create()->debug('Local administrator accounts can not be deleted.');
         return false;
     }
 
@@ -4374,7 +4374,7 @@ function authenticate_user_login($username, $password, $ignorelockout=false, &$f
     }
 
     // Failed if all the plugins have failed.
-    if (debugging('', DEBUG_ALL)) {
+    if (\Moodle\Logger::create()->debug('', DEBUG_ALL)) {
         error_log('[client '.getremoteaddr()."]  $CFG->wwwroot  Failed Login:  $username  ".$_SERVER['HTTP_USER_AGENT']);
     }
 
@@ -4593,7 +4593,7 @@ function update_internal_user_password($user, $password, $fasthash = false) {
 
     // Figure out what the hashed password should be.
     if (!isset($user->auth)) {
-        debugging('User record in update_internal_user_password() must include field auth',
+        \Moodle\Logger::create()->debug('User record in update_internal_user_password() must include field auth',
                 DEBUG_DEVELOPER);
         $user->auth = $DB->get_field('user', 'auth', array('id' => $user->id));
     }
@@ -4970,7 +4970,7 @@ function remove_course_contents($courseid, $showfeedback = true, array $options 
                         $moddelete($cm->modinstance);
                     } else {
                         // NOTE: we should not allow installation of modules with missing delete support!
-                        debugging("Defective module '$modname' detected when deleting course contents: missing function $moddelete()!");
+                        \Moodle\Logger::create()->debug("Defective module '$modname' detected when deleting course contents: missing function $moddelete()!");
                         $DB->delete_records($modname, array('id' => $cm->modinstance));
                     }
 
@@ -4983,7 +4983,7 @@ function remove_course_contents($courseid, $showfeedback = true, array $options 
             }
             if (function_exists($moddeletecourse)) {
                 // Execute optional course cleanup callback. Deprecated since Moodle 3.2. TODO MDL-53297 remove in 3.6.
-                debugging("Callback delete_course is deprecated. Function $moddeletecourse should be converted " .
+                \Moodle\Logger::create()->debug("Callback delete_course is deprecated. Function $moddeletecourse should be converted " .
                     'to observer of event \core\event\course_content_deleted', DEBUG_DEVELOPER);
                 $moddeletecourse($course, $showfeedback);
             }
@@ -5032,7 +5032,7 @@ function remove_course_contents($courseid, $showfeedback = true, array $options 
     foreach ($cleanuplugintypes as $type) {
         if (!empty($callbacks[$type])) {
             foreach ($callbacks[$type] as $pluginfunction) {
-                debugging("Callback delete_course is deprecated. Function $pluginfunction should be converted " .
+                \Moodle\Logger::create()->debug("Callback delete_course is deprecated. Function $pluginfunction should be converted " .
                     'to observer of event \core\event\course_content_deleted', DEBUG_DEVELOPER);
                 $pluginfunction($course->id, $showfeedback);
             }
@@ -5433,13 +5433,13 @@ function reset_course_userdata($data) {
                     if (is_array($modstatus)) {
                         $status = array_merge($status, $modstatus);
                     } else {
-                        debugging('Module '.$modname.' returned incorrect staus - must be an array!');
+                        \Moodle\Logger::create()->debug('Module '.$modname.' returned incorrect staus - must be an array!');
                     }
                 } else {
                     $unsupportedmods[] = $mod;
                 }
             } else {
-                debugging('Missing lib.php in '.$modname.' module!');
+                \Moodle\Logger::create()->debug('Missing lib.php in '.$modname.' module!');
             }
             // Update calendar events for all modules.
             course_module_bulk_update_calendar_events($modname, $data->courseid);
@@ -5730,17 +5730,17 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml = '', 
     global $CFG, $PAGE, $SITE;
 
     if (empty($user) or empty($user->id)) {
-        debugging('Can not send email to null user', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Can not send email to null user', DEBUG_DEVELOPER);
         return false;
     }
 
     if (empty($user->email)) {
-        debugging('Can not send email to user without email: '.$user->id, DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Can not send email to user without email: '.$user->id, DEBUG_DEVELOPER);
         return false;
     }
 
     if (!empty($user->deleted)) {
-        debugging('Can not send email to deleted user: '.$user->id, DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Can not send email to deleted user: '.$user->id, DEBUG_DEVELOPER);
         return false;
     }
 
@@ -5751,7 +5751,7 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml = '', 
 
     if (!empty($CFG->noemailever)) {
         // Hidden setting for development sites, set in config.php if needed.
-        debugging('Not sending email due to $CFG->noemailever config setting', DEBUG_NORMAL);
+        \Moodle\Logger::create()->debug('Not sending email due to $CFG->noemailever config setting', DEBUG_NORMAL);
         return true;
     }
 
@@ -5768,19 +5768,19 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml = '', 
 
     if (!validate_email($user->email)) {
         // We can not send emails to invalid addresses - it might create security issue or confuse the mailer.
-        debugging("email_to_user: User $user->id (".fullname($user).") email ($user->email) is invalid! Not sending.");
+        \Moodle\Logger::create()->debug("email_to_user: User $user->id (".fullname($user).") email ($user->email) is invalid! Not sending.");
         return false;
     }
 
     if (over_bounce_threshold($user)) {
-        debugging("email_to_user: User $user->id (".fullname($user).") is over bounce threshold! Not sending.");
+        \Moodle\Logger::create()->debug("email_to_user: User $user->id (".fullname($user).") is over bounce threshold! Not sending.");
         return false;
     }
 
     // TLD .invalid  is specifically reserved for invalid domain names.
     // For More information, see {@link http://tools.ietf.org/html/rfc2606#section-2}.
     if (substr($user->email, -8) == '.invalid') {
-        debugging("email_to_user: User $user->id (".fullname($user).") email domain ($user->email) is invalid! Not sending.");
+        \Moodle\Logger::create()->debug("email_to_user: User $user->id (".fullname($user).") email domain ($user->email) is invalid! Not sending.");
         return true; // This is not an error.
     }
 
@@ -5814,7 +5814,7 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml = '', 
     $noreplyaddress = empty($CFG->noreplyaddress) ? $noreplyaddressdefault : $CFG->noreplyaddress;
 
     if (!validate_email($noreplyaddress)) {
-        debugging('email_to_user: Invalid noreply-email '.s($noreplyaddress));
+        \Moodle\Logger::create()->debug('email_to_user: Invalid noreply-email '.s($noreplyaddress));
         $noreplyaddress = $noreplyaddressdefault;
     }
 
@@ -5828,7 +5828,7 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml = '', 
 
     // Make sure that the explicit replyto is valid, fall back to the implicit one.
     if (!empty($replyto) && !validate_email($replyto)) {
-        debugging('email_to_user: Invalid replyto-email '.s($replyto));
+        \Moodle\Logger::create()->debug('email_to_user: Invalid replyto-email '.s($replyto));
         $replyto = $noreplyaddress;
     }
 
@@ -5840,7 +5840,7 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml = '', 
     // in a course with the sender.
     } else if ($usetrueaddress && can_send_from_real_email_address($from, $user)) {
         if (!validate_email($from->email)) {
-            debugging('email_to_user: Invalid from-email '.s($from->email).' - not sending');
+            \Moodle\Logger::create()->debug('email_to_user: Invalid from-email '.s($from->email).' - not sending');
             // Better not to use $noreplyaddress in this case.
             return false;
         }
@@ -6949,12 +6949,12 @@ function get_string_manager($forcereload=false) {
                         return $singleton;
 
                     } else {
-                        debugging('Unable to instantiate custom string manager: class '.$classname.
+                        \Moodle\Logger::create()->debug('Unable to instantiate custom string manager: class '.$classname.
                             ' does not implement the core_string_manager interface.');
                     }
 
                 } else {
-                    debugging('Unable to instantiate custom string manager: class '.$classname.' can not be found.');
+                    \Moodle\Logger::create()->debug('Unable to instantiate custom string manager: class '.$classname.' can not be found.');
                 }
             }
 
@@ -7058,11 +7058,11 @@ function get_string($identifier, $component = '', $a = null, $lazyload = false) 
     // There is now a forth argument again, this time it is a boolean however so
     // we can still check for the old extralocations parameter.
     if (!is_bool($lazyload) && !empty($lazyload)) {
-        debugging('extralocations parameter in get_string() is not supported any more, please use standard lang locations only.');
+        \Moodle\Logger::create()->debug('extralocations parameter in get_string() is not supported any more, please use standard lang locations only.');
     }
 
     if (strpos($component, '/') !== false) {
-        debugging('The module name you passed to get_string is the deprecated format ' .
+        \Moodle\Logger::create()->debug('The module name you passed to get_string is the deprecated format ' .
                 'like mod/mymod or block/myblock. The correct form looks like mymod, or block_myblock.' , DEBUG_DEVELOPER);
         $componentpath = explode('/', $component);
 
@@ -7233,7 +7233,7 @@ class emoticon_manager {
 
         if (!is_array($emoticons)) {
             // Something is wrong with the format of stored setting.
-            debugging('Invalid format of emoticons setting, please resave the emoticons settings form', DEBUG_NORMAL);
+            \Moodle\Logger::create()->debug('Invalid format of emoticons setting, please resave the emoticons settings form', DEBUG_NORMAL);
             return array();
         }
 
@@ -7620,14 +7620,14 @@ function get_list_of_plugins($directory='mod', $exclude='', $basedir='') {
 
         $subtypes = core_component::get_plugin_types();
         if (in_array($basedir, $subtypes)) {
-            debugging('get_list_of_plugins() should not be used to list real plugins, use core_component::get_plugin_list() instead!', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('get_list_of_plugins() should not be used to list real plugins, use core_component::get_plugin_list() instead!', DEBUG_DEVELOPER);
         }
         unset($subtypes);
     }
 
     if (file_exists($basedir) && filetype($basedir) == 'dir') {
         if (!$dirhandle = opendir($basedir)) {
-            debugging("Directory permission error for plugin ({$directory}). Directory exists but cannot be read.", DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug("Directory permission error for plugin ({$directory}). Directory exists but cannot be read.", DEBUG_DEVELOPER);
             return array();
         }
         while (false !== ($dir = readdir($dirhandle))) {
@@ -7728,7 +7728,7 @@ function component_callback_exists($component, $function) {
 
     if (!function_exists($function) and function_exists($oldfunction)) {
         if ($type !== 'mod' and $type !== 'core') {
-            debugging("Please use new function name $function instead of legacy $oldfunction", DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug("Please use new function name $function instead of legacy $oldfunction", DEBUG_DEVELOPER);
         }
         $function = $oldfunction;
     }
@@ -8079,7 +8079,7 @@ function complex_random_string($length=null) {
 function random_bytes_emulate($length) {
     global $CFG;
     if ($length <= 0) {
-        debugging('Invalid random bytes length', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Invalid random bytes length', DEBUG_DEVELOPER);
         return '';
     }
     if (function_exists('random_bytes')) {
@@ -9737,7 +9737,7 @@ function get_mnet_environment() {
  */
 function get_mnet_remote_client() {
     if (!defined('MNET_SERVER')) {
-        debugging(get_string('notinxmlrpcserver', 'mnet'));
+        \Moodle\Logger::create()->debug(get_string('notinxmlrpcserver', 'mnet'));
         return false;
     }
     global $MNET_REMOTE_CLIENT;
@@ -10000,7 +10000,7 @@ class lang_string {
             }
         }
 
-        if (debugging(false, DEBUG_DEVELOPER)) {
+        if (\Moodle\Logger::create()->debug(false, DEBUG_DEVELOPER)) {
             if (clean_param($this->identifier, PARAM_STRINGID) == '') {
                 throw new coding_exception('Invalid string identifier. Most probably some illegal character is part of the string identifier. Please check your string definition');
             }
@@ -10008,7 +10008,7 @@ class lang_string {
                 throw new coding_exception('Invalid string compontent. Please check your string definition');
             }
             if (!get_string_manager()->string_exists($this->identifier, $this->component)) {
-                debugging('String does not exist. Please check your string definition for '.$this->identifier.'/'.$this->component, DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('String does not exist. Please check your string definition for '.$this->identifier.'/'.$this->component, DEBUG_DEVELOPER);
             }
         }
     }
@@ -10056,7 +10056,7 @@ class lang_string {
     public function out($lang = null) {
         if ($lang !== null && $lang != $this->lang && ($this->lang == null && $lang != current_language())) {
             if ($this->forcedstring) {
-                debugging('lang_string objects that have been used cannot be printed in another language. ('.$this->lang.' used)', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('lang_string objects that have been used cannot be printed in another language. ('.$this->lang.' used)', DEBUG_DEVELOPER);
                 return $this->get_string();
             }
             $translatedstring = new lang_string($this->identifier, $this->component, $this->a, $lang);

@@ -66,7 +66,7 @@ class url {
             static::$resolver = new $klass();
         }
         if (!method_exists(static::$resolver, $resource)) {
-            debugging("URL for '$resource' not implemented.", DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug("URL for '$resource' not implemented.", DEBUG_DEVELOPER);
             return new moodle_url('/');
         }
         return call_user_func_array([static::$resolver, $resource], $args);

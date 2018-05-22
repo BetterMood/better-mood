@@ -130,7 +130,7 @@ class zip_archive extends file_archive {
                 case ZIPARCHIVE::ER_READ: $message = 'Read error.'; break;
                 case ZIPARCHIVE::ER_SEEK: $message = 'Seek error.'; break;
             }
-            debugging($message.': '.$archivepathname, DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug($message.': '.$archivepathname, DEBUG_DEVELOPER);
             $this->za = null;
             $this->archivepathname = null;
             return false;

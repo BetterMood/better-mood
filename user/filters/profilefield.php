@@ -49,7 +49,7 @@ class user_filter_profilefield extends user_filter_type {
      * @deprecated since Moodle 3.1
      */
     public function user_filter_profilefield($name, $label, $advanced) {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
         self::__construct($name, $label, $advanced);
     }
 

@@ -106,7 +106,7 @@ EOD;
         list($type, $plugin) = core_component::normalize_component($component);
         $cleancomponent = $type . '_' . $plugin;
         if ($cleancomponent != $component) {
-            debugging("Please specify the component you want a generator for as " .
+            \Moodle\Logger::create()->debug("Please specify the component you want a generator for as " .
                     "{$cleancomponent}, not {$component}.", DEBUG_DEVELOPER);
             $component = $cleancomponent;
         }

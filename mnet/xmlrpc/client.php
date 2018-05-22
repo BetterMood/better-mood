@@ -36,7 +36,7 @@ class mnet_xmlrpc_client {
      * @deprecated since Moodle 3.1
      */
     public function mnet_xmlrpc_client() {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
         self::__construct();
     }
 

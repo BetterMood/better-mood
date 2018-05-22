@@ -99,7 +99,7 @@ class core_collator {
                             if ($localeinuse !== 'root' && strpos($locale, $localeinuse) !== 0) {
                                 // The locale we asked for is completely different to the locale
                                 // we have received, let the user know via debugging
-                                debugging('Locale warning (not fatal) '.$errormessage.': '.
+                                \Moodle\Logger::create()->debug('Locale warning (not fatal) '.$errormessage.': '.
                                     'Requested locale "'.$locale.'" not found, locale "'.$localeinuse.'" used instead. '.
                                     'The most specific locale supported by ICU relatively to the requested locale is "'.
                                     $collator->getLocale(Locale::VALID_LOCALE).'".');
@@ -112,7 +112,7 @@ class core_collator {
                         } else {
                             // We've received some other sort of non fatal warning - let the
                             // user know about it via debugging.
-                            debugging('Problem with locale: '.$errormessage.'. '.
+                            \Moodle\Logger::create()->debug('Problem with locale: '.$errormessage.'. '.
                                 'Requested locale: "'.$locale.'", actual locale "'.$localeinuse.'". '.
                                 'The most specific locale supported by ICU relatively to the requested locale is "'.
                                 $collator->getLocale(Locale::VALID_LOCALE).'".');
@@ -122,7 +122,7 @@ class core_collator {
                     self::$collator = $collator;
                 } else {
                     // Fatal error while trying to instantiate the collator... something went wrong
-                    debugging('Error instantiating collator for locale: "' . $locale . '", with error [' .
+                    \Moodle\Logger::create()->debug('Error instantiating collator for locale: "' . $locale . '", with error [' .
                     intl_get_error_code() . '] ' . intl_get_error_message($collator));
                 }
             }

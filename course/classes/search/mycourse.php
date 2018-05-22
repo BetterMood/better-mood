@@ -77,7 +77,7 @@ class mycourse extends \core_search\base {
             $context = \context_course::instance($record->id);
         } catch (\moodle_exception $ex) {
             // Notify it as we run here as admin, we should see everything.
-            debugging('Error retrieving ' . $this->areaid . ' ' . $record->id . ' document, not all required data is available: ' .
+            \Moodle\Logger::create()->debug('Error retrieving ' . $this->areaid . ' ' . $record->id . ' document, not all required data is available: ' .
                 $ex->getMessage(), DEBUG_DEVELOPER);
             return false;
         }

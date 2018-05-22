@@ -224,7 +224,7 @@ class xmldb_object {
             $existing_fields = array();
             foreach($arr as $element) {
                 if (in_array($element->getName(), $existing_fields)) {
-                    debugging('Object ' . $element->getName() . ' is duplicated!', DEBUG_DEVELOPER);
+                    \Moodle\Logger::create()->debug('Object ' . $element->getName() . ' is duplicated!', DEBUG_DEVELOPER);
                     $result = false;
                 }
                 $existing_fields[] = $element->getName();

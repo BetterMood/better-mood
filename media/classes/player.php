@@ -160,7 +160,7 @@ abstract class core_media_player {
      * @return bool True if player is enabled
      */
     public function is_enabled() {
-        debugging('Function core_media_player::is_enabled() is deprecated without replacement', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Function core_media_player::is_enabled() is deprecated without replacement', DEBUG_DEVELOPER);
 
         $enabled = \core\plugininfo\media::get_enabled_plugins();
 
@@ -224,7 +224,7 @@ abstract class core_media_player {
      * @return int Negative if A should go before B, positive for vice versa
      */
     public static function compare_by_rank(core_media_player $a, core_media_player $b) {
-        debugging('Function core_media_player::compare_by_rank() is deprecated without replacement', DEBUG_DEVELOPER);
+        \Moodle\Logger::create()->debug('Function core_media_player::compare_by_rank() is deprecated without replacement', DEBUG_DEVELOPER);
         return $b->get_rank() - $a->get_rank();
     }
 

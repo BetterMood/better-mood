@@ -3508,7 +3508,7 @@ class assign {
         if ($return) {
             // We only need to call debugging when returning a value. This is because the call to
             // call_user_func_array('add_to_log', $args) will trigger a debugging message of it's own.
-            debugging('The mod_assign add_to_log() function is now deprecated.', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('The mod_assign add_to_log() function is now deprecated.', DEBUG_DEVELOPER);
             return $args;
         }
         call_user_func_array('add_to_log', $args);

@@ -234,7 +234,7 @@ class cachestore_dummy extends cache_store {
      * @see cachestore_dummy::instance_deleted()
      */
     public function cleanup() {
-        debugging('cachestore_dummy::cleanup() is deprecated. Please use cachestore_dummy::instance_deleted() instead.',
+        \Moodle\Logger::create()->debug('cachestore_dummy::cleanup() is deprecated. Please use cachestore_dummy::instance_deleted() instead.',
             DEBUG_DEVELOPER);
         $this->instance_deleted();
     }

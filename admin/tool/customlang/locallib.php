@@ -259,14 +259,14 @@ class tool_customlang_utils {
         global $CFG;
 
         if ($lang !== clean_param($lang, PARAM_LANG)) {
-            debugging('Unable to dump local strings for non-installed language pack .'.s($lang));
+            \Moodle\Logger::create()->debug('Unable to dump local strings for non-installed language pack .'.s($lang));
             return false;
         }
         if ($component !== clean_param($component, PARAM_COMPONENT)) {
             throw new coding_exception('Incorrect component name');
         }
         if (!$filename = self::get_component_filename($component)) {
-            debugging('Unable to find the filename for the component '.s($component));
+            \Moodle\Logger::create()->debug('Unable to find the filename for the component '.s($component));
             return false;
         }
         if ($filename !== clean_param($filename, PARAM_FILE)) {
@@ -284,7 +284,7 @@ class tool_customlang_utils {
         }
 
         if (!$f = fopen($filepath, 'w')) {
-            debugging('Unable to write '.s($filepath));
+            \Moodle\Logger::create()->debug('Unable to write '.s($filepath));
             return false;
         }
         fwrite($f, <<<EOF
@@ -320,7 +320,7 @@ EOF
 
         foreach ($strings as $stringid => $text) {
             if ($stringid !== clean_param($stringid, PARAM_STRINGID)) {
-                debugging('Invalid string identifier '.s($stringid));
+                \Moodle\Logger::create()->debug('Invalid string identifier '.s($stringid));
                 continue;
             }
             fwrite($f, '$string[\'' . $stringid . '\'] = ');

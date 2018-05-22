@@ -387,7 +387,7 @@ class qtype_essay_format_editorfilepicker_renderer extends qtype_essay_format_ed
      * @return object the required options.
      */
     protected function specific_filepicker_options($acceptedtypes, $draftitemid, $context) {
-        debugging('qtype_essay_format_editorfilepicker_renderer::specific_filepicker_options() is deprecated, ' .
+        \Moodle\Logger::create()->debug('qtype_essay_format_editorfilepicker_renderer::specific_filepicker_options() is deprecated, ' .
             'use question_utils::specific_filepicker_options() instead.', DEBUG_DEVELOPER);
 
         $filepickeroptions = new stdClass();

@@ -251,7 +251,7 @@ class data_field_picture extends data_field_base {
 
                     if (count($files) > 1) {
                         // This should not happen with a consistent database. Inform admins/developers about the inconsistency.
-                        debugging('more then one file found in mod_data instance {$this->data->id} picture field (field id: {$this->field->id}) area during update data record {$recordid} (content id: {$content->id})', DEBUG_NORMAL);
+                        \Moodle\Logger::create()->debug('more then one file found in mod_data instance {$this->data->id} picture field (field id: {$this->field->id}) area during update data record {$recordid} (content id: {$content->id})', DEBUG_NORMAL);
                     }
 
                     if ($file->get_imageinfo() === false) {
@@ -289,7 +289,7 @@ class data_field_picture extends data_field_base {
             $fs->convert_image($file_record, $file, $this->field->param4, $this->field->param5, true);
             return true;
         } catch (Exception $e) {
-            debugging($e->getMessage());
+            \Moodle\Logger::create()->debug($e->getMessage());
             return false;
         }
     }

@@ -139,7 +139,7 @@ class message_airnotifier_manager {
                 return $key['accesskey'];
             }
         }
-        debugging("Unexpected response from the Airnotifier server: $resp");
+        \Moodle\Logger::create()->debug("Unexpected response from the Airnotifier server: $resp");
         return false;
     }
 
@@ -170,7 +170,7 @@ class message_airnotifier_manager {
                 return $token['status'] == 'ok' || $token['status'] == 'token exists';
             }
         }
-        debugging("Unexpected response from the Airnotifier server: $resp");
+        \Moodle\Logger::create()->debug("Unexpected response from the Airnotifier server: $resp");
         return false;
     }
 

@@ -27,7 +27,7 @@ namespace mod_lesson\event;
 
 defined('MOODLE_INTERNAL') || die();
 
-debugging('mod_lesson\event\highscores_viewed has been deprecated. Since the functionality no longer resides in the lesson module.',
+\Moodle\Logger::create()->debug('mod_lesson\event\highscores_viewed has been deprecated. Since the functionality no longer resides in the lesson module.',
         DEBUG_DEVELOPER);
 /**
  * The mod_lesson highscores viewed class.

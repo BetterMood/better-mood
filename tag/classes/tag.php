@@ -432,7 +432,7 @@ class core_tag_tag {
         global $DB;
         $missing = array_diff($list, array_keys((array)$this->record));
         if ($missing) {
-            debugging('core_tag_tag::' . $caller . '() must be called on fully retrieved tag object. Missing fields: '.
+            \Moodle\Logger::create()->debug('core_tag_tag::' . $caller . '() must be called on fully retrieved tag object. Missing fields: '.
                     join(', ', $missing), DEBUG_DEVELOPER);
             $this->record = $DB->get_record('tag', array('id' => $this->record->id), '*', MUST_EXIST);
         }
@@ -754,7 +754,7 @@ class core_tag_tag {
             if ($tiuserid) {
                 throw new coding_exeption('Related tags can not have tag instance userid');
             }
-            debugging('You can not use set_item_tags() for tagging a tag, please use set_related_tags()', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('You can not use set_item_tags() for tagging a tag, please use set_related_tags()', DEBUG_DEVELOPER);
             static::get($itemid, '*', MUST_EXIST)->set_related_tags($tagnames);
             return;
         }
@@ -1036,7 +1036,7 @@ class core_tag_tag {
 
         $data = (array)$data;
         if ($extrafields = array_diff(array_keys($data), $allowedfields)) {
-            debugging('The field(s) '.join(', ', $extrafields).' will be ignored when updating the tag',
+            \Moodle\Logger::create()->debug('The field(s) '.join(', ', $extrafields).' will be ignored when updating the tag',
                     DEBUG_DEVELOPER);
         }
         $data = array_intersect_key($data, array_fill_keys($allowedfields, 1));

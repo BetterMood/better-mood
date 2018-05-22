@@ -103,7 +103,7 @@
 
     // Action: Show Tex command line output
     if ($action=='ShowOutputTex') {
-        if (debugging()) {
+        if (\Moodle\Logger::create()->debug()) {
             TexOutput($texexp);
         } else {
             echo "Can not output detailed information due to security concerns, please turn on debug mode first.";

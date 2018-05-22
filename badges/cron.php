@@ -71,7 +71,7 @@ function badge_review_cron() {
         $badge = new badge($bid);
 
         if ($badge->has_criteria()) {
-            if (debugging()) {
+            if (\Moodle\Logger::create()->debug()) {
                 mtrace('Processing badge "' . $badge->name . '"...');
             }
 

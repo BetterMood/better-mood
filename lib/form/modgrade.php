@@ -479,7 +479,7 @@ class MoodleQuickForm_modgrade extends MoodleQuickForm_group {
                 if (!is_null($value) && !is_scalar($value)) {
                     // Something unexpected (likely an array of subelement values) has been given - this will be dealt
                     // with somewhere else - where exactly... likely the subelements.
-                    debugging('An invalid value (type '.gettype($value).') has arrived at '.__METHOD__, DEBUG_DEVELOPER);
+                    \Moodle\Logger::create()->debug('An invalid value (type '.gettype($value).') has arrived at '.__METHOD__, DEBUG_DEVELOPER);
                     break;
                 }
 

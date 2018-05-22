@@ -84,7 +84,7 @@ class manager implements \core\log\manager {
             try {
                 $writer->write($event, $this);
             } catch (\Exception $e) {
-                debugging('Exception detected when logging event ' . $event->eventname . ' in ' . $plugin . ': ' .
+                \Moodle\Logger::create()->debug('Exception detected when logging event ' . $event->eventname . ' in ' . $plugin . ': ' .
                     $e->getMessage(), DEBUG_NORMAL, $e->getTrace());
             }
         }

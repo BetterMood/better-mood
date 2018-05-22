@@ -81,7 +81,7 @@ class models_list implements \renderable, \templatable {
                 $modeldata->targethelp = $helpicon->export_for_template($output);
             } else {
                 // We really want to encourage developers to add help to their targets.
-                debugging("The target '{$modeldata->target}' should include a '{$identifier}_help' string to
+                \Moodle\Logger::create()->debug("The target '{$modeldata->target}' should include a '{$identifier}_help' string to
                     describe its purpose.", DEBUG_DEVELOPER);
             }
 
@@ -99,7 +99,7 @@ class models_list implements \renderable, \templatable {
                         $indicator->help = $helpicon->export_for_template($output);
                     } else {
                         // We really want to encourage developers to add help to their indicators.
-                        debugging("The indicator '{$ind}' should include a '{$identifier}_help' string to
+                        \Moodle\Logger::create()->debug("The indicator '{$ind}' should include a '{$identifier}_help' string to
                             describe its purpose.", DEBUG_DEVELOPER);
                     }
                     $indicators[] = $indicator;
@@ -116,7 +116,7 @@ class models_list implements \renderable, \templatable {
                     $modeldata->timesplittinghelp = $helpicon->export_for_template($output);
                 } else {
                     // We really want to encourage developers to add help to their time splitting methods.
-                    debugging("The time splitting method '{$modeldata->timesplitting}' should include a '{$identifier}_help'
+                    \Moodle\Logger::create()->debug("The time splitting method '{$modeldata->timesplitting}' should include a '{$identifier}_help'
                         string to describe its purpose.", DEBUG_DEVELOPER);
                 }
             } else {

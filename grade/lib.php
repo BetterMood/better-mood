@@ -343,7 +343,7 @@ class graded_users_iterator {
      */
     public function require_active_enrolment($onlyactive = true) {
         if (!empty($this->users_rs)) {
-            debugging('Calling require_active_enrolment() has no effect unless you call init() again', DEBUG_DEVELOPER);
+            \Moodle\Logger::create()->debug('Calling require_active_enrolment() has no effect unless you call init() again', DEBUG_DEVELOPER);
         }
         $this->onlyactive  = $onlyactive;
     }
@@ -1369,7 +1369,7 @@ function grade_build_nav($path, $pagename=null, $id=null) {
 
         default:
             // If this element isn't among the ones already listed above, it isn't supported, throw an error.
-            debugging("grade_build_nav() doesn't support ". $path_elements[1] .
+            \Moodle\Logger::create()->debug("grade_build_nav() doesn't support ". $path_elements[1] .
                     " as the second path element after 'grade'.");
             return false;
     }

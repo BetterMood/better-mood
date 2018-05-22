@@ -856,7 +856,7 @@ class rating_manager {
                     $scale = explode(',', $scale->scale);
                     $max = count($scale);
                 } else {
-                    debugging('rating_manager::get_user_grades() received a scale ID that doesnt exist');
+                    \Moodle\Logger::create()->debug('rating_manager::get_user_grades() received a scale ID that doesnt exist');
                 }
             }
 
@@ -921,7 +921,7 @@ class rating_manager {
                 break;
             default:
                 $aggregatestr = 'AVG'; // Default to this to avoid real breakage - MDL-22270.
-                debugging('Incorrect call to get_aggregation_method(), incorrect aggregate method ' . $aggregate, DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('Incorrect call to get_aggregation_method(), incorrect aggregate method ' . $aggregate, DEBUG_DEVELOPER);
         }
         return $aggregatestr;
     }
@@ -996,7 +996,7 @@ class rating_manager {
         // If null then the callback does not exist.
         if ($isvalid === null) {
             $isvalid = false;
-            debugging('rating validation callback not found for component '.  clean_param($component, PARAM_ALPHANUMEXT));
+            \Moodle\Logger::create()->debug('rating validation callback not found for component '.  clean_param($component, PARAM_ALPHANUMEXT));
         }
         return $isvalid;
     }

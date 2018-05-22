@@ -306,13 +306,13 @@ class core_plugin_manager {
 
                 // Check if the legacy $module syntax is still used.
                 if (!is_object($module) or (count((array)$module) > 0)) {
-                    debugging('Unsupported $module syntax detected in version.php of the '.$type.'_'.$plug.' plugin.');
+                    \Moodle\Logger::create()->debug('Unsupported $module syntax detected in version.php of the '.$type.'_'.$plug.' plugin.');
                     $skipcache = true;
                 }
 
                 // Check if the component is properly declared.
                 if (empty($plugin->component) or ($plugin->component !== $type.'_'.$plug)) {
-                    debugging('Plugin '.$type.'_'.$plug.' does not declare valid $plugin->component in its version.php.');
+                    \Moodle\Logger::create()->debug('Plugin '.$type.'_'.$plug.' does not declare valid $plugin->component in its version.php.');
                     $skipcache = true;
                 }
 
@@ -449,9 +449,9 @@ class core_plugin_manager {
                     }
                     if (class_exists('plugininfo_' . $type)) {
                         $plugintypeclass = 'plugininfo_' . $type;
-                        debugging('Class "'.$plugintypeclass.'" is deprecated, migrate to "'.$class.'"', DEBUG_DEVELOPER);
+                        \Moodle\Logger::create()->debug('Class "'.$plugintypeclass.'" is deprecated, migrate to "'.$class.'"', DEBUG_DEVELOPER);
                     } else {
-                        debugging('Subplugin type "'.$type.'" should define class "'.$class.'"', DEBUG_DEVELOPER);
+                        \Moodle\Logger::create()->debug('Subplugin type "'.$type.'" should define class "'.$class.'"', DEBUG_DEVELOPER);
                         $plugintypeclass = '\core\plugininfo\general';
                     }
                 } else {
@@ -463,7 +463,7 @@ class core_plugin_manager {
             if (class_exists($class)) {
                 $plugintypeclass = $class;
             } else {
-                debugging('All standard types including "'.$type.'" should have plugininfo class!', DEBUG_DEVELOPER);
+                \Moodle\Logger::create()->debug('All standard types including "'.$type.'" should have plugininfo class!', DEBUG_DEVELOPER);
                 $plugintypeclass = '\core\plugininfo\general';
             }
         }
@@ -1374,7 +1374,7 @@ class core_plugin_manager {
     protected function mtrace($msg, $eol=PHP_EOL, $debug=null) {
         global $CFG;
 
-        if ($debug !== null and !debugging(null, $debug)) {
+        if ($debug !== null and !\Moodle\Logger::create()->debug(null, $debug)) {
             return;
         }
 
@@ -1400,7 +1400,7 @@ class core_plugin_manager {
         }
 
         if (method_exists($pluginfo, 'get_uninstall_url')) {
-            debugging('plugininfo method get_uninstall_url() is deprecated, all plugins should be uninstalled via standard URL only.');
+            \Moodle\Logger::create()->debug('plugininfo method get_uninstall_url() is deprecated, all plugins should be uninstalled via standard URL only.');
             return $pluginfo->get_uninstall_url($return);
         }
 
@@ -2241,7 +2241,7 @@ class core_plugin_manager {
 
         if (method_exists($pluginfo, 'get_uninstall_url') and is_null($pluginfo->get_uninstall_url())) {
             // Backwards compatibility.
-            debugging('\core\plugininfo\base subclasses should use is_uninstall_allowed() instead of returning null in get_uninstall_url()',
+            \Moodle\Logger::create()->debug('\core\plugininfo\base subclasses should use is_uninstall_allowed() instead of returning null in get_uninstall_url()',
                 DEBUG_DEVELOPER);
             return false;
         }
