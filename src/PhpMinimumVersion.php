@@ -1,5 +1,5 @@
 <?php
-namespace Moodle\lib;
+namespace Moodle;
 
 class PhpMinimumVersion
 {
