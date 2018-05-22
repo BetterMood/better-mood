@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef81d42f3e2308e39911e9495f95580a",
+    "content-hash": "63dd5e8b7642172f1fee00a1eff3ef75",
     "packages": [
         {
             "name": "adodb/adodb-php",
@@ -130,6 +130,55 @@
                 "xlsx"
             ],
             "time": "2017-09-25T19:44:35+00:00"
+        },
+        {
+            "name": "ezyang/htmlpurifier",
+            "version": "dev-better-mood",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BetterMood/htmlpurifier.git",
+                "reference": "ba5474acd18afe71771f7e21492ec169993a4cb1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BetterMood/htmlpurifier/zipball/ba5474acd18afe71771f7e21492ec169993a4cb1",
+                "reference": "ba5474acd18afe71771f7e21492ec169993a4cb1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "require-dev": {
+                "simpletest/simpletest": "^1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "HTMLPurifier": "library/"
+                },
+                "files": [
+                    "library/HTMLPurifier.composer.php"
+                ]
+            },
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Edward Z. Yang",
+                    "email": "admin@htmlpurifier.org",
+                    "homepage": "http://ezyang.com"
+                }
+            ],
+            "description": "Standards compliant HTML filter written in PHP",
+            "homepage": "http://htmlpurifier.org/",
+            "keywords": [
+                "html"
+            ],
+            "support": {
+                "source": "https://github.com/BetterMood/htmlpurifier/tree/better-mood"
+            },
+            "time": "2018-05-21T18:08:56+00:00"
         },
         {
             "name": "leafo/scssphp",
@@ -3933,6 +3982,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "adodb/adodb-php": 20,
+        "ezyang/htmlpurifier": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,

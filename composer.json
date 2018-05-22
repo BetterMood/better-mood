@@ -5,6 +5,14 @@
     "type": "project",
     "homepage": "https://moodle.org",
     "autoload": {
+        "files": [
+            "lib/htmlpurifier/URIScheme/Gopher.php",
+            "lib/htmlpurifier/URIScheme/Irc.php",
+            "lib/htmlpurifier/URIScheme/Mms.php",
+            "lib/htmlpurifier/URIScheme/Rtmp.php",
+            "lib/htmlpurifier/URIScheme/Rtsp.php",
+            "lib/htmlpurifier/URIScheme/Teamspeak.php"
+        ],
         "psr-4": {
             "Moodle\\": "src"
         }
@@ -23,12 +31,17 @@
         "redeyeventures/geopattern": "^1.1",
         "adodb/adodb-php": "dev-better-mood",
         "leafo/scssphp": "^0.7",
+        "ezyang/htmlpurifier": "dev-better-mood",
         "tecnickcom/tcpdf": "6.2.13"
     },
     "repositories": [
         {
           "type": "vcs",
           "url":  "https://github.com/BetterMood/ADOdb.git"
+        },
+        {
+            "type": "vcs",
+            "url":  "https://github.com/BetterMood/htmlpurifier.git"
         }
     ]
 }
