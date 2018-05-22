@@ -14,7 +14,7 @@
             "lib/htmlpurifier/URIScheme/Teamspeak.php"
         ],
         "psr-4": {
-            "Moodle\\": ""
+            "Moodle\\": "src"
         }
     },
     "require-dev": {
@@ -31,7 +31,8 @@
         "redeyeventures/geopattern": "^1.1",
         "adodb/adodb-php": "dev-better-mood",
         "leafo/scssphp": "^0.7",
-        "ezyang/htmlpurifier": "dev-better-mood"
+        "ezyang/htmlpurifier": "dev-better-mood",
+        "tecnickcom/tcpdf": "6.2.13"
     },
     "repositories": [
         {
