@@ -13,7 +13,7 @@ class PlaintextBacktraceFormatter implements BacktraceFormatterInterface
         $this->rootDirectory = $rootDirectory;
     }
     
-    public function format($callers) 
+    public function format(array $callers) : string
     {
         if (empty($callers)) {
             return '';
