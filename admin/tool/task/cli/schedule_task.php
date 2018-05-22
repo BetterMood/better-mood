@@ -174,8 +174,13 @@ if ($execute = $options['execute']) {
                 mtrace("Debug info:");
                 mtrace($e->debuginfo);
             }
+            
+            $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+                new \Moodle\RootDirectory()
+            );
+            $backtraceFormatter = $backtraceFormatterFactory->create(true);
             mtrace("Backtrace:");
-            mtrace(format_backtrace($e->getTrace(), true));
+            mtrace($backtraceFormatter->format($e->getTrace()));
         }
         \core\task\manager::scheduled_task_failed($task);
         get_mailer('close');

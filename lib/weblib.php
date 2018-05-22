@@ -3121,7 +3121,13 @@ function debugging($message = '', $level = DEBUG_NORMAL, $backtrace = null) {
         if (!$backtrace) {
             $backtrace = debug_backtrace();
         }
-        $from = format_backtrace($backtrace, CLI_SCRIPT || NO_DEBUG_DISPLAY);
+        
+        $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+            new \Moodle\RootDirectory()
+        );
+        $backtraceFormatter = $backtraceFormatterFactory->create(CLI_SCRIPT || NO_DEBUG_DISPLAY);
+        $from = $backtraceFormatter->format($backtrace);
+        
         if (PHPUNIT_TEST) {
             if (phpunit_util::debugging_triggered($message, $level, $from)) {
                 // We are inside test, the debug message was logged.

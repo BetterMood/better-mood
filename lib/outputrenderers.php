@@ -2817,7 +2817,11 @@ EOD;
                 $output .= $this->notification('<strong>Debug info:</strong> '.$debuginfo, 'notifytiny');
             }
             if (!empty($backtrace)) {
-                $output .= $this->notification('<strong>Stack trace:</strong> '.format_backtrace($backtrace), 'notifytiny');
+                $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+                    new \Moodle\RootDirectory()
+                );
+                $backtraceFormatter = $backtraceFormatterFactory->create(false);
+                $output .= $this->notification('<strong>Stack trace:</strong> ' . $backtraceFormatter->format($backtrace), 'notifytiny');
             }
             if ($obbuffer !== '' ) {
                 $output .= $this->notification('<strong>Output buffer:</strong> '.s($obbuffer), 'notifytiny');
@@ -4564,7 +4568,11 @@ class core_renderer_cli extends core_renderer {
                 $output .= $this->notification($debuginfo, 'notifytiny');
             }
             if (!empty($backtrace)) {
-                $output .= $this->notification('Stack trace: ' . format_backtrace($backtrace, true), 'notifytiny');
+                $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+                    new \Moodle\RootDirectory()
+                );
+                $backtraceFormatter = $backtraceFormatterFactory->create(true);
+                $output .= $this->notification('Stack trace: ' . ($backtrace, true), 'notifytiny');
             }
         }
 
@@ -4649,7 +4657,11 @@ class core_renderer_ajax extends core_renderer {
                 $e->debuginfo = $debuginfo;
             }
             if (!empty($backtrace)) {
-                $e->stacktrace = format_backtrace($backtrace, true);
+                $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+                    new \Moodle\RootDirectory()
+                );
+                $backtraceFormatter = $backtraceFormatterFactory->create(true);
+                $e->stacktrace = $backtraceFormatter->format($backtrace);
             }
         }
         $this->header();

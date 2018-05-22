@@ -516,6 +516,11 @@ abstract class moodle_database {
 
         if ($logall or ($logslow and ($logslow < ($time+0.00001))) or ($iserror and $logerrors)) {
             $this->loggingquery = true;
+            $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+                new \Moodle\RootDirectory()
+            );
+            $backtraceFormatter = $backtraceFormatterFactory->create(true);
+            
             try {
                 $backtrace = debug_backtrace();
                 if ($backtrace) {
@@ -532,7 +537,7 @@ abstract class moodle_database {
                 $log->sqlparams  = var_export((array)$this->last_params, true);
                 $log->error      = (int)$iserror;
                 $log->info       = $iserror ? $error : null;
-                $log->backtrace  = format_backtrace($backtrace, true);
+                $log->backtrace  = $backtraceFormatter->format($backtrace);
                 $log->exectime   = $time;
                 $log->timelogged = time();
                 $this->insert_record('log_queries', $log);

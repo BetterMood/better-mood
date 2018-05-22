@@ -2,19 +2,24 @@
 namespace Moodle\BacktraceFormatter;
 
 use Moodle\BacktraceFormatterInterface;
+use Moodle\RootDirectory;
 
-class HtmlBacktraceFormatter implements BacktraceFormatterInterface
+class PlaintextBacktraceFormatter implements BacktraceFormatterInterface
 {
-    public function format($callers) : string
-    {
-        // do not use $CFG->dirroot because it might not be available in destructors
-        $dirroot = dirname(__DIR__ . '/..');
+    private $rootDirectory;
     
+    public function __construct(RootDirectory $rootDirectory)
+    {
+        $this->rootDirectory = $rootDirectory;
+    }
+    
+    public function format($callers) 
+    {
         if (empty($callers)) {
             return '';
         }
     
-        $from = '<ul style="text-align: left" data-rel="backtrace">';
+        $from = '';
         
         foreach ($callers as $caller) {
             if (!isset($caller['line'])) {
@@ -25,7 +30,7 @@ class HtmlBacktraceFormatter implements BacktraceFormatterInterface
                 $caller['file'] = 'unknownfile'; // probably call_user_func()
             }
             
-            $from .= '<li>line ' . $caller['line'] . ' of ' . str_replace($dirroot, '', $caller['file']);
+            $from .= '* line ' . $caller['line'] . ' of ' . str_replace($this->rootDirectory->getPathname(), '', $caller['file']);
             
             if (isset($caller['function'])) {
                 $from .= ': call to ';
@@ -39,10 +44,8 @@ class HtmlBacktraceFormatter implements BacktraceFormatterInterface
                 $from .= ': '.$caller['exception'].' thrown';
             }
             
-            $from .= '</li>';
+            $from .= "\n";
         }
-        
-        $from .= '</ul>';
     
         return $from;
     }

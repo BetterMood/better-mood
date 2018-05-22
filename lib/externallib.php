@@ -238,7 +238,12 @@ class external_api {
         } catch (Exception $e) {
             $exception = get_exception_info($e);
             unset($exception->a);
-            $exception->backtrace = format_backtrace($exception->backtrace, true);
+            $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+                new \Moodle\RootDirectory()
+            );
+            $backtraceFormatter = $backtraceFormatterFactory->create(true);
+            $exception->backtrace = $backtraceFormatter->format($exception->backtrace);
+            
             if (!debugging('', DEBUG_DEVELOPER)) {
                 unset($exception->debuginfo);
                 unset($exception->backtrace);

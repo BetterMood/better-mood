@@ -101,7 +101,11 @@ class service_exception_handler {
 
         // Add the exception backtrace for developers.
         if (debugging('', DEBUG_DEVELOPER)) {
-            $message .= "\n".format_backtrace(get_exception_info($exception)->backtrace, true);
+            $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+                new \Moodle\RootDirectory()
+            );
+            $backtraceFormatter = $backtraceFormatterFactory->create(true);
+            $message .= "\n" . $backtraceFormatter->format(get_exception_info($exception)->backtrace);
         }
 
         // Switch to response.

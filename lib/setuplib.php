@@ -351,7 +351,12 @@ function default_exception_handler($ex) {
     $info = get_exception_info($ex);
 
     if (debugging('', DEBUG_MINIMAL)) {
-        $logerrmsg = "Default exception handler: ".$info->message.' Debug: '.$info->debuginfo."\n".format_backtrace($info->backtrace, true);
+        $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+            new \Moodle\RootDirectory()
+        );
+        $backtraceFormatter = $backtraceFormatterFactory->create(true);
+    
+        $logerrmsg = "Default exception handler: ".$info->message.' Debug: '.$info->debuginfo."\n". $backtraceFormatter->format($info->backtrace);
         error_log($logerrmsg);
     }
 
@@ -721,37 +726,11 @@ function get_docs_url($path = null) {
  * @return string formatted backtrace, ready for output.
  */
 function format_backtrace($callers, $plaintext = false) {
-    // do not use $CFG->dirroot because it might not be available in destructors
-    $dirroot = dirname(__DIR__);
-
-    if (empty($callers)) {
-        return '';
-    }
-
-    $from = $plaintext ? '' : '<ul style="text-align: left" data-rel="backtrace">';
-    foreach ($callers as $caller) {
-        if (!isset($caller['line'])) {
-            $caller['line'] = '?'; // probably call_user_func()
-        }
-        if (!isset($caller['file'])) {
-            $caller['file'] = 'unknownfile'; // probably call_user_func()
-        }
-        $from .= $plaintext ? '* ' : '<li>';
-        $from .= 'line ' . $caller['line'] . ' of ' . str_replace($dirroot, '', $caller['file']);
-        if (isset($caller['function'])) {
-            $from .= ': call to ';
-            if (isset($caller['class'])) {
-                $from .= $caller['class'] . $caller['type'];
-            }
-            $from .= $caller['function'] . '()';
-        } else if (isset($caller['exception'])) {
-            $from .= ': '.$caller['exception'].' thrown';
-        }
-        $from .= $plaintext ? "\n" : '</li>';
-    }
-    $from .= $plaintext ? '' : '</ul>';
-
-    return $from;
+    $factory = new \Moodle\BacktraceFormatterFactory(
+        new \Moodle\RootDirectory()
+    );
+    
+    return $factory->create($plaintext)->format($callers);
 }
 
 /**
@@ -1921,7 +1900,11 @@ width: 80%; -moz-border-radius: 20px; padding: 15px">
                 $content .= '<div class="notifytiny">Debug info: ' . $debuginfo . '</div>';
             }
             if (!empty($backtrace)) {
-                $content .= '<div class="notifytiny">Stack trace: ' . format_backtrace($backtrace, false) . '</div>';
+                $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+                    new \Moodle\RootDirectory()
+                );
+                $backtraceFormatter = $backtraceFormatterFactory->create(false);
+                $content .= '<div class="notifytiny">Stack trace: ' . $backtraceFormatter->format($backtrace) . '</div>';
             }
         }
 
@@ -1948,7 +1931,11 @@ width: 80%; -moz-border-radius: 20px; padding: 15px">
                     echo "\nDebug info: $debuginfo";
                 }
                 if (!empty($backtrace)) {
-                    echo "\nStack trace: " . format_backtrace($backtrace, true);
+                    $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+                        new \Moodle\RootDirectory()
+                    );
+                    $backtraceFormatter = $backtraceFormatterFactory->create(true);
+                    echo "\nStack trace: " . $backtraceFormatter->format($backtrace);
                 }
             }
             return;
@@ -1963,7 +1950,11 @@ width: 80%; -moz-border-radius: 20px; padding: 15px">
                     $e->debuginfo = $debuginfo;
                 }
                 if (!empty($backtrace)) {
-                    $e->stacktrace = format_backtrace($backtrace, true);
+                    $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+                        new \Moodle\RootDirectory()
+                    );
+                    $backtraceFormatter = $backtraceFormatterFactory->create(true);
+                    $e->stacktrace = $backtraceFormatter->format($backtrace);
                 }
             }
             $e->errorcode  = $errorcode;

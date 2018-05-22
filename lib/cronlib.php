@@ -127,8 +127,13 @@ function cron_run_inner_scheduled_task(\core\task\task_base $task) {
                 mtrace("Debug info:");
                 mtrace($e->debuginfo);
             }
+            
+            $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+                new \Moodle\RootDirectory()
+            );
+            $backtraceFormatter = $backtraceFormatterFactory->create(true);
             mtrace("Backtrace:");
-            mtrace(format_backtrace($e->getTrace(), true));
+            mtrace($backtraceFormatter->format($e->getTrace()));
         }
         \core\task\manager::scheduled_task_failed($task);
     } finally {
@@ -207,8 +212,13 @@ function cron_run_inner_adhoc_task(\core\task\adhoc_task $task) {
                 mtrace("Debug info:");
                 mtrace($e->debuginfo);
             }
+            
+            $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+                new \Moodle\RootDirectory()
+            );
+            $backtraceFormatter = $backtraceFormatterFactory->create(true);
             mtrace("Backtrace:");
-            mtrace(format_backtrace($e->getTrace(), true));
+            mtrace($backtraceFormatter->format($e->getTrace()));
         }
         \core\task\manager::adhoc_task_failed($task);
     } finally {
