@@ -18,7 +18,6 @@ lib/bennu/
 lib/evalmath/
 lib/lessphp/
 lib/phpexcel/
-lib/google/
 lib/htmlpurifier/
 lib/jabber/
 lib/minify/matthiasmullie-minify/
