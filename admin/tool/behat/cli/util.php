@@ -106,6 +106,7 @@ if (!empty($options['parallel'])) {
 
 require_once(__DIR__ . '/../../../../config.php');
 require_once(__DIR__ . '/../../../../lib/behat/lib.php');
+require_once(__DIR__ . '/../../../../lib/behat/classes/util.php');
 require_once(__DIR__ . '/../../../../lib/behat/classes/behat_command.php');
 require_once(__DIR__ . '/../../../../lib/behat/classes/behat_config_manager.php');
 
