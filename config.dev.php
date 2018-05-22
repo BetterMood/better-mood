@@ -49,7 +49,8 @@ $CFG->behat_profiles = array(
         'wd_host' => 'http://'.getenv('MOODLE_DOCKER_SELENIUM').':4444/wd/hub',
     ),
 );
-$CFG->behat_faildump_path = '/var/www/behatfaildumps';
+
+$CFG->behat_faildump_path = getenv('MOODLE_DOCKER_BEHAT_FAILDUMP');
 
 define('PHPUNIT_LONGTEST', true);
 
