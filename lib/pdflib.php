@@ -87,7 +87,9 @@ define('K_TCPDF_EXTERNAL_CONFIG', 1);
 function tcpdf_init_k_font_path() {
     global $CFG;
 
-    $defaultfonts = $CFG->dirroot.'/lib/tcpdf/fonts/';
+    // setting this to a location in the vendor folder is not ideal
+    // but it's better than having the pdf library in the lib directory
+    $defaultfonts = $CFG->dirroot.'/vendor/tecnickcom/tcpdf/fonts/';
 
     if (!defined('K_PATH_FONTS')) {
         if (is_dir(PDF_CUSTOM_FONT_PATH)) {
@@ -123,10 +125,10 @@ function tcpdf_init_k_font_path() {
 tcpdf_init_k_font_path();
 
 /** tcpdf installation path */
-define('K_PATH_MAIN', $CFG->dirroot.'/lib/tcpdf/');
+define('K_PATH_MAIN', $CFG->dirroot.'/vendor/tecnickcom/tcpdf/');
 
 /** URL path to tcpdf installation folder */
-define('K_PATH_URL', $CFG->wwwroot . '/lib/tcpdf/');
+define('K_PATH_URL', $CFG->wwwroot . '/vendor/tecnickcom/tcpdf/');
 
 /** cache directory for temporary files (full path) */
 define('K_PATH_CACHE', $CFG->cachedir . '/tcpdf/');
@@ -145,8 +147,6 @@ define('K_SMALL_RATIO', 2/3);
 
 /** Throw exceptions from errors so they can be caught and recovered from. */
 define('K_TCPDF_THROW_EXCEPTION_ERROR', true);
-
-require_once(__DIR__.'/tcpdf/tcpdf.php');
 
 /**
  * Wrapper class that extends TCPDF (lib/tcpdf/tcpdf.php).
