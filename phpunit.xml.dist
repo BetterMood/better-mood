@@ -23,4 +23,9 @@
          timeoutForMediumTests="10"
          timeoutForLargeTests="60"
          verbose="false">
+    <testsuites>
+        <testsuite name="BetterMood tests">
+            <directory>Tests</directory>
+        </testsuite>
+    </testsuites>
 </phpunit>
