@@ -77,11 +77,10 @@ final class util {
 
             $logerrmsg = "enrol_paypal IPN exception handler: ".$info->message;
             if (debugging('', DEBUG_NORMAL)) {
-                $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+                $backtraceFormatter = new \Moodle\BacktraceFormatter(
                     new \Moodle\RootDirectory()
                 );
-                $backtraceFormatter = $backtraceFormatterFactory->create(true);
-                $logerrmsg .= ' Debug: '.$info->debuginfo."\n" . $backtraceFormatter->format($info->backtrace);
+                $logerrmsg .= ' Debug: '.$info->debuginfo."\n" . $backtraceFormatter->format($info->backtrace, true);
             }
             error_log($logerrmsg);
 

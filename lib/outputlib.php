@@ -2680,12 +2680,11 @@ class xhtml_container_stack {
      * @param string $type The type of action
      */
     protected function log($action, $type) {
-        $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+        $backtraceFormatter = new \Moodle\BacktraceFormatter(
             new \Moodle\RootDirectory()
         );
-        $backtraceFormatter = $backtraceFormatterFactory->create(false);
         $this->log[] = '<li>' . $action . ' ' . $type . ' at:' .
-                $backtraceFormatter->format(debug_backtrace()) . '</li>';
+                $backtraceFormatter->format(debug_backtrace(), false) . '</li>';
     }
 
     /**

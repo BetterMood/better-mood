@@ -3122,11 +3122,10 @@ function debugging($message = '', $level = DEBUG_NORMAL, $backtrace = null) {
             $backtrace = debug_backtrace();
         }
         
-        $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+        $backtraceFormatter = new \Moodle\BacktraceFormatter(
             new \Moodle\RootDirectory()
         );
-        $backtraceFormatter = $backtraceFormatterFactory->create(CLI_SCRIPT || NO_DEBUG_DISPLAY);
-        $from = $backtraceFormatter->format($backtrace);
+        $from = $backtraceFormatter->format($backtrace, CLI_SCRIPT || NO_DEBUG_DISPLAY);
         
         if (PHPUNIT_TEST) {
             if (phpunit_util::debugging_triggered($message, $level, $from)) {

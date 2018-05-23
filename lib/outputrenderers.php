@@ -2817,11 +2817,10 @@ EOD;
                 $output .= $this->notification('<strong>Debug info:</strong> '.$debuginfo, 'notifytiny');
             }
             if (!empty($backtrace)) {
-                $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+                $backtraceFormatter = new \Moodle\BacktraceFormatter(
                     new \Moodle\RootDirectory()
                 );
-                $backtraceFormatter = $backtraceFormatterFactory->create(false);
-                $output .= $this->notification('<strong>Stack trace:</strong> ' . $backtraceFormatter->format($backtrace), 'notifytiny');
+                $output .= $this->notification('<strong>Stack trace:</strong> ' . $backtraceFormatter->format($backtrace, false), 'notifytiny');
             }
             if ($obbuffer !== '' ) {
                 $output .= $this->notification('<strong>Output buffer:</strong> '.s($obbuffer), 'notifytiny');
@@ -4568,11 +4567,10 @@ class core_renderer_cli extends core_renderer {
                 $output .= $this->notification($debuginfo, 'notifytiny');
             }
             if (!empty($backtrace)) {
-                $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+                $backtraceFormatter = new \Moodle\BacktraceFormatter(
                     new \Moodle\RootDirectory()
                 );
-                $backtraceFormatter = $backtraceFormatterFactory->create(true);
-                $output .= $this->notification('Stack trace: ' . ($backtrace, true), 'notifytiny');
+                $output .= $this->notification('Stack trace: ' . $backtraceFormatter->format($backtrace, true), 'notifytiny');
             }
         }
 
@@ -4657,11 +4655,10 @@ class core_renderer_ajax extends core_renderer {
                 $e->debuginfo = $debuginfo;
             }
             if (!empty($backtrace)) {
-                $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+                $backtraceFormatter = new \Moodle\BacktraceFormatter(
                     new \Moodle\RootDirectory()
                 );
-                $backtraceFormatter = $backtraceFormatterFactory->create(true);
-                $e->stacktrace = $backtraceFormatter->format($backtrace);
+                $e->stacktrace = $backtraceFormatter->format($backtrace, true);
             }
         }
         $this->header();

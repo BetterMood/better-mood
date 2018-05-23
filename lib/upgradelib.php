@@ -1401,12 +1401,11 @@ function upgrade_log($type, $plugin, $info, $details=null, $backtrace=null) {
 
     list($plugintype, $pluginname) = core_component::normalize_component($plugin);
     $component = is_null($pluginname) ? $plugintype : $plugintype . '_' . $pluginname;
-    $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+    $backtraceFormatter = new \Moodle\BacktraceFormatter(
         new \Moodle\RootDirectory()
     );
-    $backtraceFormatter = $backtraceFormatterFactory->create(true);
 
-    $backtrace = $backtraceFormatter->format($backtrace);
+    $backtrace = $backtraceFormatter->format($backtrace, true);
 
     $currentversion = null;
     $targetversion  = null;

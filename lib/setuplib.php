@@ -351,12 +351,11 @@ function default_exception_handler($ex) {
     $info = get_exception_info($ex);
 
     if (debugging('', DEBUG_MINIMAL)) {
-        $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+        $backtraceFormatter = new \Moodle\BacktraceFormatter(
             new \Moodle\RootDirectory()
         );
-        $backtraceFormatter = $backtraceFormatterFactory->create(true);
-    
-        $logerrmsg = "Default exception handler: ".$info->message.' Debug: '.$info->debuginfo."\n". $backtraceFormatter->format($info->backtrace);
+        
+        $logerrmsg = "Default exception handler: ".$info->message.' Debug: '.$info->debuginfo."\n". $backtraceFormatter->format($info->backtrace, true);
         error_log($logerrmsg);
     }
 
@@ -726,11 +725,11 @@ function get_docs_url($path = null) {
  * @return string formatted backtrace, ready for output.
  */
 function format_backtrace($callers, $plaintext = false) {
-    $factory = new \Moodle\BacktraceFormatterFactory(
+    $backtraceFormatter = new \Moodle\BacktraceFormatter(
         new \Moodle\RootDirectory()
     );
     
-    return $factory->create($plaintext)->format($callers);
+    return $formatter->format($callers, $plaintext);
 }
 
 /**
@@ -1900,11 +1899,10 @@ width: 80%; -moz-border-radius: 20px; padding: 15px">
                 $content .= '<div class="notifytiny">Debug info: ' . $debuginfo . '</div>';
             }
             if (!empty($backtrace)) {
-                $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+                $backtraceFormatter = new \Moodle\BacktraceFormatter(
                     new \Moodle\RootDirectory()
                 );
-                $backtraceFormatter = $backtraceFormatterFactory->create(false);
-                $content .= '<div class="notifytiny">Stack trace: ' . $backtraceFormatter->format($backtrace) . '</div>';
+                $content .= '<div class="notifytiny">Stack trace: ' . $backtraceFormatter->format($backtrace, false) . '</div>';
             }
         }
 
@@ -1931,11 +1929,10 @@ width: 80%; -moz-border-radius: 20px; padding: 15px">
                     echo "\nDebug info: $debuginfo";
                 }
                 if (!empty($backtrace)) {
-                    $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+                    $backtraceFormatter = new \Moodle\BacktraceFormatter(
                         new \Moodle\RootDirectory()
                     );
-                    $backtraceFormatter = $backtraceFormatterFactory->create(true);
-                    echo "\nStack trace: " . $backtraceFormatter->format($backtrace);
+                    echo "\nStack trace: " . $backtraceFormatter->format($backtrace, true);
                 }
             }
             return;
@@ -1950,11 +1947,10 @@ width: 80%; -moz-border-radius: 20px; padding: 15px">
                     $e->debuginfo = $debuginfo;
                 }
                 if (!empty($backtrace)) {
-                    $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+                    $backtraceFormatter = new \Moodle\BacktraceFormatter(
                         new \Moodle\RootDirectory()
                     );
-                    $backtraceFormatter = $backtraceFormatterFactory->create(true);
-                    $e->stacktrace = $backtraceFormatter->format($backtrace);
+                    $e->stacktrace = $backtraceFormatter->format($backtrace, true);
                 }
             }
             $e->errorcode  = $errorcode;

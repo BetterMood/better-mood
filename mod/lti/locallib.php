@@ -2566,16 +2566,15 @@ function lti_log_response($responsexml, $e = null) {
             $content = '';
             if ($e instanceof Exception) {
                 $info = get_exception_info($e);
-                $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+                $backtraceFormatter = new \Moodle\BacktraceFormatter(
                     new \Moodle\RootDirectory()
                 );
-                $backtraceFormatter = $backtraceFormatterFactory->create(true);
 
                 $content .= "Exception:\n";
                 $content .= "Message: $info->message\n";
                 $content .= "Debug info: $info->debuginfo\n";
                 $content .= "Backtrace:\n";
-                $content .= $backtraceFormatter->format($info->backtrace);
+                $content .= $backtraceFormatter->format($info->backtrace, true);
                 $content .= "\n";
             }
             $content .= "Response XML:\n";

@@ -3660,12 +3660,11 @@ function events_process_queued_handler($qhandler) {
     } catch (Exception $e) {
         // the problem here is that we do not want one broken handler to stop all others,
         // cron handlers are very tricky because the needed data might have been deleted before the cron execution
-        $backtraceFormatterFactory = new \Moodle\BacktraceFormatterFactory(
+        $backtraceFormatter = new \Moodle\BacktraceFormatter(
             new \Moodle\RootDirectory()
         );
-        $backtraceFormatter = $backtraceFormatterFactory->create(true);
         $errormessage = "Handler function of component $handler->component: $handler->handlerfunction threw exception :" .
-                $e->getMessage() . "\n" . $backtraceFormatter->format($e->getTrace());
+                $e->getMessage() . "\n" . $backtraceFormatter->format($e->getTrace(), true);
         if (!empty($e->debuginfo)) {
             $errormessage .= $e->debuginfo;
         }
