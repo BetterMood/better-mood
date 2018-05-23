@@ -49,7 +49,7 @@ class PhpMinimumVersion
         // PLEASE NOTE THIS FUNCTION MUST BE COMPATIBLE WITH OLD UNSUPPORTED VERSIONS OF PHP.
         // Do not use modern php features or Moodle convenience functions (e.g. localised strings).
 
-        $minimumversion = '7.0.0';
+        $minimumversion = '7.1.0';
         $moodlerequirementchanged = '3.4';
 
         if (version_compare($this->phpVersion, $minimumversion) < 0) {

@@ -5,7 +5,7 @@ use Moodle\Egress\EgressException;
 
 class PhpMinimumVersionTest extends \PHPUnit\Framework\TestCase
 {
-    const ERROR_MESSAGE = 'Moodle 3.4 or later requires at least PHP 7.0.0 (currently using version 5.6.8).' . PHP_EOL . 'Some servers may have multiple PHP versions installed, are you using the correct executable?' . PHP_EOL;
+    const ERROR_MESSAGE = 'Moodle 3.4 or later requires at least PHP 7.1.0 (currently using version 5.6.8).' . PHP_EOL . 'Some servers may have multiple PHP versions installed, are you using the correct executable?' . PHP_EOL;
     const CLI_SCRIPT = true;
     const NOT_CLI_SCRIPT = false;
     const HALT_EXECUTION = true;
@@ -26,23 +26,23 @@ class PhpMinimumVersionTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider getBools
      */
-    public function testRequireMinimumPhpVersionDoesNothingIfPhpVersionIs7($isCliScript)
+    public function testRequireMinimumPhpVersionDoesNothingIfPhpVersionIs7Point1($isCliScript)
     {
-        $phpMinimumVersion = new PhpMinimumVersion('7.0.0', $isCliScript, self::$errorStream);
+        $phpMinimumVersion = new PhpMinimumVersion('7.1.0', $isCliScript, self::$errorStream);
         $this->assertNull($phpMinimumVersion->requireMinimumPhpVersion());
     }
 
     /**
      * @dataProvider getBools
      */
-    public function testMinimumPhpVersionIsMetReturnsTrueIfPhpVersionIs7($isCliScript, $haltExecution)
+    public function testMinimumPhpVersionIsMetReturnsTrueIfPhpVersionIs7Point1($isCliScript, $haltExecution)
     {
-        $phpMinimumVersion = new PhpMinimumVersion('7.0.0', $isCliScript, self::$errorStream);
+        $phpMinimumVersion = new PhpMinimumVersion('7.1.0', $isCliScript, self::$errorStream);
         $this->assertTrue($phpMinimumVersion->minimumPhpVersionIsMet($haltExecution));
     }
 
     /**
-     * @expectedException Moodle\Egress\EgressException
+     * @expectedException \Moodle\Egress\EgressException
      * @dataProvider getBools
      */
     public function testRequireMinimumPhpVersionCallsExitIfPhpVersionIsLessThanSeven($isCliScript)
@@ -53,7 +53,7 @@ class PhpMinimumVersionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @expectedException Moodle\Egress\EgressException
+     * @expectedException \Moodle\Egress\EgressException
      * @dataProvider getBools
      */
     public function testPhpMinimumVersionIsMetCallsExitIfPhpVersionIsLessThanSevenAndHaltexecutionIsTrue($isCliScript)
@@ -74,7 +74,7 @@ class PhpMinimumVersionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @expectedException Moodle\Egress\EgressException
+     * @expectedException \Moodle\Egress\EgressException
      */
     public function testRequireMinimumPhpVersionOutputsMessageIfPhpVersionIsLessThanSevenAndThisIsNotACliScript()
     {
@@ -84,7 +84,7 @@ class PhpMinimumVersionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @expectedException Moodle\Egress\EgressException
+     * @expectedException \Moodle\Egress\EgressException
      */
     public function testMinimumPhpVersionIsMetOutputsMessageIfPhpVersionIsLessThanSevenAndThisIsNotACliScriptAndHaltexecutionIsTrue()
     {
