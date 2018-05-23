@@ -21,7 +21,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  */
 require_once($CFG->libdir.'/portfolio/plugin.php');
-require_once($CFG->rootdir . '/src/Moodle/Google/get_google_client.php');
+require_once($CFG->dirroot . '/src/Google/get_google_client.php');
 
 class portfolio_plugin_googledocs extends portfolio_plugin_push_base {
     /**
