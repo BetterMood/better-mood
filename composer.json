@@ -9,7 +9,7 @@
             "Moodle\\": "src/"
         },
         "psr-0": {
-            "HTMLPurifier\\": "src/HTMLPurifier/"
+            "HTMLPurifier": "src/"
         }
     },
     "require-dev": {
