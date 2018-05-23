@@ -1915,10 +1915,13 @@ class moodle_page {
         }
 
         if (!is_null($this->_theme)) {
+            $backtraceFormatter = new \Moodle\BacktraceFormatter(
+                new \Moodle\RootDirectory()
+            );
             throw new coding_exception('The theme has already been set up for this page ready for output. ' .
                     'Therefore, you can no longer change the theme, or anything that might affect what ' .
                     'the current theme is, for example, the course.',
-                    'Stack trace when the theme was set up: ' . format_backtrace($this->_wherethemewasinitialised));
+                    'Stack trace when the theme was set up: ' . $backtraceFormatter->format($this->_wherethemewasinitialised, false));
         }
     }
 

@@ -94,7 +94,10 @@ class core_shutdown_manager {
                 // This should not happen, it usually indicates wrong catching of exceptions,
                 // because all transactions should be finished manually or in default exception handler.
                 $backtrace = $DB->get_transaction_start_backtrace();
-                error_log('Potential coding error - active database transaction detected during request shutdown:'."\n".format_backtrace($backtrace, true));
+                $backtraceFormatter = new \Moodle\BacktraceFormatter(
+                    new \Moodle\RootDirectory()
+                );
+                error_log('Potential coding error - active database transaction detected during request shutdown:'."\n" . $backtraceFormatter->format($backtrace, true));
             }
             $DB->force_transaction_rollback();
         }
