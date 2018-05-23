@@ -37,6 +37,7 @@ define('CLI_SCRIPT', true);
 define('CACHE_DISABLE_ALL', true);
 
 // Basic functions.
+require_once(__DIR__ . '/../../../../bootstrap.php');
 require_once(__DIR__ . '/../../../../lib/clilib.php');
 require_once(__DIR__ . '/../../../../lib/behat/lib.php');
 

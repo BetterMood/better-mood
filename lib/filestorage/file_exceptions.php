@@ -24,6 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once __DIR__ . '/../setuplib.php';
 /**
  * Basic file related exception class.
  *

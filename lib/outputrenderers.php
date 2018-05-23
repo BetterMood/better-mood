@@ -2817,7 +2817,10 @@ EOD;
                 $output .= $this->notification('<strong>Debug info:</strong> '.$debuginfo, 'notifytiny');
             }
             if (!empty($backtrace)) {
-                $output .= $this->notification('<strong>Stack trace:</strong> '.format_backtrace($backtrace), 'notifytiny');
+                $backtraceFormatter = new \Moodle\BacktraceFormatter(
+                    new \Moodle\RootDirectory()
+                );
+                $output .= $this->notification('<strong>Stack trace:</strong> ' . $backtraceFormatter->format($backtrace, false), 'notifytiny');
             }
             if ($obbuffer !== '' ) {
                 $output .= $this->notification('<strong>Output buffer:</strong> '.s($obbuffer), 'notifytiny');
@@ -4564,7 +4567,10 @@ class core_renderer_cli extends core_renderer {
                 $output .= $this->notification($debuginfo, 'notifytiny');
             }
             if (!empty($backtrace)) {
-                $output .= $this->notification('Stack trace: ' . format_backtrace($backtrace, true), 'notifytiny');
+                $backtraceFormatter = new \Moodle\BacktraceFormatter(
+                    new \Moodle\RootDirectory()
+                );
+                $output .= $this->notification('Stack trace: ' . $backtraceFormatter->format($backtrace, true), 'notifytiny');
             }
         }
 
@@ -4649,7 +4655,10 @@ class core_renderer_ajax extends core_renderer {
                 $e->debuginfo = $debuginfo;
             }
             if (!empty($backtrace)) {
-                $e->stacktrace = format_backtrace($backtrace, true);
+                $backtraceFormatter = new \Moodle\BacktraceFormatter(
+                    new \Moodle\RootDirectory()
+                );
+                $e->stacktrace = $backtraceFormatter->format($backtrace, true);
             }
         }
         $this->header();
