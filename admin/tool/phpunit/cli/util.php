@@ -108,9 +108,9 @@ Options:
 --install      Install database
 --diag         Diagnose installation and return error code only
 --run          Execute PHPUnit tests (alternative for standard phpunit binary)
---buildconfig  Build /phpunit.xml from /phpunit.xml.dist that runs all tests
+--buildconfig  Build /phpunit.legacy.xml from /phpunit.legacy.xml.dist that runs all tests
 --buildcomponentconfigs
-               Build distributed phpunit.xml files for each component
+               Build distributed phpunit.legacy.xml files for each component
 
 -h, --help     Print out this help
 
@@ -132,7 +132,7 @@ if ($diag) {
     if (phpunit_util::build_config_file()) {
         exit(0);
     } else {
-        phpunit_bootstrap_error(PHPUNIT_EXITCODE_CONFIGWARNING, 'Can not create main /phpunit.xml configuration file, verify dirroot permissions');
+        phpunit_bootstrap_error(PHPUNIT_EXITCODE_CONFIGWARNING, 'Can not create main /phpunit.legacy.xml configuration file, verify dirroot permissions');
     }
 
 } else if ($buildcomponentconfigs) {
