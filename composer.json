@@ -5,14 +5,6 @@
     "type": "project",
     "homepage": "https://moodle.org",
     "autoload": {
-        "files": [
-            "lib/htmlpurifier/URIScheme/Gopher.php",
-            "lib/htmlpurifier/URIScheme/Irc.php",
-            "lib/htmlpurifier/URIScheme/Mms.php",
-            "lib/htmlpurifier/URIScheme/Rtmp.php",
-            "lib/htmlpurifier/URIScheme/Rtsp.php",
-            "lib/htmlpurifier/URIScheme/Teamspeak.php"
-        ],
         "psr-4": {
             "Moodle\\": "src"
         }
