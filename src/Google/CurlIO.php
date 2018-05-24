@@ -14,20 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * This file contains the class moodle_google_curlio.
- *
- * @package core_google
- * @copyright 2013 Frédéric Massart
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+namespace Moodle\Google;
 
 defined('MOODLE_INTERNAL') || die();
+global $CFG;
 
 require_once($CFG->libdir . '/filelib.php');
 
 /**
- * Class moodle_google_curlio.
+ * Class \Moodle\Google\CurlIO.
  *
  * The initial purpose of this class is to add support for our
  * class curl in Google_IO_Curl. It mostly entirely overrides it.
@@ -35,8 +30,8 @@ require_once($CFG->libdir . '/filelib.php');
  * @package core_google
  * @copyright 2013 Frédéric Massart
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-*/
-class moodle_google_curlio extends Google_IO_Curl {
+ */
+class CurlIO extends \Google_IO_Curl {
 
     /** @var array associate array of constant value and their name. */
     private static $constants = null;
@@ -47,8 +42,8 @@ class moodle_google_curlio extends Google_IO_Curl {
     /**
      * Send the request via our curl object.
      *
-     * @param curl $curl prepared curl object.
-     * @param Google_HttpRequest $request The request.
+     * @param \curl $curl prepared curl object.
+     * @param \Google_Http_Request $request The request.
      * @return string result of the request.
      */
     private function do_request($curl, $request) {
@@ -68,7 +63,7 @@ class moodle_google_curlio extends Google_IO_Curl {
                 $ret = $curl->put($url);
                 break;
             default:
-                throw new coding_exception('Unknown request type: ' . $method);
+                throw new \coding_exception('Unknown request type: ' . $method);
                 break;
         }
         return $ret;
@@ -80,13 +75,14 @@ class moodle_google_curlio extends Google_IO_Curl {
      * This is a copy/paste from the parent class that uses Moodle's implementation
      * of curl. Portions have been removed or altered.
      *
-     * @param Google_Http_Request $request the http request to be executed
-     * @return Google_Http_Request http request with the response http code, response
+     * @param \Google_Http_Request $request the http request to be executed
+     * @return \Google_Http_Request http request with the response http code, response
      * headers and response body filled in
-     * @throws Google_IO_Exception on curl or IO error
+     * @throws \Google_IO_Exception on curl or IO error
+     * @throws \coding_exception
      */
-    public function executeRequest(Google_Http_Request $request) {
-        $curl = new curl();
+    public function executeRequest(\Google_Http_Request $request) {
+        $curl = new \curl();
 
         if ($request->getPostBody()) {
             $curl->setopt(array('CURLOPT_POSTFIELDS' => $request->getPostBody()));
@@ -125,7 +121,7 @@ class moodle_google_curlio extends Google_IO_Curl {
         $curlerror = $curl->error;
 
         if ($respdata != CURLE_OK) {
-            throw new Google_IO_Exception($curlerror);
+            throw new \Google_IO_Exception($curlerror);
         }
 
         list($responseHeaders, $responseBody) = $this->parseHttpResponse($respdata, $respheadersize);
@@ -158,7 +154,7 @@ class moodle_google_curlio extends Google_IO_Curl {
      *
      * Overridden to use the right option key.
      *
-     * @param $timeout in seconds
+     * @param int $timeout - in seconds
      */
     public function setTimeout($timeout) {
         // Since this timeout is really for putting a bound on the time
@@ -174,10 +170,10 @@ class moodle_google_curlio extends Google_IO_Curl {
      *
      * Overridden to use the right option key.
      *
-     * @return timeout in seconds.
+     * @return int - timeout in seconds.
      */
     public function getTimeout() {
-       return $this->options['CURLOPT_TIMEOUT'];
+        return $this->options['CURLOPT_TIMEOUT'];
     }
 
     /**
@@ -185,7 +181,7 @@ class moodle_google_curlio extends Google_IO_Curl {
      *
      * @param int $constant value of a CURL constant.
      * @return string name of the constant if found, or throws exception.
-     * @throws coding_exception when the constant is not found.
+     * @throws \coding_exception when the constant is not found.
      * @since Moodle 2.5
      */
     public function get_option_name_from_constant($constant) {
@@ -198,7 +194,7 @@ class moodle_google_curlio extends Google_IO_Curl {
         if (isset(self::$constants[$constant])) {
             return self::$constants[$constant];
         }
-        throw new coding_exception('Unknown curl constant value: ' . $constant);
+        throw new \coding_exception('Unknown curl constant value: ' . $constant);
     }
 
 }
