@@ -1,15 +1,18 @@
 <?php
+
 namespace Moodle;
 
 use Moodle\Egress\EgressException;
 
 class PhpMinimumVersionTest extends \PHPUnit\Framework\TestCase
 {
-    const ERROR_MESSAGE = 'Moodle 3.4 or later requires at least PHP 7.0.0 (currently using version 5.6.8).' . PHP_EOL . 'Some servers may have multiple PHP versions installed, are you using the correct executable?' . PHP_EOL;
+    const ERROR_MESSAGE = 'Moodle 3.4 or later requires at least PHP ' . self::PHP_MINIMUM_VERSION . ' (currently using version ' . self::LESS_THAN_PHP_MINIMUM_VERSION . ').' . PHP_EOL . 'Some servers may have multiple PHP versions installed, are you using the correct executable?' . PHP_EOL;
     const CLI_SCRIPT = true;
     const NOT_CLI_SCRIPT = false;
     const HALT_EXECUTION = true;
     const NO_HALT_EXECUTION = false;
+    const PHP_MINIMUM_VERSION = '7.1.0';
+    const LESS_THAN_PHP_MINIMUM_VERSION = '7.0.0';
 
     private static $errorStream;
 
@@ -26,85 +29,85 @@ class PhpMinimumVersionTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider getBools
      */
-    public function testRequireMinimumPhpVersionDoesNothingIfPhpVersionIs7($isCliScript)
+    public function testRequireMinimumPhpVersionDoesNothingIfPhpVersionIsRequiredMinimun($isCliScript)
     {
-        $phpMinimumVersion = new PhpMinimumVersion('7.0.0', $isCliScript, self::$errorStream);
+        $phpMinimumVersion = new PhpMinimumVersion(self::PHP_MINIMUM_VERSION, $isCliScript, self::$errorStream);
         $this->assertNull($phpMinimumVersion->requireMinimumPhpVersion());
     }
 
     /**
      * @dataProvider getBools
      */
-    public function testMinimumPhpVersionIsMetReturnsTrueIfPhpVersionIs7($isCliScript, $haltExecution)
+    public function testMinimumPhpVersionIsMetReturnsTrueIfPhpVersionIsRequiredMinimum($isCliScript, $haltExecution)
     {
-        $phpMinimumVersion = new PhpMinimumVersion('7.0.0', $isCliScript, self::$errorStream);
+        $phpMinimumVersion = new PhpMinimumVersion(self::PHP_MINIMUM_VERSION, $isCliScript, self::$errorStream);
         $this->assertTrue($phpMinimumVersion->minimumPhpVersionIsMet($haltExecution));
     }
 
     /**
-     * @expectedException Moodle\Egress\EgressException
+     * @expectedException \Moodle\Egress\EgressException
      * @dataProvider getBools
      */
-    public function testRequireMinimumPhpVersionCallsExitIfPhpVersionIsLessThanSeven($isCliScript)
+    public function testRequireMinimumPhpVersionCallsExitIfPhpVersionIsLessThanRequiredMinimum($isCliScript)
     {
         $this->expectOutputRegex('/.*/');
-        $phpMinimumVersion = new PhpMinimumVersion('5.6.8', $isCliScript, self::$errorStream);
+        $phpMinimumVersion = new PhpMinimumVersion(self::LESS_THAN_PHP_MINIMUM_VERSION, $isCliScript, self::$errorStream);
         $phpMinimumVersion->requireMinimumPhpVersion();
     }
 
     /**
-     * @expectedException Moodle\Egress\EgressException
+     * @expectedException \Moodle\Egress\EgressException
      * @dataProvider getBools
      */
-    public function testPhpMinimumVersionIsMetCallsExitIfPhpVersionIsLessThanSevenAndHaltexecutionIsTrue($isCliScript)
+    public function testPhpMinimumVersionIsMetCallsExitIfPhpVersionIsLessThanRequiredMinimumAndHaltexecutionIsTrue($isCliScript)
     {
         $this->expectOutputRegex('/.*/');
-        $phpMinimumVersion = new PhpMinimumVersion('5.6.8', $isCliScript, self::$errorStream);
+        $phpMinimumVersion = new PhpMinimumVersion(self::LESS_THAN_PHP_MINIMUM_VERSION, $isCliScript, self::$errorStream);
         $this->assertFalse($phpMinimumVersion->minimumPhpVersionIsMet(self::HALT_EXECUTION));
     }
 
     /**
      * @dataProvider getBools
      */
-    public function testPhpMinimumVersionIsMetDoesNotCallExitIfPhpVersionIsLessThanSevenAndHaltexecutionIsFalse($isCliScript)
+    public function testPhpMinimumVersionIsMetDoesNotCallExitIfPhpVersionIsLessThanRequiredMinimumAndHaltexecutionIsFalse($isCliScript)
     {
         $this->expectOutputRegex('/.*/');
-        $phpMinimumVersion = new PhpMinimumVersion('5.6.8', $isCliScript, self::$errorStream);
+        $phpMinimumVersion = new PhpMinimumVersion(self::LESS_THAN_PHP_MINIMUM_VERSION, $isCliScript, self::$errorStream);
         $this->assertFalse($phpMinimumVersion->minimumPhpVersionIsMet(self::NO_HALT_EXECUTION));
     }
 
     /**
-     * @expectedException Moodle\Egress\EgressException
+     * @expectedException \Moodle\Egress\EgressException
      */
-    public function testRequireMinimumPhpVersionOutputsMessageIfPhpVersionIsLessThanSevenAndThisIsNotACliScript()
+    public function testRequireMinimumPhpVersionOutputsMessageIfPhpVersionIsLessThanRequiredMinimumAndThisIsNotACliScript()
     {
-        $phpMinimumVersion = new PhpMinimumVersion('5.6.8', self::NOT_CLI_SCRIPT, self::$errorStream);
+        $phpMinimumVersion = new PhpMinimumVersion(self::LESS_THAN_PHP_MINIMUM_VERSION, self::NOT_CLI_SCRIPT, self::$errorStream);
         $this->expectOutputString(self::ERROR_MESSAGE);
         $phpMinimumVersion->requireMinimumPhpVersion();
     }
 
     /**
-     * @expectedException Moodle\Egress\EgressException
+     * @expectedException \Moodle\Egress\EgressException
      */
-    public function testMinimumPhpVersionIsMetOutputsMessageIfPhpVersionIsLessThanSevenAndThisIsNotACliScriptAndHaltexecutionIsTrue()
+    public function testMinimumPhpVersionIsMetOutputsMessageIfPhpVersionIsLessThanRequiredMinimumAndThisIsNotACliScriptAndHaltexecutionIsTrue()
     {
-        $phpMinimumVersion = new PhpMinimumVersion('5.6.8', self::NOT_CLI_SCRIPT, self::$errorStream);
+        $phpMinimumVersion = new PhpMinimumVersion(self::LESS_THAN_PHP_MINIMUM_VERSION, self::NOT_CLI_SCRIPT, self::$errorStream);
         $this->expectOutputString(self::ERROR_MESSAGE);
         $phpMinimumVersion->minimumPhpVersionIsMet(self::HALT_EXECUTION);
     }
 
-    public function testMinimumPhpVersionIsMetDoesNotOutputMessageIfPhpVersionIsLessThanSevenAndThisIsNotACliScriptAndHaltexecutionIsFalse()
+    public function testMinimumPhpVersionIsMetDoesNotOutputMessageIfPhpVersionIsLessThanRequiredMinimumAndThisIsNotACliScriptAndHaltexecutionIsFalse()
     {
-        $phpMinimumVersion = new PhpMinimumVersion('5.6.8', self::NOT_CLI_SCRIPT, self::$errorStream);
+        $phpMinimumVersion = new PhpMinimumVersion(self::LESS_THAN_PHP_MINIMUM_VERSION, self::NOT_CLI_SCRIPT, self::$errorStream);
         $this->expectOutputString('');
         $phpMinimumVersion->minimumPhpVersionIsMet(self::NO_HALT_EXECUTION);
     }
 
-    public function testRequireMinimumPhpVersionWritesMessageToErrorStreamIfPhpVersionIsLessThanSevenAndThisIsACliScript()
+    public function testRequireMinimumPhpVersionWritesMessageToErrorStreamIfPhpVersionIsLessThanRequiredMinimumAndThisIsACliScript()
     {
         $errorStream = fopen('php://memory', 'rw');
         $this->assertNotFalse($errorStream);
-        $phpMinimumVersion = new PhpMinimumVersion('5.6.8', self::CLI_SCRIPT, $errorStream);
+        $phpMinimumVersion = new PhpMinimumVersion(self::LESS_THAN_PHP_MINIMUM_VERSION, self::CLI_SCRIPT, $errorStream);
 
         /**
          * The call is wrapped in a try-catch because we need to check
@@ -124,12 +127,12 @@ class PhpMinimumVersionTest extends \PHPUnit\Framework\TestCase
         fclose($errorStream);
     }
 
-    public function testMinimumPhpVersionIsMetWritesMessageToErrorStreamIfPhpVersionIsLessThanSevenAndThisIsACliScriptAndHaltexecutionIsTrue()
+    public function testMinimumPhpVersionIsMetWritesMessageToErrorStreamIfPhpVersionIsLessThanRequiredMinimumAndThisIsACliScriptAndHaltexecutionIsTrue()
     {
         $errorStream = fopen('php://memory', 'rw');
         $this->assertNotFalse($errorStream);
-        $phpMinimumVersion = new PhpMinimumVersion('5.6.8', self::CLI_SCRIPT, $errorStream);
-        
+        $phpMinimumVersion = new PhpMinimumVersion(self::LESS_THAN_PHP_MINIMUM_VERSION, self::CLI_SCRIPT, $errorStream);
+
         /**
          * The call is wrapped in a try-catch because we need to check
          * the error output after the exception is thrown, but
@@ -148,11 +151,11 @@ class PhpMinimumVersionTest extends \PHPUnit\Framework\TestCase
         fclose($errorStream);
     }
 
-    public function minimumPhpVersionIsMetDoesNotWriteMessageToErrorStreamIfPhpVersionIsLessThanSevenAndThisIsACliScriptAndHaltexecutionIsFalse()
+    public function minimumPhpVersionIsMetDoesNotWriteMessageToErrorStreamIfPhpVersionIsLessThanRequiredMinimumAndThisIsACliScriptAndHaltexecutionIsFalse()
     {
         $errorStream = fopen('php://memory', 'rw');
         $this->assertNotFalse($errorStream);
-        $phpMinimumVersion = new PhpMinimumVersion('5.6.8', self::CLI_SCRIPT, $errorStream);
+        $phpMinimumVersion = new PhpMinimumVersion(self::LESS_THAN_PHP_MINIMUM_VERSION, self::CLI_SCRIPT, $errorStream);
         $this->expectOutputRegex('/.*/');
 
         /**
@@ -171,11 +174,11 @@ class PhpMinimumVersionTest extends \PHPUnit\Framework\TestCase
         fclose($errorStream);
     }
 
-    public function testRequireMinimumPhpVersionDoesNotWriteMessageToErrorStreamIfPhpVersionIsLessThanSevenAndThisIsNotACliScript()
+    public function testRequireMinimumPhpVersionDoesNotWriteMessageToErrorStreamIfPhpVersionIsLessThanRequiredMinimumAndThisIsNotACliScript()
     {
         $errorStream = fopen('php://memory', 'rw');
         $this->assertNotFalse($errorStream);
-        $phpMinimumVersion = new PhpMinimumVersion('5.6.8', self::NOT_CLI_SCRIPT, $errorStream);
+        $phpMinimumVersion = new PhpMinimumVersion(self::LESS_THAN_PHP_MINIMUM_VERSION, self::NOT_CLI_SCRIPT, $errorStream);
         $this->expectOutputRegex('/.*/');
 
         /**
@@ -197,11 +200,11 @@ class PhpMinimumVersionTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider getBools
      */
-    public function testMinimumPhpVersionIsMetDoesNotWriteMessageToErrorStreamIfPhpVersionIsLessThanSevenAndThisIsNotACliScript($haltExecution)
+    public function testMinimumPhpVersionIsMetDoesNotWriteMessageToErrorStreamIfPhpVersionIsLessThanRequiredMinimumAndThisIsNotACliScript($haltExecution)
     {
         $errorStream = fopen('php://memory', 'rw');
         $this->assertNotFalse($errorStream);
-        $phpMinimumVersion = new PhpMinimumVersion('5.6.8', self::NOT_CLI_SCRIPT, $errorStream);
+        $phpMinimumVersion = new PhpMinimumVersion(self::LESS_THAN_PHP_MINIMUM_VERSION, self::NOT_CLI_SCRIPT, $errorStream);
         $this->expectOutputRegex('/.*/');
 
         /**
@@ -226,7 +229,7 @@ class PhpMinimumVersionTest extends \PHPUnit\Framework\TestCase
             [true, true],
             [true, false],
             [false, true],
-            [false,false]
+            [false, false]
         ];
     }
 }
