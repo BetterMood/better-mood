@@ -68,9 +68,7 @@ class core_component {
     /** @var array list of the files to map. */
     protected static $filestomap = array('lib.php', 'settings.php');
     /** @var array associative array of PSR-0 namespaces and corresponding paths. */
-    protected static $psr0namespaces = array(
-        'Horde' => 'lib/horde/framework/Horde',
-    );
+    protected static $psr0namespaces = array();
     /** @var array associative array of PRS-4 namespaces and corresponding paths. */
     protected static $psr4namespaces = array(
         'MaxMind' => 'lib/maxmind/MaxMind',
