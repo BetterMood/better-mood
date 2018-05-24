@@ -84,7 +84,7 @@ class repository_youtube extends repository {
         global $CFG;
 
         if (!isset($this->service)) {
-            require_once($CFG->libdir . '/google/lib.php');
+            require_once($CFG->dirroot . '/src/Moodle/Google/get_google_client.php');
             $this->client = get_google_client();
             $this->client->setDeveloperKey($this->apikey);
             $this->client->setScopes(array(Google_Service_YouTube::YOUTUBE_READONLY));

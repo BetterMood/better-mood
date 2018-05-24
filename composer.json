@@ -25,6 +25,7 @@
         "leafo/scssphp": "^0.7",
         "ezyang/htmlpurifier": "dev-better-mood",
         "tecnickcom/tcpdf": "6.2.13",
+        "google/apiclient": "1.1.7",
         "pear-pear.horde.org/Horde_Crypt_Blowfish": "^1.1",
         "pear-pear.horde.org/Horde_Idna": "^1.1",
         "pear-pear.horde.org/Horde_Imap_Client": "^2.29"
