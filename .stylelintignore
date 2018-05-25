@@ -20,8 +20,6 @@ lib/evalmath/
 lib/lessphp/
 lib/phpexcel/
 lib/jabber/
-lib/minify/matthiasmullie-minify/
-lib/minify/matthiasmullie-pathconverter/
 lib/pear/Auth/RADIUS.php
 lib/pear/Crypt/CHAP.php
 lib/pear/HTML/Common.php
