@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3839f00a4a5db7e70832d9614df5685c",
+    "content-hash": "1eacb25d38b929596224b8b5e2f3ced5",
     "packages": [
         {
             "name": "adodb/adodb-php",
@@ -872,6 +872,52 @@
                 "svg"
             ],
             "time": "2014-10-21T03:35:54+00:00"
+        },
+        {
+            "name": "sabberworm/php-css-parser",
+            "version": "dev-insert-in-list",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/moodlehq/PHP-CSS-Parser.git",
+                "reference": "394c448cc5cc36ad88ca223f4e54adbfacf9c23a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/moodlehq/PHP-CSS-Parser/zipball/394c448cc5cc36ad88ca223f4e54adbfacf9c23a",
+                "reference": "394c448cc5cc36ad88ca223f4e54adbfacf9c23a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Sabberworm\\CSS": "lib/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Raphael Schweikert"
+                }
+            ],
+            "description": "Parser for CSS Files written in PHP",
+            "homepage": "http://www.sabberworm.com/blog/2010/6/10/php-css-parser",
+            "keywords": [
+                "css",
+                "parser",
+                "stylesheet"
+            ],
+            "support": {
+                "source": "https://github.com/moodlehq/PHP-CSS-Parser/tree/insert-in-list"
+            },
+            "time": "2016-08-01T11:17:17+00:00"
         },
         {
             "name": "tecnickcom/tcpdf",
@@ -4535,6 +4581,7 @@
     "stability-flags": {
         "adodb/adodb-php": 20,
         "ezyang/htmlpurifier": 20,
+        "sabberworm/php-css-parser": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,
