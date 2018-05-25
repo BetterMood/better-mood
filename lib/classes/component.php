@@ -71,8 +71,6 @@ class core_component {
     protected static $psr0namespaces = array();
     /** @var array associative array of PRS-4 namespaces and corresponding paths. */
     protected static $psr4namespaces = array(
-        'MaxMind' => 'lib/maxmind/MaxMind',
-        'GeoIp2' => 'lib/maxmind/GeoIp2',
         'Sabberworm\\CSS' => 'lib/php-css-parser',
         'MoodleHQ\\RTLCSS' => 'lib/rtlcss',
         'MatthiasMullie\\Minify' => 'lib/minify/matthiasmullie-minify/src/',
