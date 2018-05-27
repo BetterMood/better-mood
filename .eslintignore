@@ -44,8 +44,6 @@ lib/graphlib.php
 lib/php-css-parser/
 lib/rtlcss/
 lib/amd/src/chartjs-lazy.js
-lib/maxmind/GeoIp2/
-lib/maxmind/MaxMind/
 lib/ltiprovider/
 lib/amd/src/truncate.js
 lib/fonts/
