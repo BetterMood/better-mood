@@ -30,7 +30,8 @@
         "pear-pear.horde.org/Horde_Idna": "^1.1",
         "pear-pear.horde.org/Horde_Imap_Client": "^2.29",
         "geoip2/geoip2": "2.6.0",
-        "sabberworm/php-css-parser": "dev-insert-in-list"
+        "sabberworm/php-css-parser": "dev-insert-in-list",
+        "simplepie/simplepie": "1.5.1"
     },
     "repositories": [
         {
