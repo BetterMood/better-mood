@@ -30,6 +30,7 @@
         "pear-pear.horde.org/Horde_Idna": "^1.1",
         "pear-pear.horde.org/Horde_Imap_Client": "^2.29",
         "geoip2/geoip2": "2.6.0",
+        "sabberworm/php-css-parser": "dev-insert-in-list",
         "phpmailer/phpmailer": "6.0.1"
     },
     "repositories": [
@@ -40,6 +41,10 @@
         {
             "type": "vcs",
             "url":  "https://github.com/BetterMood/htmlpurifier.git"
+        },
+        {
+            "type": "vcs",
+            "url":  "https://github.com/moodlehq/PHP-CSS-Parser.git"
         },
         {
             "type": "pear",
