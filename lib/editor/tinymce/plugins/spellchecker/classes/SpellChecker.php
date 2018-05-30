@@ -4,7 +4,7 @@
  *
  * @package MCManager.includes
  * @author Moxiecode
- * @copyright Copyright © 2004-2007, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright ï¿½ 2004-2007, Moxiecode Systems AB, All rights reserved.
  */
 
 class SpellChecker {
@@ -16,16 +16,6 @@ class SpellChecker {
 	public function __construct(&$config) {
 		$this->_config = $config;
 	}
-
-    /**
-     * Old syntax of class constructor. Deprecated in PHP7.
-     *
-     * @deprecated since Moodle 3.1
-     */
-    public function SpellChecker(&$config) {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
-        self::__construct($config);
-    }
 
 	/**
 	 * Simple loopback function everything that gets in will be send back.
