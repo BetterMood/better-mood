@@ -43,8 +43,6 @@ lib/amd/src/mustache.js
 lib/graphlib.php
 lib/rtlcss/
 lib/amd/src/chartjs-lazy.js
-lib/maxmind/GeoIp2/
-lib/maxmind/MaxMind/
 lib/ltiprovider/
 lib/amd/src/truncate.js
 lib/fonts/
