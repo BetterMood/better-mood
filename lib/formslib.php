@@ -2853,16 +2853,6 @@ class MoodleQuickForm_Renderer extends HTML_QuickForm_Renderer_Tableless{
     }
 
     /**
-     * Old syntax of class constructor. Deprecated in PHP7.
-     *
-     * @deprecated since Moodle 3.1
-     */
-    public function MoodleQuickForm_Renderer() {
-        debugging('Use of class name as constructor is deprecated', DEBUG_DEVELOPER);
-        self::__construct();
-    }
-
-    /**
      * Set element's as adavance element
      *
      * @param array $elements form elements which needs to be grouped as advance elements.
