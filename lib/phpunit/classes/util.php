@@ -754,7 +754,7 @@ class phpunit_util extends testing_util {
     /**
      * Are messages for phpmailer redirected to some sink?
      *
-     * Note: to be called from moodle_phpmailer.php only!
+     * Note: to be called from src/PHPMailer.php only!
      *
      * @return bool
      */

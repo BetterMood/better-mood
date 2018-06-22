@@ -345,12 +345,11 @@ class core_text_testcase extends advanced_testcase {
 
     /**
      * Tests the static encode_mimeheader method.
-     * This also tests method moodle_phpmailer::encodeHeader that calls core_text::encode_mimeheader
+     * This also tests method \Moodle\PHPMailer::encodeHeader that calls core_text::encode_mimeheader
      */
     public function test_encode_mimeheader() {
         global $CFG;
-        require_once($CFG->libdir.'/phpmailer/moodle_phpmailer.php');
-        $mailer = new moodle_phpmailer();
+        $mailer = new \Moodle\PHPMailer();
 
         // Encode short string with non-latin characters.
         $str = "Žluťoučký koníček";

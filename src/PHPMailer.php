@@ -21,6 +21,7 @@
  * @author     Dan Poltawski <talktodan@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+namespace Moodle;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -39,7 +40,7 @@ defined('MOODLE_INTERNAL') || die();
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @since     Moodle 2.0
  */
-class moodle_phpmailer extends \PHPMailer\PHPMailer\PHPMailer {
+class PHPMailer extends \PHPMailer\PHPMailer\PHPMailer {
 
     /**
      * Constructor - creates an instance of the PHPMailer class
@@ -65,7 +66,7 @@ class moodle_phpmailer extends \PHPMailer\PHPMailer\PHPMailer {
     }
 
     /**
-     * Extended AddCustomHeader function in order to stop duplicate 
+     * Extended AddCustomHeader function in order to stop duplicate
      * message-ids
      * http://tracker.moodle.org/browse/MDL-3681
      */
@@ -83,10 +84,10 @@ class moodle_phpmailer extends \PHPMailer\PHPMailer\PHPMailer {
 
     /**
      * Use internal moodles own core_text to encode mimeheaders.
-     * Fall back to phpmailers inbuilt functions if not 
+     * Fall back to phpmailers inbuilt functions if not
      */
     public function encodeHeader($str, $position = 'text') {
-        $encoded = core_text::encode_mimeheader($str, $this->CharSet);
+        $encoded = \core_text::encode_mimeheader($str, $this->CharSet);
         if ($encoded !== false) {
             if ($position === 'phrase') {
                 // Escape special symbols in each line in the encoded string, join back together and enclose in quotes.
@@ -126,17 +127,17 @@ class moodle_phpmailer extends \PHPMailer\PHPMailer\PHPMailer {
     public function postSend() {
         // Now ask phpunit if it wants to catch this message.
         if (PHPUNIT_TEST) {
-            if (!phpunit_util::is_redirecting_phpmailer()) {
+            if (!\phpunit_util::is_redirecting_phpmailer()) {
                 debugging('Unit tests must not send real emails! Use $this->redirectEmails()');
                 return true;
             }
-            $mail = new stdClass();
+            $mail = new \stdClass();
             $mail->header = $this->MIMEHeader;
             $mail->body = $this->MIMEBody;
             $mail->subject = $this->Subject;
             $mail->from = $this->From;
             $mail->to = $this->to[0][0];
-            phpunit_util::phpmailer_sent($mail);
+            \phpunit_util::phpmailer_sent($mail);
             return true;
         } else {
             return parent::postSend();

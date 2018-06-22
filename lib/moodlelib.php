@@ -5530,12 +5530,12 @@ function moodle_process_email($modargs, $body) {
  * Get mailer instance, enable buffering, flush buffer or disable buffering.
  *
  * @param string $action 'get', 'buffer', 'close' or 'flush'
- * @return moodle_phpmailer|null mailer instance if 'get' used or nothing
+ * @return \Moodle\PHPMailer|null mailer instance if 'get' used or nothing
  */
 function get_mailer($action='get') {
     global $CFG;
 
-    /** @var moodle_phpmailer $mailer */
+    /** @var \Moodle\PHPMailer $mailer */
     static $mailer  = null;
     static $counter = 0;
 
@@ -5573,8 +5573,7 @@ function get_mailer($action='get') {
             get_mailer('flush');
         }
 
-        require_once($CFG->libdir.'/phpmailer/moodle_phpmailer.php');
-        $mailer = new moodle_phpmailer();
+        $mailer = new \Moodle\PHPMailer();
 
         $counter = 1;
 
