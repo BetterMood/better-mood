@@ -72,8 +72,6 @@ class core_component {
     /** @var array associative array of PRS-4 namespaces and corresponding paths. */
     protected static $psr4namespaces = array(
         'MoodleHQ\\RTLCSS' => 'lib/rtlcss',
-        'MatthiasMullie\\Minify' => 'lib/minify/matthiasmullie-minify/src/',
-        'MatthiasMullie\\PathConverter' => 'lib/minify/matthiasmullie-pathconverter/src/',
         'IMSGlobal\LTI' => 'lib/ltiprovider/src',
         'Phpml' => 'lib/mlbackend/php/phpml/src/Phpml',
     );
