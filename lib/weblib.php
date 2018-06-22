@@ -1793,12 +1793,12 @@ function purify_html($text, $options = array()) {
     }
 
     if (empty($purifiers[$type])) {
-        require $CFG->libdir . '/htmlpurifier/URIScheme/Gopher.php';
-        require $CFG->libdir . '/htmlpurifier/URIScheme/Irc.php';
-        require $CFG->libdir . '/htmlpurifier/URIScheme/Mms.php';
-        require $CFG->libdir . '/htmlpurifier/URIScheme/Rtmp.php';
-        require $CFG->libdir . '/htmlpurifier/URIScheme/Rtsp.php';
-        require $CFG->libdir . '/htmlpurifier/URIScheme/Teamspeak.php';
+        require_once $CFG->libdir . '/htmlpurifier/URIScheme/Gopher.php';
+        require_once $CFG->libdir . '/htmlpurifier/URIScheme/Irc.php';
+        require_once $CFG->libdir . '/htmlpurifier/URIScheme/Mms.php';
+        require_once $CFG->libdir . '/htmlpurifier/URIScheme/Rtmp.php';
+        require_once $CFG->libdir . '/htmlpurifier/URIScheme/Rtsp.php';
+        require_once $CFG->libdir . '/htmlpurifier/URIScheme/Teamspeak.php';
 
         $config = HTMLPurifier_Config::createDefault();
 
