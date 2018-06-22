@@ -34,7 +34,6 @@ lib/typo3/
 lib/yuilib/
 lib/yuilib/gallery/
 lib/jquery/
-lib/html2text/
 lib/markdown/
 lib/recaptchalib.php
 lib/xhprof/

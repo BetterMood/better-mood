@@ -18,6 +18,7 @@
     },
     "require": {
         "php": ">=7.1.0 <7.3.0",
+        "ext-mbstring": "*",
         "box/spout": "^2.7",
         "mustache/mustache": "^2.12",
         "redeyeventures/geopattern": "^1.1",
@@ -30,7 +31,8 @@
         "pear-pear.horde.org/Horde_Idna": "^1.1",
         "pear-pear.horde.org/Horde_Imap_Client": "^2.29",
         "geoip2/geoip2": "2.6.0",
-        "sabberworm/php-css-parser": "dev-insert-in-list"
+        "sabberworm/php-css-parser": "dev-insert-in-list",
+        "html2text/html2text": "^4.0"
     },
     "repositories": [
         {
