@@ -1984,10 +1984,6 @@ function markdown_to_html($text) {
  * @return string plain text equivalent of the HTML.
  */
 function html_to_text($html, $width = 75, $dolinks = true) {
-    global $CFG;
-
-    require_once($CFG->libdir .'/html2text/lib.php');
-
     $options = array(
         'width'     => $width,
         'do_links'  => 'table',
@@ -1996,7 +1992,7 @@ function html_to_text($html, $width = 75, $dolinks = true) {
     if (empty($dolinks)) {
         $options['do_links'] = 'none';
     }
-    $h2t = new core_html2text($html, $options);
+    $h2t = new \Moodle\Html2Text($html, $options);
     $result = $h2t->getText();
 
     return $result;
@@ -3126,12 +3122,12 @@ function debugging($message = '', $level = DEBUG_NORMAL, $backtrace = null) {
         if (!$backtrace) {
             $backtrace = debug_backtrace();
         }
-        
+
         $backtraceFormatter = new \Moodle\BacktraceFormatter(
             new \Moodle\RootDirectory()
         );
         $from = $backtraceFormatter->format($backtrace, CLI_SCRIPT || NO_DEBUG_DISPLAY);
-        
+
         if (PHPUNIT_TEST) {
             if (phpunit_util::debugging_triggered($message, $level, $from)) {
                 // We are inside test, the debug message was logged.
